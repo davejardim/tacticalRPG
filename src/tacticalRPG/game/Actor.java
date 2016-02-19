@@ -1,4 +1,4 @@
-package tacticalRPG;
+package tacticalRPG.game;
 
 /**
  * Created by David on 2/19/16.

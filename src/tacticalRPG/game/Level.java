@@ -1,8 +1,7 @@
-package tacticalRPG;
+package tacticalRPG.game;
 
-import javafx.print.PageLayout;
-
-import java.util.ArrayList;
+import tacticalRPG.game.Actor;
+import tacticalRPG.game.Grid;
 
 /**
  * Created by David on 2/15/16.
