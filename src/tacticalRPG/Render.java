@@ -20,6 +20,8 @@ public class Render {
     Grid ground;
 
     boolean showMenu = false;
+    int screenW;
+    int screenH;
 
 
     public Render(Game g, GraphicsContext grc)
@@ -37,7 +39,7 @@ public class Render {
         gc.setFill(BGCOlOR);
         gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
-        //drawGround();
+        drawGround();
 
         if(showMenu)
             drawMenu(0.3);
@@ -45,15 +47,16 @@ public class Render {
 
     public void drawGround()
     {
-
+        ground = game.getGrid();
+        //ground.get
         //draw ground with basic rectangles
-        int width = ground.getGroundLayer().length;
-        int height = ground.getGroundLayer()[1].length;
+        //int width = ground.getGroundLayer().length;
+        //int height = ground.getGroundLayer()[1].length;
 
         gc.setFill(Color.BLACK);
 
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0; x < ground.getWidth(); x++) {
+            for (int y = 0; y < ground.getHeight(); y++) {
                 if (ground.getVal(x, y) == 0) {
                     gc.setFill(Color.BLACK);
                     gc.strokeRect(x * Grid.TILESIZE, y * Grid.TILESIZE, Grid.TILESIZE, Grid.TILESIZE);
@@ -72,18 +75,22 @@ public class Render {
 
     public void drawMenu(double opacity)
     {
+        screenW = (int)gc.getCanvas().getWidth();
+        screenH = (int)gc.getCanvas().getHeight();
+
         gc.setGlobalAlpha(opacity);
         gc.setFill(Color.gray(0.5, 0.5));
-        gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        gc.fillRect(0, 0, screenW, screenH);
+
 
         gc.setGlobalAlpha(1);
         gc.setFill(Color.TAN);
-        gc.fillRect(256 - 75, 256 - 20, 150, 40);
-        gc.fillRect(256 - 75, 60 + 256 - 20, 150, 40);
+        gc.fillRect(screenW/2 - 75, screenH/2 - 20, 150, 40);
+        gc.fillRect(screenW/2 - 75, 60 + screenH/2 - 20, 150, 40);
         gc.setFill(Color.BROWN);
-        gc.fillText("New Game[n]", 256 - 40, 256 + 5);
+        gc.fillText("New Game[n]", screenW/2 - 40, screenH/2 + 5);
 
-        gc.fillText("Load Game[l]", 256 - 40, 256 + 65);
+        gc.fillText("Load Game[l]", screenW/2 - 40, screenH/2 + 65);
     }
 
     public void setShowMenu(boolean b)

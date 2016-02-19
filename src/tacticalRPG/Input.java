@@ -17,7 +17,20 @@ public class Input {
 
     double lastMouseClickx = 0;
     double lastMouseClicky = 0;
+
     boolean isMouseClicked = false;
+
+    private class Location {
+        int x;
+        int y;
+        Location(int a, int b) {
+            x = a;
+            y = b;
+        }
+        int getX() {return x;}
+        int getY() {return y;}
+
+    }
 
 
     public Input(Stage s) {
@@ -34,6 +47,7 @@ public class Input {
                         lastMouseClicky = event.getSceneY();
                         isMouseClicked = true;
 
+
                     }
                 }
         );
@@ -41,33 +55,39 @@ public class Input {
         scene.setOnMouseReleased(
                 new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
-                    isMouseClicked = false;
+                        isMouseClicked = false;
                     }
                 });
 
-    scene.setOnKeyPressed(
-            new EventHandler<KeyEvent>() {
-        public void handle(KeyEvent e) {
-            String code = e.getCode().toString();
+        scene.setOnKeyPressed(
+                new EventHandler<KeyEvent>() {
+                    public void handle(KeyEvent e) {
+                        String code = e.getCode().toString();
 
-            // only add once... prevent duplicates
-            if (!inputList.contains(code))
-                inputList.add(code);
-        }
-    });
+                        // only add once... prevent duplicates
+                        if (!inputList.contains(code))
+                            inputList.add(code);
+                    }
+                });
 
-    scene.setOnKeyReleased(
-            new EventHandler<KeyEvent>() {
-        public void handle(KeyEvent e) {
-            String code = e.getCode().toString();
-            inputList.remove(code);
-        }
-    });
-}
+        scene.setOnKeyReleased(
+                new EventHandler<KeyEvent>() {
+                    public void handle(KeyEvent e) {
+                        String code = e.getCode().toString();
+                        inputList.remove(code);
+                    }
+                });
+    }
 
     public ArrayList<String> getCurrentInputList(){
         return inputList;
     }
+
+    private Location getGridLocation()
+    {
+        return new Location(0,0);
+    }
+
 
     public boolean isMouseClicked() { return isMouseClicked;}
 }

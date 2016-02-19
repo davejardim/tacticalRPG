@@ -14,11 +14,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import tacticalRPG.game.Game;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.awt.*;
-
 public class Main extends Application {
 
     public static void main(String[] args) {
@@ -56,6 +51,10 @@ public class Main extends Application {
                     public void handle(ActionEvent ae) {
                         double t = (System.currentTimeMillis() - timeStart) / 1000.0;
 
+                        if(t%2 == 0) {
+                            canvas.setHeight(theStage.getHeight());
+                            canvas.setWidth(theStage.getWidth());
+                        }
                         //input and rendering screen
                         input.checkInput(theScene);
                         renderer.updateScreen(t);

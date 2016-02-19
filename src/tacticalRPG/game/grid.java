@@ -7,19 +7,27 @@ public class Grid {
 
     public static final int TILESIZE=32;
 
-    int[][] ground = new int[50][50];
+    int[][] grid;
+    int w;
+    int h;
 
-    public int[][] getGroundLayer()
-    {
-        return ground;
+    public Grid() {
+        grid = new int[50][50];
+        h=50;
+        w=50;
+    }
+    public int[][] getGroundLayer() {
+        return grid;
 
     }
 
     public int getVal(int x, int y)
     {
-        return ground[x][y];
+        return grid[x][y];
     }
 
+    public int getWidth() {return w;}
+    public int getHeight(){return h;}
 
 
 }
