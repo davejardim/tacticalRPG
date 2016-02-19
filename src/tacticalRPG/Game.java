@@ -9,11 +9,10 @@ public class Game {
 
     public Game() {
         level = new Level();
-
     }
 
-    public getLevel() {
-        level.get
+    public Grid getGround() {
+       return level.getGround();
     }
 
 

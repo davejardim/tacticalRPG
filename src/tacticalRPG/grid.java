@@ -5,7 +5,7 @@ package tacticalRPG;
  */
 public class Grid {
 
-    int squareSize = 20;
+    public static final int TILESIZE=32;
 
     int[][] ground = new int[50][50];
 
@@ -14,5 +14,12 @@ public class Grid {
         return ground;
 
     }
+
+    public int getVal(int x, int y)
+    {
+        return ground[x][y];
+    }
+
+
 
 }
