@@ -15,11 +15,17 @@ public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 
    @Id @GeneratedValue
-   private long id;
+   long id;
+   
+   private String saveName;
 	
-   public Game () {
+   public Game (String saveName) {
 	   // Here we will grab and initiate any information necessary when a 
 	   // new game is created
 	   
+	   this.saveName = saveName;
    }
+   
+   public String getSaveName () {return saveName; }
+   public void setSaveName (String name) { this.saveName = name; }
 }
