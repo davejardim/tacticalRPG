@@ -1,8 +1,11 @@
 package tacticalRPG.game;
 
+import javax.persistence.Embeddable;
+
 /**
  * Created by David on 2/15/16.
  */
+@Embeddable
 public class Grid {
 
     public static final int TILESIZE=32;

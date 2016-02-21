@@ -48,6 +48,7 @@ public class DataManager {
 				// TODO: Find a way to update object without manually setting each field
 				// This is current a workaround
 				existing.setUserName(g.getUserName());
+				existing.setGrid(g.getGrid());
 			} else if (!choice.equals("n")){
 				System.out.println("Invalid input. Please try again.");
 			}

@@ -33,6 +33,7 @@ public class Game implements Serializable {
    }
 
    public Grid getGrid(){ return grid;}
+   public void setGrid(Grid g) { this.grid = g; } 
    public String getSaveName () { return saveName; }
    public void setSaveName (String name) { this.saveName = name; }
    public String getUserName () { return userName; }
