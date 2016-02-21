@@ -1,7 +1,9 @@
 package tacticalRPG.game;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
-import javax.persistence.*;
 
 /**
  * This class will contain all user specific information. This
@@ -11,10 +13,19 @@ import javax.persistence.*;
  *
  */
 @Entity
+
 public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+<<<<<<< HEAD
    @Id
+=======
+   @Id @GeneratedValue
+   long id;
+
+   private Grid grid;
+   
+>>>>>>> origin/master
    private String saveName;
    
    private String userName;
@@ -22,10 +33,16 @@ public class Game implements Serializable {
    public Game (String saveName, String userName) {
 	   // Here we will grab and initiate any information necessary when a 
 	   // new game is created
-	   
+
+       grid = new Grid();
+
 	   this.saveName = saveName;
 	   this.userName = userName;
    }
+
+   public Grid getGrid(){ return grid;}
+
+
    
    public String getSaveName () { return saveName; }
    public void setSaveName (String name) { this.saveName = name; }
