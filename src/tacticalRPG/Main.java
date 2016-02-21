@@ -1,24 +1,5 @@
 package tacticalRPG;
 
-<<<<<<< HEAD
-import java.util.List;
-import java.util.Scanner;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
-
-import tacticalRPG.db.DataManager;
-import tacticalRPG.game.*;
-
-public class Main {
-
-	public static void main(String[] args) {
-
-	}
-}
-=======
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -31,6 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import tacticalRPG.db.DataManager;
 import tacticalRPG.game.Game;
 
 public class Main extends Application {
@@ -55,7 +37,8 @@ public class Main extends Application {
 
 
         //Game init.
-        Game game = loadSave.startNewGame("test");
+        DataManager link = new DataManager();
+        Game game = link.startNewGame("test");
         Render renderer = new Render(game, gc);
         renderer.setShowMenu(true);
         Input input = new Input(theStage);
@@ -95,4 +78,3 @@ public class Main extends Application {
     }
 
 }
->>>>>>> origin/master

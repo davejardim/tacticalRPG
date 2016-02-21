@@ -1,7 +1,6 @@
 package tacticalRPG.game;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -17,18 +16,11 @@ import java.io.Serializable;
 public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-<<<<<<< HEAD
    @Id
-=======
-   @Id @GeneratedValue
-   long id;
-
-   private Grid grid;
-   
->>>>>>> origin/master
    private String saveName;
    
    private String userName;
+   private Grid grid;
 	
    public Game (String saveName, String userName) {
 	   // Here we will grab and initiate any information necessary when a 
@@ -41,9 +33,6 @@ public class Game implements Serializable {
    }
 
    public Grid getGrid(){ return grid;}
-
-
-   
    public String getSaveName () { return saveName; }
    public void setSaveName (String name) { this.saveName = name; }
    public String getUserName () { return userName; }
