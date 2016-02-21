@@ -1,10 +1,14 @@
 package tacticalRPG;
 
+import java.util.List;
+import java.util.Scanner;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
-
+import tacticalRPG.db.DataManager;
 import tacticalRPG.game.*;
 
 public class Main {
@@ -12,38 +16,4 @@ public class Main {
 	public static void main(String[] args) {
 
 	}
-	
-	/**
-	 * Create a new Game object and save it
-	 * @return Return the game object so that it can be set to current game
-	 */
-	public static Game startNewGame (String saveName) {
-		Game newGame = new Game(saveName);
-		saveGame(newGame);
-       
-		return newGame;
-	}
-	
-	/**
-	 * Save game object 
-	 * @param g The game object that is going to be saved
-	 */
-	public static void saveGame (Game g) {
-		EntityManagerFactory emf =
-				Persistence.createEntityManagerFactory("db/games.odb");
-		EntityManager em = emf.createEntityManager();
-		
-		try {
-			em.getTransaction().begin();
-			try {
-				em.merge(g);
-			} catch (Exception e) {
-				System.out.println(e);
-			}
-		} finally {
-			em.getTransaction().commit();
-		}
-		em.close();
-		emf.close();
-	}	
 }
