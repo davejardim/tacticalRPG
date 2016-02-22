@@ -25,6 +25,7 @@ public class Main extends Application {
         launch(args);
     }
 
+    @Override
     public void start(Stage theStage) {
 
         //Canvas, Stage, and GraphicsContext Init.
