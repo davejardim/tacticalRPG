@@ -21,13 +21,14 @@ public class Game implements Serializable {
    @Id @GeneratedValue
    long id;
 
-   private Grid grid;
    private ArrayList<Actor> actors;
    private Actor player;
-   
+
    private String saveName;
+   private String userName;
+   private Grid grid;
 	
-   public Game (String saveName) {
+   public Game (String saveName, String userName) {
 	   // Here we will grab and initiate any information necessary when a 
 	   // new game is created
 
@@ -35,9 +36,11 @@ public class Game implements Serializable {
       actors = new ArrayList<Actor>();
 
 	   this.saveName = saveName;
+	   this.userName = userName;
    }
 
    public Grid getGrid(){ return grid;}
+
 
 
    public ArrayList<Actor> getActors(){
@@ -56,5 +59,10 @@ public class Game implements Serializable {
       return player;
    }
    public String getSaveName () {return saveName; }
+
+   public void setGrid(Grid g) { this.grid = g; } 
+
    public void setSaveName (String name) { this.saveName = name; }
+   public String getUserName () { return userName; }
+   public void setUserName (String name) { this.userName = name; }
 }
