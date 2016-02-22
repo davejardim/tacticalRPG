@@ -71,14 +71,8 @@ public class Input {
                         if (!inputList.contains(code))
                             inputList.add(code);
 
-                        if (inputList.contains("UP"))
-                            game.getPlayer().move(1);
-                        if (inputList.contains("RIGHT"))
-                            game.getPlayer().move(2);
-                        if(inputList.contains("DOWN"))
-                            game.getPlayer().move(3);
-                        if(inputList.contains("LEFT"))
-                            game.getPlayer().move(4);
+                        checkKeys();
+
                     }
                 });
 
@@ -93,6 +87,18 @@ public class Input {
 
     }
 
+
+    public void checkKeys()
+    {
+        if (inputList.contains("UP"))
+            game.getPlayer().move(1);
+        if (inputList.contains("RIGHT"))
+            game.getPlayer().move(2);
+        if(inputList.contains("DOWN"))
+            game.getPlayer().move(3);
+        if(inputList.contains("LEFT"))
+            game.getPlayer().move(4);
+    }
 
 
     public ArrayList<String> getCurrentInputList(){
