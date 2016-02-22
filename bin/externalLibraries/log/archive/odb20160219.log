@@ -509,3 +509,14 @@ Type tacticalRPG.game.Game is not enhanced.
 [2016-02-19 16:54:42 #3 store] 
 Database '/Users/David/Google Drive/tacticalRPG/db/games.odb' is closed by 81207@Davids-MacBook-Pro-4.local
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2016-02-19 16:56:39 #1 store] 
+Database '/Users/David/Google Drive/tacticalRPG/db/games.odb' is opened by 81307@Davids-MacBook-Pro-4.local
+
+[2016-02-19 16:56:39 #2 type] 
+Type tacticalRPG.game.Game is not enhanced.
+
+[2016-02-19 16:56:39 #3 store] 
+Database '/Users/David/Google Drive/tacticalRPG/db/games.odb' is closed by 81307@Davids-MacBook-Pro-4.local
+

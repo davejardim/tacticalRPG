@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * This class will contain all user specific information. This
@@ -21,6 +22,8 @@ public class Game implements Serializable {
    long id;
 
    private Grid grid;
+   private ArrayList<Actor> actors;
+   private Actor player;
    
    private String saveName;
 	
@@ -29,6 +32,7 @@ public class Game implements Serializable {
 	   // new game is created
 
        grid = new Grid();
+      actors = new ArrayList<Actor>();
 
 	   this.saveName = saveName;
    }
@@ -36,7 +40,21 @@ public class Game implements Serializable {
    public Grid getGrid(){ return grid;}
 
 
-   
+   public ArrayList<Actor> getActors(){
+      return actors;
+   }
+
+   public void addActor(Actor a){
+      actors.add(a);
+   }
+
+   public void setPlayer(Actor a){
+      player = a;
+   }
+
+   public Actor getPlayer(){
+      return player;
+   }
    public String getSaveName () {return saveName; }
    public void setSaveName (String name) { this.saveName = name; }
 }

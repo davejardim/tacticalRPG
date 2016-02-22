@@ -3,8 +3,11 @@ package tacticalRPG;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import tacticalRPG.game.Actor;
 import tacticalRPG.game.Game;
 import tacticalRPG.game.Grid;
+
+import java.util.ArrayList;
 
 /**
  * Created by David on 2/15/16.
@@ -15,18 +18,21 @@ public class Render {
     private static final Paint TEXTCOlOR = Color.BLACK; //Background color
 
 
-    Game game;
-    GraphicsContext gc;
-    Grid ground;
+    private Game game;
+    private GraphicsContext gc;
+    private Grid ground;
+    private ArrayList<Actor> actors;
 
     boolean showMenu = false;
-    int screenW;
-    int screenH;
+    private int screenW;
+    private int screenH;
+
 
 
     public Render(Game g, GraphicsContext grc)
     {
         game = g;
+        actors = g.getActors();
         gc = grc;
     }
 
@@ -43,6 +49,8 @@ public class Render {
 
         if(showMenu)
             drawMenu(0.3);
+
+        drawActors();
     }
 
     public void drawGround()
@@ -88,11 +96,21 @@ public class Render {
         gc.fillRect(screenW/2 - 75, screenH/2 - 20, 150, 40);
         gc.fillRect(screenW/2 - 75, 60 + screenH/2 - 20, 150, 40);
         gc.setFill(Color.BROWN);
-        gc.fillText("New Game[n]", screenW/2 - 40, screenH/2 + 5);
+        gc.fillText("New Game[n]", screenW / 2 - 40, screenH / 2 + 5);
 
-        gc.fillText("Load Game[l]", screenW/2 - 40, screenH/2 + 65);
+        gc.fillText("Load Game[l]", screenW / 2 - 40, screenH / 2 + 65);
     }
 
+    public void drawActors(){
+        int s = Grid.TILESIZE;
+
+        for(Actor a : actors) {
+            gc.setFill(Color.RED);
+            //gc.fillOval(a.getPositionX() * s, a.getPositionY() * s, s, s);
+            gc.drawImage(a.getImage(),a.getPositionX()*s,a.getPositionY()*s,s,s);
+            //System.out.println("drawing actors?");
+        }
+    }
     public void setShowMenu(boolean b)
     {
         showMenu = b;

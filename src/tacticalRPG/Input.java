@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import tacticalRPG.game.Game;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 public class Input {
     Stage stage;
     ArrayList<String> inputList = new ArrayList<String>();
+
+    Game game;
 
     double lastMouseClickx = 0;
     double lastMouseClicky = 0;
@@ -33,9 +36,9 @@ public class Input {
     }
 
 
-    public Input(Stage s) {
+    public Input(Stage s, Game g) {
         stage =  s;
-
+        game = g;
 
     }
     public void checkInput(Scene scene) {
@@ -67,6 +70,15 @@ public class Input {
                         // only add once... prevent duplicates
                         if (!inputList.contains(code))
                             inputList.add(code);
+
+                        if (inputList.contains("UP"))
+                            game.getPlayer().move(1);
+                        if (inputList.contains("RIGHT"))
+                            game.getPlayer().move(2);
+                        if(inputList.contains("DOWN"))
+                            game.getPlayer().move(3);
+                        if(inputList.contains("LEFT"))
+                            game.getPlayer().move(4);
                     }
                 });
 
@@ -77,7 +89,11 @@ public class Input {
                         inputList.remove(code);
                     }
                 });
+
+
     }
+
+
 
     public ArrayList<String> getCurrentInputList(){
         return inputList;
