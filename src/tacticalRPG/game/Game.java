@@ -1,8 +1,10 @@
 package tacticalRPG.game;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * This class will contain all user specific information. This
@@ -16,9 +18,13 @@ import java.io.Serializable;
 public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-   @Id
+   @Id @GeneratedValue
+   long id;
+
+   private ArrayList<Actor> actors;
+   private Actor player;
+
    private String saveName;
-   
    private String userName;
    private Grid grid;
 	
@@ -27,14 +33,35 @@ public class Game implements Serializable {
 	   // new game is created
 
        grid = new Grid();
+      actors = new ArrayList<Actor>();
 
 	   this.saveName = saveName;
 	   this.userName = userName;
    }
 
    public Grid getGrid(){ return grid;}
+
+
+
+   public ArrayList<Actor> getActors(){
+      return actors;
+   }
+
+   public void addActor(Actor a){
+      actors.add(a);
+   }
+
+   public void setPlayer(Actor a){
+      player = a;
+   }
+
+   public Actor getPlayer(){
+      return player;
+   }
+   public String getSaveName () {return saveName; }
+
    public void setGrid(Grid g) { this.grid = g; } 
-   public String getSaveName () { return saveName; }
+
    public void setSaveName (String name) { this.saveName = name; }
    public String getUserName () { return userName; }
    public void setUserName (String name) { this.userName = name; }

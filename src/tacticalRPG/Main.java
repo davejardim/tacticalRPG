@@ -12,7 +12,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import tacticalRPG.game.Actor;
+
 import tacticalRPG.db.DataManager;
+
 import tacticalRPG.game.Game;
 
 public class Main extends Application {
@@ -41,8 +45,14 @@ public class Main extends Application {
         DataManager link = new DataManager();
         Game game = link.startNewGame("test");
         Render renderer = new Render(game, gc);
-        renderer.setShowMenu(true);
-        Input input = new Input(theStage);
+        renderer.setShowMenu(false);
+        Input input = new Input(theStage, game);
+
+        //add a default player
+        Actor mike = new Actor();
+        game.addActor(mike);
+        game.setPlayer(mike);
+
 
         //Frame-based animation
         Timeline gameLoop = new Timeline();
