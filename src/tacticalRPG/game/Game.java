@@ -1,7 +1,6 @@
 package tacticalRPG.game;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,12 +17,10 @@ import java.util.ArrayList;
 public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-   @Id @GeneratedValue
-   long id;
-
    private ArrayList<Actor> actors;
    private Actor player;
 
+   @Id
    private String saveName;
    private String userName;
    private Grid grid;

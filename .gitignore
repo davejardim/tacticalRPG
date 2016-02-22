@@ -1,12 +1,10 @@
 
 db/games.odb
 
-bin/externalLibraries/log/odb20160221.log
+bin/
 
-bin/externalLibraries/log/archive/odb20160218.log
+*.log
 
-bin/externalLibraries/.DS_Store
+*.class
 
-bin/externalLibraries/.DS_Store
-
-bin/externalLibraries/.DS_Store
+*.class
