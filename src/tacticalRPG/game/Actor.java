@@ -17,7 +17,7 @@ public class Actor {
         positionY = 5;
 
         icon = new Image(Main.class.getResourceAsStream("mikes_head.png"));
-        System.out.println(icon.getWidth() +" " + icon.getHeight() + " ");
+        //System.out.println(icon.getWidth() +" " + icon.getHeight() + " ");
     }
 
     public Image getImage(){

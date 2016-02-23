@@ -43,15 +43,12 @@ public class Main extends Application {
 
         //Game init.
         DataManager link = new DataManager();
-        Game game = link.startNewGame("test");
-        Render renderer = new Render(game, gc);
-        renderer.setShowMenu(false);
-        Input input = new Input(theStage, game);
+        //Game game = link.startNewGame("test");
+        Render renderer = new Render(gc);
+        renderer.setShowMenu(true);
+        Input input = new Input(theStage, link, renderer);
 
-        //add a default player
-        Actor mike = new Actor();
-        game.addActor(mike);
-        game.setPlayer(mike);
+       
 
 
         //Frame-based animation

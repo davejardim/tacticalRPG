@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Render {
 
     private static final Paint BGCOlOR = Color.WHITE; //Background color
-    private static final Paint TEXTCOlOR = Color.BLACK; //Background color
+    //private static final Paint TEXTCOlOR = Color.BLACK; //Background color
 
 
     private Game game;
@@ -28,7 +28,12 @@ public class Render {
     private int screenH;
 
 
-
+    public Render(GraphicsContext grc)
+    {
+        game = null;
+        actors = null;
+        gc = grc;
+    }
     public Render(Game g, GraphicsContext grc)
     {
         game = g;
@@ -36,6 +41,9 @@ public class Render {
         gc = grc;
     }
 
+    public void setGame(Game g){
+    	game = g;
+    }
 
     public void updateScreen(double t) {
 
@@ -45,12 +53,15 @@ public class Render {
         gc.setFill(BGCOlOR);
         gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
-        drawGround();
+        if(game != null){
+        	drawGround();
+        	drawActors();
+        }
 
         if(showMenu)
             drawMenu(0.3);
 
-        drawActors();
+        
     }
 
     public void drawGround()
@@ -104,11 +115,14 @@ public class Render {
     public void drawActors(){
         int s = Grid.TILESIZE;
 
+        if(actors != null){
         for(Actor a : actors) {
             gc.setFill(Color.RED);
             //gc.fillOval(a.getPositionX() * s, a.getPositionY() * s, s, s);
+     
             gc.drawImage(a.getImage(),a.getPositionX()*s,a.getPositionY()*s,s,s);
             //System.out.println("drawing actors?");
+        }
         }
     }
     public void setShowMenu(boolean b)
@@ -116,6 +130,7 @@ public class Render {
         showMenu = b;
     }
 
+    public boolean isMenuShown() {return showMenu;}
 
 
 }

@@ -39,10 +39,17 @@ public class DataManager {
 		
 		Game existing = em.find(Game.class, g);
 		em.getTransaction().begin();
+		
 		if (existing != null) {
+			
+			existing.setUserName(g.getUserName());
+			existing.setGrid(g.getGrid());
+			
+			/*
 			Scanner in = new Scanner(System.in);
 			System.out.println("Save already exists. Would you like to overwrite? (y/n)");
 			String choice = in.next();
+			
 			if (choice.equals("y")) {
 				//em.merge(g);
 				// TODO: Find a way to update object without manually setting each field
@@ -52,7 +59,9 @@ public class DataManager {
 			} else if (!choice.equals("n")){
 				System.out.println("Invalid input. Please try again.");
 			}
+			
 			in.close();
+			*/
 		} else {
 			em.persist(g);
 		}

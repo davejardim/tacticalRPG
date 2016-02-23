@@ -56,9 +56,9 @@ public class Game implements Serializable {
       return player;
    }
    public String getSaveName () {return saveName; }
-
+   
    public void setGrid(Grid g) { this.grid = g; } 
-
+   
    public void setSaveName (String name) { this.saveName = name; }
    public String getUserName () { return userName; }
    public void setUserName (String name) { this.userName = name; }

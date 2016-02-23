@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import tacticalRPG.db.DataManager;
+import tacticalRPG.game.Actor;
 import tacticalRPG.game.Game;
 
 import java.util.ArrayList;
@@ -16,30 +18,21 @@ public class Input {
     Stage stage;
     ArrayList<String> inputList = new ArrayList<String>();
 
-    Game game;
+    private Game game;
+    
+    private DataManager link;
+    private Render render;
 
     double lastMouseClickx = 0;
     double lastMouseClicky = 0;
 
     boolean isMouseClicked = false;
 
-    private class Location {
-        int x;
-        int y;
-        Location(int a, int b) {
-            x = a;
-            y = b;
-        }
-        int getX() {return x;}
-        int getY() {return y;}
 
-    }
-
-
-    public Input(Stage s, Game g) {
-        stage =  s;
-        game = g;
-
+    public Input(Stage s, DataManager l, Render r){
+    	stage = s;
+    	link = l;
+    	render = r;
     }
     public void checkInput(Scene scene) {
 
@@ -90,6 +83,7 @@ public class Input {
 
     public void checkKeys()
     {
+    	if(game != null){
         if (inputList.contains("UP"))
             game.getPlayer().move(1);
         if (inputList.contains("RIGHT"))
@@ -98,16 +92,31 @@ public class Input {
             game.getPlayer().move(3);
         if(inputList.contains("LEFT"))
             game.getPlayer().move(4);
+        if(inputList.contains("ESCAPE")){
+        	if(render.isMenuShown())
+        		render.setShowMenu(false);
+        	else 
+        		render.setShowMenu(true);
+        	}
+    	}
+    	
+    	
+    	//load a new game
+    	if(inputList.contains("N") && render.isMenuShown())
+    	{
+    		game = link.startNewGame("test");
+    		render.setGame(game);
+    		 //add a default player
+            Actor mike = new Actor();
+            game.addActor(mike);
+            game.setPlayer(mike);
+            render.setShowMenu(false);
+    	}
     }
 
 
     public ArrayList<String> getCurrentInputList(){
         return inputList;
-    }
-
-    private Location getGridLocation()
-    {
-        return new Location(0,0);
     }
 
 
