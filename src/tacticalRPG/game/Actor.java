@@ -1,11 +1,14 @@
 package tacticalRPG.game;
 
+import javax.persistence.Embeddable;
+
 import javafx.scene.image.Image;
 import tacticalRPG.Main;
 
 /**
  * Created by David on 2/19/16.
  */
+@Embeddable
 public class Actor {
     private int positionX;
     private int positionY;
