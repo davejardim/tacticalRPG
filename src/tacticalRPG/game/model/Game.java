@@ -1,4 +1,4 @@
-package tacticalRPG.game;
+package tacticalRPG.game.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

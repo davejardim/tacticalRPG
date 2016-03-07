@@ -1,4 +1,4 @@
-package tacticalRPG.game;
+package tacticalRPG.game.model;
 
 import tacticalRPG.game.Actor;
 import tacticalRPG.game.Grid;
