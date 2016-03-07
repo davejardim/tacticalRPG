@@ -13,11 +13,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import tacticalRPG.game.Actor;
+import tacticalRPG.game.model.Actor;
 
 import tacticalRPG.db.DataManager;
 
-import tacticalRPG.game.Game;
+import tacticalRPG.game.model.Game;
 
 public class Main extends Application {
 

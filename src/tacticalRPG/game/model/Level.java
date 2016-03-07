@@ -1,7 +1,7 @@
 package tacticalRPG.game.model;
 
-import tacticalRPG.game.Actor;
-import tacticalRPG.game.Grid;
+import tacticalRPG.game.model.Actor;
+import tacticalRPG.game.model.Grid;
 
 /**
  * Created by David on 2/15/16.

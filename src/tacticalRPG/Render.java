@@ -3,9 +3,9 @@ package tacticalRPG;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import tacticalRPG.game.Actor;
-import tacticalRPG.game.Game;
-import tacticalRPG.game.Grid;
+import tacticalRPG.game.model.Actor;
+import tacticalRPG.game.model.Game;
+import tacticalRPG.game.model.Grid;
 
 import java.util.ArrayList;
 

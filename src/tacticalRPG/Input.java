@@ -6,8 +6,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import tacticalRPG.db.DataManager;
-import tacticalRPG.game.Actor;
-import tacticalRPG.game.Game;
+import tacticalRPG.game.model.Actor;
+import tacticalRPG.game.model.Game;
 
 import java.util.ArrayList;
 

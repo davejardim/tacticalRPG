@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import tacticalRPG.game.Game;
+import tacticalRPG.game.model.Game;
 
 /**
  * This class will handle all db interfacing such as saving, loading,
