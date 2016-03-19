@@ -14,6 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by David on 2/15/16.
  */
+
 public class Input {
     Stage stage;
     ArrayList<String> inputList = new ArrayList<String>();
