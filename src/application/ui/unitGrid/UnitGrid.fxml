@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="application.ui.unitGrid.UnitGridController"
+			fx:id="grid">
+	<!-- TODO Add Nodes -->
+</GridPane>
+
