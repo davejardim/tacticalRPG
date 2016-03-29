@@ -1,12 +1,11 @@
 package application.ui.environmentGrid;
 
-import application.ui.battleGrid.BattleGridController;
+import application.ui.ScreenControl;
 import javafx.fxml.FXML;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
 
 public class EnvironmentGridController {
 	
@@ -40,7 +39,7 @@ public class EnvironmentGridController {
 	}
 	
 	private void addPane(int col, int row) {
-		grid.add(BattleGridController.currentLevel.getEnvironmentTile(col, row), col, row);
+		grid.add(ScreenControl.getCurrentLevel().getEnvironmentTile(col, row).getView(), col, row);
 		
 	}
 }

@@ -1,12 +1,11 @@
 package application.ui.unitGrid;
 
-import application.ui.battleGrid.BattleGridController;
+import application.ui.ScreenControl;
 import javafx.fxml.FXML;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
 
 public class UnitGridController {
 	
@@ -40,7 +39,7 @@ public class UnitGridController {
 	}
 	
 	private void addPane(int col, int row) {
-		grid.add(BattleGridController.currentLevel.getUnitTile(col, row), col, row);
+		grid.add(ScreenControl.getCurrentLevel().getUnitTile(col, row).getView(), col, row);
 	}
 	
 }

@@ -2,13 +2,14 @@ package application.model.tile;
 
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
+import application.ui.unitTile.UnitTileView;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 
-public class UnitTile extends Tile {
+public class UnitTile {
 	
 	private Unit unit;
+	private int xCord, yCord;
+	private UnitTileView view;
 	
 	/**
 	 * For generating empty unit tiles
@@ -17,8 +18,9 @@ public class UnitTile extends Tile {
 	 * @param tileSize
 	 */
 	public UnitTile(int x, int y, double tileSize) {
-		super(x, y, tileSize);
-		setClickHandler();
+		this.xCord = x;
+		this.yCord = y;
+		this.view = new UnitTileView(this, tileSize);
 	}
 	
 	/**
@@ -29,13 +31,10 @@ public class UnitTile extends Tile {
 	 * @param unitType
 	 */
 	public UnitTile(int x, int y, double tileSize, UnitType unitType) {
-		super(x, y, tileSize);
-		
-		unit = new Unit(this.getXCord(), this.getYCord(), unitType);
-		
-		ImagePattern img = new ImagePattern(new Image("/application/resources/Man.png"));
-		this.setFill(img);
-		setClickHandler();
+		this(x, y, tileSize);	
+		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType));
+		// TODO: Differentiate based on unit type (most likely be done in Unit class)
+		view.setImage(new Image("/application/resources/Man.png", tileSize, tileSize, false, false));
 	}
 	
 	public Unit getUnit() {
@@ -46,10 +45,15 @@ public class UnitTile extends Tile {
 		this.unit = unit;
 	}
 	
-	private void setClickHandler() {
-		this.setOnMouseClicked(e -> {
-			this.setFill(Color.RED);
-			System.out.println(this.getXCord() + ", " + this.getYCord());
-		});
+	public int getXCord() {
+		return this.xCord;
+	}
+	
+	public int getYCord() {
+		return this.yCord;
+	}
+	
+	public UnitTileView getView() {
+		return this.view;
 	}
 }
