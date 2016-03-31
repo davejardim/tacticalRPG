@@ -21,6 +21,7 @@ public class UnitTile {
 		this.xCord = x;
 		this.yCord = y;
 		this.view = new UnitTileView(this, tileSize);
+		this.unit = null;
 	}
 	
 	/**
@@ -55,5 +56,12 @@ public class UnitTile {
 	
 	public UnitTileView getView() {
 		return this.view;
+	}
+	
+	public void onClick() {
+		// For now let's just show possible movement spaces
+		if (unit != null) {
+			
+		}
 	}
 }

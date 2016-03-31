@@ -71,4 +71,23 @@ public class Level {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean[][] getHighlightGrid(int x, int y, int maxDist) {
+		boolean[][] highlightGrid = new boolean[LEVEL_SIZE][LEVEL_SIZE];
+		for (int i = 0; i < LEVEL_SIZE; i++) {
+			for (int j = 0; j < LEVEL_SIZE; j++) {
+				if (findDist(x, y, i, j) <= maxDist) {
+					highlightGrid[i][j] = true;
+				} else {
+					highlightGrid[i][j] = false;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	private double findDist(int x1, int y1, int x2, int y2) {
+		 return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+	}
 }

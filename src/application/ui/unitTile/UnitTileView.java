@@ -26,8 +26,7 @@ public class UnitTileView extends Rectangle {
 	
 	private void setHandles() {
 		this.setOnMouseClicked(e -> {
-			this.setFill(Color.RED);
-			System.out.println(tile.getXCord() + ", " + tile.getYCord());
+			tile.onClick();
 		});
 	}
 }
