@@ -1,7 +1,9 @@
 package application.model.tile;
 
+import application.model.level.Level;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
+import application.ui.ScreenControl;
 import application.ui.unitTile.UnitTileView;
 import javafx.scene.image.Image;
 
@@ -10,6 +12,7 @@ public class UnitTile {
 	private Unit unit;
 	private int xCord, yCord;
 	private UnitTileView view;
+	private Level currLevel;
 	
 	/**
 	 * For generating empty unit tiles
@@ -22,6 +25,7 @@ public class UnitTile {
 		this.yCord = y;
 		this.view = new UnitTileView(this, tileSize);
 		this.unit = null;
+		this.currLevel = ScreenControl.getCurrentLevel();
 	}
 	
 	/**
@@ -61,7 +65,8 @@ public class UnitTile {
 	public void onClick() {
 		// For now let's just show possible movement spaces
 		if (unit != null) {
-			
+			ScreenControl.getCurrentLevel().setHighlights(xCord, yCord, unit.getTravelDist());
 		}
+		System.out.println(xCord + ", " + yCord);
 	}
 }

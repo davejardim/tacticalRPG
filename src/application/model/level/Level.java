@@ -9,6 +9,7 @@ import application.model.unit.UnitType;
 import application.ui.ScreenControl;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 /**
  * Stores all level data and will handling the loading of levels.
@@ -84,7 +85,19 @@ public class Level {
 			}
 		}
 		
-		return null;
+		return highlightGrid;
+	}
+	
+	public void setHighlights(int x, int y, int maxDist) {
+		boolean[][] boolGrid = getHighlightGrid(x, y, maxDist);
+		for (int i = 0; i < LEVEL_SIZE; i++) {
+			for (int j = 0; j < LEVEL_SIZE; j++) {
+				if (boolGrid[i][j]) {
+					environmentGrid[i][j].getView().setFill(Color.GREEN);
+					environmentGrid[i][j].getView().setOpacity(.5);
+				}
+			}
+		}
 	}
 	
 	private double findDist(int x1, int y1, int x2, int y2) {

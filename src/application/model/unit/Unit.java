@@ -8,11 +8,12 @@ package application.model.unit;
  */
 public class Unit {
 	
-	private int yCord, xCord;
+	private int yCord, xCord, travelDist;
 	
 	public Unit(int x, int y, UnitType type) {
 		this.xCord = x;
 		this.yCord = y;
+		this.travelDist = 5; // TODO: Shouldn't be hard set
 		setUnitStats(type);
 	}
 	
@@ -30,6 +31,10 @@ public class Unit {
 	
 	public void setYCord(int y) {
 		this.yCord = y;
+	}
+	
+	public int getTravelDist() {
+		return this.travelDist;
 	}
 	
 	private void setUnitStats(UnitType type) {

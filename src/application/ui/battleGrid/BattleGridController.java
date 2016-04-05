@@ -17,6 +17,7 @@ public class BattleGridController {
 	private final int GRID_SIZE = 25;
 	
 	public void initialize() {
+		ScreenControl.battleGrid = this;
 		buildEnvironmentGrid();
 		buildUnitGrid();
 		stack.getChildren().addAll(environmentGrid, unitGrid);

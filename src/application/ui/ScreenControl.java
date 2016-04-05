@@ -1,12 +1,15 @@
 package application.ui;
 
 import application.model.level.Level;
+import application.ui.battleGrid.BattleGridController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class ScreenControl {
 	private static Stage stage;
 	private static Level currentLevel;
+	
+	public static BattleGridController battleGrid;
 	
 	public static void setStage (Stage s) {
 		stage = s;
