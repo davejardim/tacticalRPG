@@ -64,9 +64,7 @@ public class UnitTile {
 	
 	public void onClick() {
 		// For now let's just show possible movement spaces
-		if (unit != null) {
-			ScreenControl.getCurrentLevel().setHighlights(xCord, yCord, unit.getTravelDist());
-		}
+		ScreenControl.getCurrentLevel().clickHandle(this);
 		System.out.println(xCord + ", " + yCord);
 	}
 }

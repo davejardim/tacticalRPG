@@ -5,6 +5,7 @@ import java.io.IOException;
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
+import application.model.unit.Unit;
 import application.model.unit.UnitType;
 import application.ui.ScreenControl;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,9 @@ public class Level {
 	
 	private StackPane view;
 	
+	private boolean isUnitClicked;
+	private Unit currentSelectedUnit;
+	
 	public Level() {
 		ScreenControl.setCurrentLevel(this);
 		generateGrids();
@@ -46,6 +50,80 @@ public class Level {
 	
 	public StackPane getView() {
 		return this.view;
+	}
+	
+	public void clickHandle(UnitTile tile) {
+		if(isUnitClicked) {
+			// Actions for when a unit is clicked
+			// If another unit is clicked switch to that one
+			if(tile.getUnit() != null && !tile.getUnit().equals(currentSelectedUnit)) {
+				clearHighlights();
+				setHighlights(tile.getUnit());
+			}
+			// If valid move then move current unit
+			if (isValidMove(tile.getXCord(), tile.getYCord())) {
+				// Move current unit
+			} else {
+				// Throw some error message
+			}
+			// If enemy then attack
+		} else {
+			// If no unit chosen so far and a unit is clicked then highlight paths
+			if(tile.getUnit() != null) {
+				currentSelectedUnit = tile.getUnit();
+				setHighlights(currentSelectedUnit);
+			} 
+			// Else for now do nothing
+		}
+	}
+	
+	private void setHighlights(Unit unit) {
+		boolean[][] boolGrid = getValidMoves(unit.getXCord(), unit.getYCord(), unit.getTravelDist());
+		for (int i = 0; i < LEVEL_SIZE; i++) {
+			for (int j = 0; j < LEVEL_SIZE; j++) {
+				if (boolGrid[i][j]) {
+					environmentGrid[i][j].getView().setFill(Color.GREEN);
+					environmentGrid[i][j].getView().setOpacity(.5);
+				}
+			}
+		}
+		isUnitClicked = true;
+	}
+	
+	private void clearHighlights() {
+		for (int i = 0; i < LEVEL_SIZE; i++) {
+			for (int j = 0; j < LEVEL_SIZE; j++) {
+				environmentGrid[i][j].getView().setFill(Color.TRANSPARENT);
+			}
+		}
+	}
+	
+	private boolean[][] getValidMoves(int x, int y, int maxDist) {
+		boolean[][] highlightGrid = new boolean[LEVEL_SIZE][LEVEL_SIZE];
+		for (int i = 0; i < LEVEL_SIZE; i++) {
+			for (int j = 0; j < LEVEL_SIZE; j++) {
+				if (findDist(x, y, i, j) <= maxDist) {
+					highlightGrid[i][j] = true;
+				} else {
+					highlightGrid[i][j] = false;
+				}
+			}
+		}
+		return highlightGrid;
+	}
+	
+	private boolean isValidMove(int x, int y) {
+		if (currentSelectedUnit == null) {
+			System.out.println("Error: no unit currently selected");
+			return false;
+		} else {
+			return getValidMoves(currentSelectedUnit.getXCord(), currentSelectedUnit.getYCord(),
+					currentSelectedUnit.getTravelDist())[x][y];
+		}
+	}
+	
+	private double findDist(int x1, int y1, int x2, int y2) {
+		 return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 	}
 	
 	private void generateGrids() {
@@ -71,36 +149,5 @@ public class Level {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public boolean[][] getHighlightGrid(int x, int y, int maxDist) {
-		boolean[][] highlightGrid = new boolean[LEVEL_SIZE][LEVEL_SIZE];
-		for (int i = 0; i < LEVEL_SIZE; i++) {
-			for (int j = 0; j < LEVEL_SIZE; j++) {
-				if (findDist(x, y, i, j) <= maxDist) {
-					highlightGrid[i][j] = true;
-				} else {
-					highlightGrid[i][j] = false;
-				}
-			}
-		}
-		
-		return highlightGrid;
-	}
-	
-	public void setHighlights(int x, int y, int maxDist) {
-		boolean[][] boolGrid = getHighlightGrid(x, y, maxDist);
-		for (int i = 0; i < LEVEL_SIZE; i++) {
-			for (int j = 0; j < LEVEL_SIZE; j++) {
-				if (boolGrid[i][j]) {
-					environmentGrid[i][j].getView().setFill(Color.GREEN);
-					environmentGrid[i][j].getView().setOpacity(.5);
-				}
-			}
-		}
-	}
-	
-	private double findDist(int x1, int y1, int x2, int y2) {
-		 return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 	}
 }
