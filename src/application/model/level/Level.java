@@ -62,11 +62,16 @@ public class Level {
 			}
 			// If valid move then move current unit
 			if (isValidMove(tile.getXCord(), tile.getYCord())) {
-				// Move current unit
+				moveCurrentUnit(tile.getXCord(), tile.getYCord());
+				currentSelectedUnit.setXCord(tile.getXCord());
+				currentSelectedUnit.setYCord(tile.getYCord());
 			} else {
 				// Throw some error message
 			}
 			// If enemy then attack
+			
+			// After everything set current unit to null
+			currentSelectedUnit = null;
 		} else {
 			// If no unit chosen so far and a unit is clicked then highlight paths
 			if(tile.getUnit() != null) {
@@ -75,6 +80,14 @@ public class Level {
 			} 
 			// Else for now do nothing
 		}
+	}
+	
+	// Move currently selected unit to the specified coordinates
+	private void moveCurrentUnit(int x, int y) {
+		int curX = currentSelectedUnit.getXCord();
+		int curY = currentSelectedUnit.getYCord();
+		unitGrid[curX][curY].removeUnit();
+		unitGrid[x][y].setUnit(currentSelectedUnit, LEVEL_SIZE);
 	}
 	
 	private void setHighlights(Unit unit) {

@@ -35,19 +35,27 @@ public class UnitTile {
 	 * @param tileSize
 	 * @param unitType
 	 */
-	public UnitTile(int x, int y, double tileSize, UnitType unitType) {
+	public UnitTile(int x, int y, int tileSize, UnitType unitType) {
 		this(x, y, tileSize);	
-		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType));
+		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType), tileSize);
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
-		view.setImage(new Image("/application/resources/Man.png", tileSize, tileSize, false, false));
 	}
 	
 	public Unit getUnit() {
 		return this.unit;
 	}
 	
-	public void setUnit(Unit unit) {
+	
+	
+	public void setUnit(Unit unit, int tileSize) {
 		this.unit = unit;
+		view.setImage(new Image("/application/resources/Man.png", tileSize, tileSize, false, false));
+
+	}
+	
+	public void removeUnit() {
+		this.unit = null;
+		view.setImage(null);
 	}
 	
 	public int getXCord() {
