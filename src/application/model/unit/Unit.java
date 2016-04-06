@@ -36,12 +36,24 @@ public class Unit {
 	public int getTravelDist() {
 		return this.travelDist;
 	}
+	public int attack() {
+		
+		return this.xCord;
+	}
 	
 	private void setUnitStats(UnitType type) {
 		switch (type) {
-		case SOLDIER:
+		case ASSASSIN:
 			break;
-		case HORSE:
+		case ARCHER:
+			break;
+		case CAVILIER:
+			break;
+		case KNIGHT:
+			break;
+		case KING:
+			break;
+		case MAGE:
 			break;
 		}
 			
