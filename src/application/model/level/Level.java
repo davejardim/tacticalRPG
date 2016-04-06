@@ -20,15 +20,14 @@ import javafx.scene.paint.Color;
 public class Level {
 	
 	private final int LEVEL_SIZE = 25;
-	private final double TILE_SIZE = 800 / LEVEL_SIZE;
+	private final int TILE_SIZE = 800 / LEVEL_SIZE;
 	
 	private EnvironmentTile[][] environmentGrid;
 	private UnitTile[][] unitGrid;
 	
 	private StackPane view;
-	
-	private boolean isUnitClicked;
-	private Unit currentSelectedUnit;
+
+	private Unit currentSelectedUnit = null;
 	
 	public Level() {
 		ScreenControl.setCurrentLevel(this);
@@ -53,7 +52,9 @@ public class Level {
 	}
 	
 	public void clickHandle(UnitTile tile) {
-		if(isUnitClicked) {
+		System.out.println("A click was at least registered");
+		if(currentSelectedUnit != null) {
+			System.out.println("We've gotten here");
 			// Actions for when a unit is clicked
 			// If another unit is clicked switch to that one
 			if(tile.getUnit() != null && !tile.getUnit().equals(currentSelectedUnit)) {
@@ -67,14 +68,17 @@ public class Level {
 				currentSelectedUnit.setYCord(tile.getYCord());
 			} else {
 				// Throw some error message
+				System.out.println("That is not a valid move");
 			}
 			// If enemy then attack
 			
 			// After everything set current unit to null
 			currentSelectedUnit = null;
 		} else {
+			System.out.println("Nevermind, we're over here");
 			// If no unit chosen so far and a unit is clicked then highlight paths
 			if(tile.getUnit() != null) {
+				System.out.println("Current unit set");
 				currentSelectedUnit = tile.getUnit();
 				setHighlights(currentSelectedUnit);
 			} 
@@ -100,7 +104,6 @@ public class Level {
 				}
 			}
 		}
-		isUnitClicked = true;
 	}
 	
 	private void clearHighlights() {
@@ -153,7 +156,7 @@ public class Level {
 		}
 		
 		int mid = LEVEL_SIZE / 2;
-		unitGrid[mid][mid] = new UnitTile(mid, mid, TILE_SIZE, UnitType.SOLDIER);
+		unitGrid[mid][mid] = new UnitTile(mid, mid, TILE_SIZE, UnitType.ARCHER);
 	}
 	
 	private void renderGrid() {

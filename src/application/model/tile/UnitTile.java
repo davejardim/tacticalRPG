@@ -45,12 +45,9 @@ public class UnitTile {
 		return this.unit;
 	}
 	
-	
-	
 	public void setUnit(Unit unit, int tileSize) {
 		this.unit = unit;
 		view.setImage(new Image("/application/resources/Man.png", tileSize, tileSize, false, false));
-
 	}
 	
 	public void removeUnit() {
