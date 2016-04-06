@@ -25,7 +25,7 @@ public class UnitTile {
 		this.yCord = y;
 		this.view = new UnitTileView(this, tileSize);
 		this.unit = null;
-		this.currLevel = ScreenControl.getCurrentLevel();
+		this.currLevel = ScreenControl.currentLevel;
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public class UnitTile {
 	
 	public void onClick() {
 		// For now let's just show possible movement spaces
-		ScreenControl.getCurrentLevel().clickHandle(this);
+		currLevel.clickHandle(this);
 		System.out.println(xCord + ", " + yCord);
 	}
 }

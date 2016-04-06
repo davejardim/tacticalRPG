@@ -42,7 +42,7 @@ public class BattleGridController {
 	    
 		for (int i = 0; i<GRID_SIZE; i++) {
 			for (int j = 0; j<GRID_SIZE; j++) {
-				environmentGrid.add(ScreenControl.getCurrentLevel().getEnvironmentTile(i, j).getView(), i, j);
+				environmentGrid.add(ScreenControl.currentLevel.getEnvironmentTile(i, j).getView(), i, j);
 			}
 		}
 	}
@@ -65,7 +65,7 @@ public class BattleGridController {
 	    
 		for (int i = 0; i<GRID_SIZE; i++) {
 			for (int j = 0; j<GRID_SIZE; j++) {
-				unitGrid.add(ScreenControl.getCurrentLevel().getUnitTile(i, j).getView(), i, j);
+				unitGrid.add(ScreenControl.currentLevel.getUnitTile(i, j).getView(), i, j);
 			}
 		}
 		

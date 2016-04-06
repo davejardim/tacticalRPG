@@ -30,7 +30,7 @@ public class Level {
 	private Unit currentSelectedUnit = null;
 	
 	public Level() {
-		ScreenControl.setCurrentLevel(this);
+		ScreenControl.currentLevel = this;
 		generateGrids();
 		renderGrid();
 	}
