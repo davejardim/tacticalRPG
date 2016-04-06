@@ -74,6 +74,7 @@ public class Level {
 			
 			// After everything set current unit to null
 			currentSelectedUnit = null;
+			clearHighlights();
 		} else {
 			System.out.println("Nevermind, we're over here");
 			// If no unit chosen so far and a unit is clicked then highlight paths

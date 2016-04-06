@@ -24,6 +24,10 @@ public class UnitTileView extends Rectangle {
 		this.setFill(pattern);
 	}
 	
+	public void removeImage() {
+		this.setFill(Color.TRANSPARENT);
+	}
+	
 	private void setHandles() {
 		this.setOnMouseClicked(e -> {
 			tile.onClick();

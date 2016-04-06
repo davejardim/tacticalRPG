@@ -52,7 +52,7 @@ public class UnitTile {
 	
 	public void removeUnit() {
 		this.unit = null;
-		view.setImage(null);
+		view.removeImage();
 	}
 	
 	public int getXCord() {
