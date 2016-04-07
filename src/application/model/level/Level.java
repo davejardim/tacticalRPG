@@ -157,7 +157,12 @@ public class Level {
 		}
 		
 		int mid = LEVEL_SIZE / 2;
+<<<<<<< Updated upstream
 		unitGrid[mid][mid] = new UnitTile(mid, mid, TILE_SIZE, UnitType.ARCHER);
+=======
+		unitGrid[mid][mid] = new UnitTile(mid, mid, TILE_SIZE, UnitType.MAGE);
+		unitGrid[0][0] = new UnitTile(mid, mid, TILE_SIZE, UnitType.KNIGHT);
+>>>>>>> Stashed changes
 	}
 	
 	private void renderGrid() {
