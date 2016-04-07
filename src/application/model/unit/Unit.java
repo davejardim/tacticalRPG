@@ -13,13 +13,18 @@ import application.model.tile.UnitTile;
  */
 public class Unit {
 	
-	private int yCord, xCord, travelDist;
+	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove;
 	
 	public Unit(int x, int y, UnitType type) {
 		this.xCord = x;
 		this.yCord = y;
 		this.travelDist = 5; // TODO: Shouldn't be hard set
-		setUnitStats(type);
+		this.hp = type.hp();
+	    this.attack = type.attack();
+	    this.def = type.def();
+	    this.attackType = type.attackType();
+	    this.critChance = type.critChance();
+	    this.maxMove = type.maxMove();
 	}
 	
 	public int getXCord() {
@@ -44,7 +49,7 @@ public class Unit {
 	public List<UnitTile> attack(UnitTile[][] unitLocs) {
 		List<UnitTile> list = new ArrayList<>();
 		//if melee unit
-		if(this.getType()==1){
+		if(this.attackType==1){
 			//if up 1
 			if(unitLocs[this.yCord+1][this.xCord].getUnit()==null){
 			}
@@ -71,7 +76,7 @@ public class Unit {
 			}
 		}
 		//if ranged unit
-		if(this.getType()==2){
+		if(this.attackType==2){
 			//if up right
 			if(unitLocs[this.yCord+1][this.xCord+1].getUnit()==null){
 			}
