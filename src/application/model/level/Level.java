@@ -58,6 +58,7 @@ public class Level {
 			if(tile.getUnit() != null && !tile.getUnit().equals(currentSelectedUnit)) {
 				clearHighlights();
 				setHighlights(tile.getUnit());
+				currentSelectedUnit = tile.getUnit();
 			}
 			// If valid move then move current unit
 			if (isValidMove(tile.getXCord(), tile.getYCord())) {
@@ -118,7 +119,8 @@ public class Level {
 		boolean[][] highlightGrid = new boolean[LEVEL_SIZE][LEVEL_SIZE];
 		for (int i = 0; i < LEVEL_SIZE; i++) {
 			for (int j = 0; j < LEVEL_SIZE; j++) {
-				if (findDist(x, y, i, j) <= maxDist) {
+				if (findDist(x, y, i, j) <= maxDist
+						&& unitGrid[i][j].getUnit() == null) {
 					highlightGrid[i][j] = true;
 				} else {
 					highlightGrid[i][j] = false;
@@ -158,7 +160,7 @@ public class Level {
 		int mid = LEVEL_SIZE / 2;
 
 		unitGrid[mid][mid] = new UnitTile(mid, mid, TILE_SIZE, UnitType.MAGE);
-		unitGrid[0][0] = new UnitTile(mid, mid, TILE_SIZE, UnitType.KNIGHT);
+		unitGrid[0][0] = new UnitTile(0, 0, TILE_SIZE, UnitType.KNIGHT);
 
 	}
 	
