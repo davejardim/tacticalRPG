@@ -52,9 +52,7 @@ public class Level {
 	}
 	
 	public void clickHandle(UnitTile tile) {
-		System.out.println("A click was at least registered");
 		if(currentSelectedUnit != null) {
-			System.out.println("We've gotten here");
 			// Actions for when a unit is clicked
 			// If another unit is clicked switch to that one
 			if(tile.getUnit() != null && !tile.getUnit().equals(currentSelectedUnit)) {
@@ -66,20 +64,21 @@ public class Level {
 				moveCurrentUnit(tile.getXCord(), tile.getYCord());
 				currentSelectedUnit.setXCord(tile.getXCord());
 				currentSelectedUnit.setYCord(tile.getYCord());
+				
+				// Open after move menu
+				
+				
+				// After moving set current unit to null
+				currentSelectedUnit = null;
+				clearHighlights();
 			} else {
 				// Throw some error message
 				System.out.println("That is not a valid move");
 			}
 			// If enemy then attack
-			
-			// After everything set current unit to null
-			currentSelectedUnit = null;
-			clearHighlights();
 		} else {
-			System.out.println("Nevermind, we're over here");
 			// If no unit chosen so far and a unit is clicked then highlight paths
 			if(tile.getUnit() != null) {
-				System.out.println("Current unit set");
 				currentSelectedUnit = tile.getUnit();
 				setHighlights(currentSelectedUnit);
 			} 
