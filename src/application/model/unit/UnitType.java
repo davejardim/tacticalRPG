@@ -4,6 +4,7 @@ package application.model.unit;
 //Mike Donohue
 
 public enum UnitType {
+
 	ARCHER(20, 7, 3, 2, 10, 2),
     ASSASSIN(21, 8, 2, 1, 50, 2),
 	CAVILIER(25, 7, 3, 1, 10, 4),
@@ -34,17 +35,17 @@ public enum UnitType {
        this.maxMove = maxMove;
     }
     
-    private int hp() { 
+    public int hp() { 
     	return hp; }
-    private int attack() { 
+    public int attack() { 
     	return attack; }
-    private int def() { 
+    public int def() { 
     	return def; }
-    private int attackType() { 
+    public int attackType() { 
     	return attackType; }
-    private int critChance() { 
+    public int critChance() { 
     	return critChance; }
-    private int maxMove() { 
+    public int maxMove() { 
     	return maxMove; }
     
 }
