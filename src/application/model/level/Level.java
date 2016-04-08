@@ -8,7 +8,9 @@ import application.model.tile.UnitTile;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
 import application.ui.ScreenControl;
+import application.ui.UnitPopupMenu;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
@@ -51,7 +53,7 @@ public class Level {
 		return this.view;
 	}
 	
-	public void clickHandle(UnitTile tile) {
+	public void clickHandle(UnitTile tile, MouseEvent e) {
 		if(currentSelectedUnit != null) {
 			// Actions for when a unit is clicked
 			// If another unit is clicked switch to that one
@@ -67,6 +69,8 @@ public class Level {
 				currentSelectedUnit.setYCord(tile.getYCord());
 				
 				// Open after move menu
+				UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit);
+				menu.show(view, e.getScreenX(), e.getScreenY());
 				
 				
 				// After moving set current unit to null

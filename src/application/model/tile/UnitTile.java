@@ -6,6 +6,7 @@ import application.model.unit.UnitType;
 import application.ui.ScreenControl;
 import application.ui.unitTile.UnitTileView;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 
 public class UnitTile {
 	
@@ -67,9 +68,9 @@ public class UnitTile {
 		return this.view;
 	}
 	
-	public void onClick() {
+	public void onClick(MouseEvent e) {
 		// For now let's just show possible movement spaces
-		currLevel.clickHandle(this);
+		currLevel.clickHandle(this, e);
 		System.out.println(xCord + ", " + yCord);
 	}
 }

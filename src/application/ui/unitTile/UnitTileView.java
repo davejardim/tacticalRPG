@@ -30,7 +30,7 @@ public class UnitTileView extends Rectangle {
 	
 	private void setHandles() {
 		this.setOnMouseClicked(e -> {
-			tile.onClick();
+			tile.onClick(e);
 		});
 	}
 }
