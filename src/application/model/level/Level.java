@@ -2,15 +2,14 @@ package application.model.level;
 
 import java.io.IOException;
 
+import application.BattleLoop;
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
 import application.ui.ScreenControl;
-import application.ui.UnitPopupMenu;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
@@ -28,13 +27,12 @@ public class Level {
 	private UnitTile[][] unitGrid;
 	
 	private StackPane view;
-
-	private Unit currentSelectedUnit = null;
 	
 	public Level() {
 		ScreenControl.currentLevel = this;
 		generateGrids();
 		renderGrid();
+		BattleLoop.createBattleLoop(this);
 	}
 	
 	public EnvironmentTile getEnvironmentTile(int x, int y) {
@@ -53,50 +51,46 @@ public class Level {
 		return this.view;
 	}
 	
-	public void clickHandle(UnitTile tile, MouseEvent e) {
-		if(currentSelectedUnit != null) {
-			// Actions for when a unit is clicked
-			// If another unit is clicked switch to that one
-			if(tile.getUnit() != null && !tile.getUnit().equals(currentSelectedUnit)) {
-				clearHighlights();
-				setHighlights(tile.getUnit());
-				currentSelectedUnit = tile.getUnit();
-			}
-			// If valid move then move current unit
-			if (isValidMove(tile.getXCord(), tile.getYCord())) {
-				moveCurrentUnit(tile.getXCord(), tile.getYCord());
-				currentSelectedUnit.setXCord(tile.getXCord());
-				currentSelectedUnit.setYCord(tile.getYCord());
-				
-				// Open after move menu
-				UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit);
-				menu.show(view, e.getScreenX(), e.getScreenY());
-				
-				
-				// After moving set current unit to null
-				currentSelectedUnit = null;
-				clearHighlights();
-			} else {
-				// Throw some error message
-				System.out.println("That is not a valid move");
-			}
-			// If enemy then attack
+	/**
+	 * Given a unit set it show it's available move positions
+	 * @param unit Unit that is being selected
+	 */
+	public void setSelectedUnit(Unit unit) {
+		clearHighlights();
+		setHighlights(unit);
+	}
+	
+	/**
+	 * Check if given unit can validly move to given x and y coordinates
+	 * @param x X coordinate to move to 
+	 * @param y Y coordinate to move to 
+	 * @param unit Unit that is being moved
+	 * @return True if unit can be moved, false otherwise
+	 */
+	public boolean isValidMove(int x, int y, Unit unit) {
+		if (unit == null) {
+			System.out.println("Error: no unit currently selected");
+			return false;
 		} else {
-			// If no unit chosen so far and a unit is clicked then highlight paths
-			if(tile.getUnit() != null) {
-				currentSelectedUnit = tile.getUnit();
-				setHighlights(currentSelectedUnit);
-			} 
-			// Else for now do nothing
+			return getValidMoves(unit.getXCord(), unit.getYCord(),
+					unit.getTravelDist())[x][y];
 		}
 	}
 	
-	// Move currently selected unit to the specified coordinates
-	private void moveCurrentUnit(int x, int y) {
-		int curX = currentSelectedUnit.getXCord();
-		int curY = currentSelectedUnit.getYCord();
+	/**
+	 * Move given unit to given x and y coordinates
+	 * @param x X coordinate to move to
+	 * @param y	Y coordinate to move to
+	 * @param unit Unit to move
+	 */
+	public void moveUnit(int x, int y, Unit unit) {
+		int curX = unit.getXCord();
+		int curY = unit.getYCord();
 		unitGrid[curX][curY].removeUnit();
-		unitGrid[x][y].setUnit(currentSelectedUnit, LEVEL_SIZE);
+		unitGrid[x][y].setUnit(unit, LEVEL_SIZE);
+		unit.setXCord(x);
+		unit.setYCord(y);
+		clearHighlights();
 	}
 	
 	private void setHighlights(Unit unit) {
@@ -132,16 +126,6 @@ public class Level {
 			}
 		}
 		return highlightGrid;
-	}
-	
-	private boolean isValidMove(int x, int y) {
-		if (currentSelectedUnit == null) {
-			System.out.println("Error: no unit currently selected");
-			return false;
-		} else {
-			return getValidMoves(currentSelectedUnit.getXCord(), currentSelectedUnit.getYCord(),
-					currentSelectedUnit.getTravelDist())[x][y];
-		}
 	}
 	
 	private double findDist(int x1, int y1, int x2, int y2) {

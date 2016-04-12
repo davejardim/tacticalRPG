@@ -1,5 +1,6 @@
 package application.model.tile;
 
+import application.BattleLoop;
 import application.model.level.Level;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
@@ -70,7 +71,7 @@ public class UnitTile {
 	
 	public void onClick(MouseEvent e) {
 		// For now let's just show possible movement spaces
-		currLevel.clickHandle(this, e);
+		BattleLoop.getInstance().clickHandle(this, e);
 		System.out.println(xCord + ", " + yCord);
 	}
 }
