@@ -1,4 +1,4 @@
-package application.model.level;
+package application.model.game;
 
 import java.io.IOException;
 
@@ -7,10 +7,16 @@ import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
-import application.ui.ScreenControl;
+import application.ui.Controller;
 import application.ui.UnitPopupMenu;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
@@ -19,36 +25,46 @@ import javafx.scene.paint.Color;
  * @author markbluemer
  *
  */
-public class Level {
-	
-	private final int LEVEL_SIZE = 25;
-	private final int TILE_SIZE = 800 / LEVEL_SIZE;
-	
-	private EnvironmentTile[][] environmentGrid;
-	private UnitTile[][] unitGrid;
-	
-	private StackPane view;
+public class Game {
 
 	private Unit currentSelectedUnit = null;
+	private EnvironmentTile environmentGrid[][];
 	
-	public Level() {
-		ScreenControl.currentLevel = this;
-		generateGrids();
-		renderGrid();
+	public int xSize;
+	public int ySize;
+	
+	
+	
+	public Game() {
+			
+		//default 10x10 grid setup
+		genGrid(15,15);
+		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
+		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
+
+		
 	}
 	
-	public EnvironmentTile getEnvironmentTile(int x, int y) {
+	public EnvironmentTile getLocation(int x, int y){
 		return environmentGrid[x][y];
+		
 	}
-	
-	public UnitTile getUnitTile(int x, int y) {
-		return unitGrid[x][y];
+	private void genGrid(int w, int h){
+		
+		xSize = w;
+		ySize = h;
+		
+		environmentGrid = new EnvironmentTile[w][h];
+		for(int x = 0; x < w; x++){
+			for(int y = 0; y < h; y++){
+			environmentGrid[x][y]= new EnvironmentTile(x, y);
+			}
+		}
+		
+		Controller.UILayers.setAlignment(Pos.CENTER);
 	}
-	
-	public double getTileSize() {
-		return this.getTileSize();
-	}
-	
+		
+	/*
 	public StackPane getView() {
 		return this.view;
 	}
@@ -148,6 +164,7 @@ public class Level {
 		 return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 	}
 	
+	
 	private void generateGrids() {
 		environmentGrid = new EnvironmentTile[LEVEL_SIZE][LEVEL_SIZE];
 		unitGrid = new UnitTile[LEVEL_SIZE][LEVEL_SIZE];
@@ -175,4 +192,5 @@ public class Level {
 			e.printStackTrace();
 		}
 	}
+	*/
 }

@@ -1,9 +1,8 @@
 package application.model.tile;
 
-import application.model.level.Level;
+import application.model.game.Game;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
-import application.ui.ScreenControl;
 import application.ui.unitTile.UnitTileView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -13,7 +12,7 @@ public class UnitTile {
 	private Unit unit;
 	private int xCord, yCord;
 	private UnitTileView view;
-	private Level currLevel;
+	private Game currLevel;
 	
 	/**
 	 * For generating empty unit tiles
@@ -26,7 +25,6 @@ public class UnitTile {
 		this.yCord = y;
 		this.view = new UnitTileView(this, tileSize);
 		this.unit = null;
-		this.currLevel = ScreenControl.currentLevel;
 	}
 	
 	/**
@@ -70,7 +68,7 @@ public class UnitTile {
 	
 	public void onClick(MouseEvent e) {
 		// For now let's just show possible movement spaces
-		currLevel.clickHandle(this, e);
+		//currLevel.clickHandle(this, e);
 		System.out.println(xCord + ", " + yCord);
 	}
 }
