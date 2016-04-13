@@ -38,7 +38,7 @@ public class Game {
 	public Game() {
 			
 		//default 10x10 grid setup
-		genGrid(15,15);
+		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
 		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
 

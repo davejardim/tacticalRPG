@@ -19,7 +19,7 @@ public class Main extends Application {
 	public static final int LEVEL_WIDTH = 36;
 	public static final int LEVEL_HEIGHT = 20;
 	public static final int TILE_SIZE = 32;
-	public static boolean bypassMenuToDefaultLevel = true;
+	public static boolean bypassMenuToDefaultLevel = false;
 	public static Scene scene;
 	
 	public static Controller controller;
@@ -30,8 +30,8 @@ public class Main extends Application {
 		
 			
 			
-			int w = 1152/2;	//Window width
-			int h = 640/2;	//Window Height
+			int w = 1152;	//Window width
+			int h = 640;	//Window Height
 			
 			controller = new Controller();
 			

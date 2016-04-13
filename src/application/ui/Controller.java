@@ -42,6 +42,8 @@ public class Controller {
 	public static StackPane UILayers; //contains the panes below
 	public static Pane environmentGrid;
 	public static AnchorPane overlay;
+	public static Pane unitGrid;
+	
 	
 	//local UI variables
 	private Location currentSelectedTile;
@@ -100,6 +102,9 @@ public class Controller {
 					currentSelectedTile.setCoordinate(x,y);
 				
 				infoBarText.setText("(" + x + ", " + y + ")");
+				
+				if(currentGame != null)
+					currentGame.getLocation(x, y).setSelected(true);
 			}
 		});
 		
@@ -126,24 +131,49 @@ public class Controller {
 	@SuppressWarnings("static-access")
 	private void buildUIStack(){
 		
-		//creates ui stack
+				//creates ui stack in layers
 				UILayers = new StackPane();
 				UILayers.setAlignment(Pos.CENTER);
-				//background
+				
+				// 1)	Background
 				Canvas c = new Canvas();
 				c.getGraphicsContext2D().setFill(Color.BLACK);
 				c.getGraphicsContext2D().fill();
 				//UILayers.getChildren().add(c);
+				
 				
 				//adds empty environmentGrid to UI stack
 				environmentGrid = new Pane();
 				UILayers.getChildren().add(environmentGrid);
 				
 				
+				// 2)	HUD layer
+				overlay = new AnchorPane();
+				overlay.setPickOnBounds(false);
+				Rectangle r = new Rectangle(10,10,10,30);
+				infoBarText = new Text("Hello");
+				r.setWidth(1152);
+				r.setOpacity(0.2);
+				overlay.getChildren().addAll(r,infoBarText);
+				overlay.setBottomAnchor(infoBarText, 3.0);
+				overlay.setLeftAnchor(infoBarText, 5.0);
+				overlay.setLeftAnchor(r, 0.0);
+				overlay.setBottomAnchor(r, 0.0);
+				overlay.setRightAnchor(r, 0.0);
+				infoBarText.setFont(new Font(20));
+				UILayers.getChildren().add(overlay);
+				
+				overlay.autosize();
+				
+				
+				
+				
+				// 3) MainMenu Layer
 				//loads and display main menu
 				try {
 					mainMenu = FXMLLoader.load(getClass().getResource("/application/ui/MainMenu.fxml"));
 					UILayers.getChildren().add(mainMenu);
+					
 				} catch (IOException e) {
 					System.out.println("MainMenu.fxml error?");
 					e.printStackTrace();
@@ -155,18 +185,6 @@ public class Controller {
 					currentGame = new Game();
 				}
 				
-		overlay = new AnchorPane();
-		overlay.setPickOnBounds(false);
-		Rectangle r = new Rectangle();
-		infoBarText = new Text("asd");
-		
-		overlay.getChildren().addAll(r,infoBarText);
-		overlay.setBottomAnchor(infoBarText, 3.0);
-		overlay.setLeftAnchor(infoBarText, 5.0);
-		infoBarText.setFont(new Font(20));
-		UILayers.getChildren().add(overlay);
-		
-		overlay.autosize();
 		
 		
 	}
