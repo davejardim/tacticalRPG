@@ -1,6 +1,7 @@
 package application.model.game;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import application.Main;
 import application.model.tile.EnvironmentTile;
@@ -29,6 +30,9 @@ public class Game {
 
 	private Unit currentSelectedUnit = null;
 	private EnvironmentTile environmentGrid[][];
+	private UnitTile unitGrid[][];
+	
+	private ArrayList<UnitTile> selectedUnits;
 	
 	public int xSize;
 	public int ySize;
@@ -37,15 +41,16 @@ public class Game {
 	
 	public Game() {
 			
-		//default 10x10 grid setup
 		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
 		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
+		
+		selectedUnits = new ArrayList<UnitTile>();
 
 		
 	}
 	
-	public EnvironmentTile getLocation(int x, int y){
+	public EnvironmentTile getEnvironmentTile(int x, int y){
 		return environmentGrid[x][y];
 		
 	}
@@ -54,6 +59,8 @@ public class Game {
 		xSize = w;
 		ySize = h;
 		
+		
+		//setup plain green grass environment 
 		environmentGrid = new EnvironmentTile[w][h];
 		for(int x = 0; x < w; x++){
 			for(int y = 0; y < h; y++){
@@ -61,8 +68,25 @@ public class Game {
 			}
 		}
 		
+		//setup  & init of unit grid
+		unitGrid = new UnitTile[w][h];
+		System.out.println(unitGrid.length);
+		System.out.println(w + " " + h);
+		//add default player
+		unitGrid[w/2][h/2] = new UnitTile(w/2,h/2);
+		
+		
 		Controller.UILayers.setAlignment(Pos.CENTER);
 	}
+
+	public void selectUnit(int x, int y) {
+	
+		//if(selectedUnits.isEmpty()))
+		if(unitGrid[x][y] != null){
+			unitGrid[x][y].setSelected(true);
+		}	
+	}
+
 		
 	/*
 	public StackPane getView() {

@@ -1,11 +1,13 @@
 package application.model.tile;
 
+import application.Main;
 import application.model.game.Game;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
 import application.ui.unitTile.UnitTileView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 public class UnitTile {
 	
@@ -14,17 +16,20 @@ public class UnitTile {
 	private UnitTileView view;
 	private Game currLevel;
 	
+	private boolean isSelected = false;
+	
 	/**
 	 * For generating empty unit tiles
 	 * @param x
 	 * @param y
 	 * @param tileSize
 	 */
-	public UnitTile(int x, int y, double tileSize) {
+	public UnitTile(int x, int y) {
 		this.xCord = x;
 		this.yCord = y;
-		this.view = new UnitTileView(this, tileSize);
+		this.view = new UnitTileView(this);
 		this.unit = null;
+		
 	}
 	
 	/**
@@ -35,7 +40,7 @@ public class UnitTile {
 	 * @param unitType
 	 */
 	public UnitTile(int x, int y, int tileSize, UnitType unitType) {
-		this(x, y, tileSize);	
+		this(x, y);	
 		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType), tileSize);
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
@@ -49,6 +54,19 @@ public class UnitTile {
 		view.setImage(new Image("/application/resources/Man.png", tileSize, tileSize, false, false));
 	}
 	
+	public void setSelected(boolean b){
+
+		if(!isSelected){
+			view.setStroke(Color.DEEPSKYBLUE);
+			isSelected = true;
+		}
+		else{
+			view.setStroke(Color.TRANSPARENT);
+			isSelected = false;
+		}
+		
+
+	}
 	public void removeUnit() {
 		this.unit = null;
 		view.removeImage();

@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -46,11 +47,14 @@ public class Controller {
 	
 	
 	//local UI variables
-	private Location currentSelectedTile;
+	private Location selectedTile1, selectedTile2;
+	
 	private Text infoBarText;
 	
 	public Controller() {
 		
+		selectedTile1 = new Location(0,0);
+		selectedTile2 = new Location(0,0);
 		// 1) builds user interface layer by layer
 		buildUIStack();
 		
@@ -65,57 +69,87 @@ public class Controller {
 		
 		UILayers.setPickOnBounds(false);
 		
+
 		
-		overlay.setOnKeyTyped(new EventHandler<KeyEvent>(){
+		Main.scene.setOnKeyTyped(new EventHandler<KeyEvent>(){
 			@Override
 			public void handle(KeyEvent event) {
-				if(currentSelectedTile == null)
-					currentSelectedTile = new Location(Controller.currentGame.xSize/2,Controller.currentGame.xSize/2);
+				Location l = selectedTile1;
+				if(l == null){
+					l = new Location(Controller.currentGame.xSize/2,Controller.currentGame.xSize/2);
+				}
 				else {
-					Location l = currentSelectedTile;
+					
 					int xCord = l.getX();
 					int yCord = l.getY();
-					if(event.getText().equals("w"))
+					System.out.println(event.getCharacter());
+					
+					if(event.getCharacter().equals(" "));
+						currentGame.selectUnit(l.getX(), l.getY());
+					if(event.getCharacter().equals("w"))
 						l.setCoordinate(xCord, yCord - 1);
-					if(event.getText().equals("d"))
+					if(event.getCharacter().equals("d"))
 						l.setCoordinate(xCord + 1, yCord);
-					if(event.getText().equals("s"))
+					if(event.getCharacter().equals("s"))
 						l.setCoordinate(xCord, yCord + 1);
-					if(event.getText().equals("a"))
+					if(event.getCharacter().equals("a"))
 						l.setCoordinate(xCord - 1, yCord);
+					System.out.println(infoBarText.getText());
 				}
-				infoBarText.setText("(" + currentSelectedTile.getX() + ", " + currentSelectedTile.getY()  + ")");
-				//System.out.println(infoBarText.getText());
-			//	currentGame.getLocation(currentSelectedTile.getX(), currentSelectedTile.getY());
+				
+				
+				infoBarText.setText("(" + l.getX() + ", " + l.getY()  + ")");
+			//	currentGame.getLocation(l.getX(), l.getY()).setSelected(true);
 			}
 		});
 		
 		environmentGrid.setOnMouseMoved(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent event) {
+				//System.out.println(event.toString());
 				int x = (int)event.getX()/Main.TILE_SIZE;
 				int y = (int) event.getY()/Main.TILE_SIZE;
 				
-				if(currentSelectedTile == null)
-					currentSelectedTile = new Location(x,y);
-				else
-					currentSelectedTile.setCoordinate(x,y);
+				selectedTile1.setCoordinate(x,y);
+				
 				
 				infoBarText.setText("(" + x + ", " + y + ")");
 				
-				if(currentGame != null)
-					currentGame.getLocation(x, y).setSelected(true);
+				if(currentGame != null) {
+					currentGame.getEnvironmentTile(x, y);
+					
+					EnvironmentTile.setHighlighted(selectedTile1,selectedTile1);
+					
+					System.out.println("(" + x + ", " + y + ")" + " (" + selectedTile2.getX() + ", " + selectedTile2.getY() + ")");
+				}
 			}
 		});
 		
 		environmentGrid.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent event) {
-			
-			
-			//System.out.println(UILayers.getWidth());
+			if(currentGame != null){
+						
+				int x = (int)event.getX()/Main.TILE_SIZE;
+				int y = (int) event.getY()/Main.TILE_SIZE;
+
+				selectedTile2.setCoordinate(x, y);
+				}
 			}
 			});
+			
+		
+		environmentGrid.setOnDragDetected(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println(event.getX());
+				
+				int x = (int)event.getX()/Main.TILE_SIZE;
+				int y = (int) event.getY()/Main.TILE_SIZE;
+				
+				selectedTile2 = new Location(x,y);
+			}});
 		
 	}
  
@@ -135,31 +169,35 @@ public class Controller {
 				UILayers = new StackPane();
 				UILayers.setAlignment(Pos.CENTER);
 				
-				// 1)	Background
-				Canvas c = new Canvas();
-				c.getGraphicsContext2D().setFill(Color.BLACK);
-				c.getGraphicsContext2D().fill();
+				// 1)	Background (not in use)
+				//Canvas c = new Canvas();
+				//c.getGraphicsContext2D().setFill(Color.BLACK);
+				//c.getGraphicsContext2D().fill();
 				//UILayers.getChildren().add(c);
 				
 				
-				//adds empty environmentGrid to UI stack
+				// 2) 	EnvironmentGrid (empty)
 				environmentGrid = new Pane();
 				UILayers.getChildren().add(environmentGrid);
 				
+				unitGrid = new Pane();
+				UILayers.getChildren().add(unitGrid);
+				unitGrid.setPickOnBounds(false);
 				
 				// 2)	HUD layer
 				overlay = new AnchorPane();
 				overlay.setPickOnBounds(false);
 				Rectangle r = new Rectangle(10,10,10,30);
 				infoBarText = new Text("Hello");
-				r.setWidth(1152);
+				infoBarText.setFill(Color.BLACK);
+				r.setWidth(200);
 				r.setOpacity(0.2);
 				overlay.getChildren().addAll(r,infoBarText);
 				overlay.setBottomAnchor(infoBarText, 3.0);
 				overlay.setLeftAnchor(infoBarText, 5.0);
 				overlay.setLeftAnchor(r, 0.0);
 				overlay.setBottomAnchor(r, 0.0);
-				overlay.setRightAnchor(r, 0.0);
+				//overlay.setRightAnchor(r, 0.0);
 				infoBarText.setFont(new Font(20));
 				UILayers.getChildren().add(overlay);
 				

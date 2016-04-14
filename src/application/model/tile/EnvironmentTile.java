@@ -1,7 +1,10 @@
 package application.model.tile;
 
+import java.util.ArrayList;
+
 import application.Main;
 import application.ui.Controller;
+import application.ui.Location;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,10 +19,10 @@ public class EnvironmentTile {
 
 	//view - should be moved to separate class eventually
 	private int xCord, yCord;
-	private ImageView i;
+	private static ImageView i;
 	private Rectangle highlightedMask;
 	
-	private static EnvironmentTile curSelectedTile;
+	private static ArrayList<EnvironmentTile> highlightedTiles;
 	private boolean selected = false;
 	
 	public EnvironmentTile(int x, int y) {
@@ -38,11 +41,9 @@ public class EnvironmentTile {
 		highlightedMask.setOpacity(.5);
 		highlightedMask.setVisible(false);
 		Controller.environmentGrid.getChildren().add(highlightedMask);
-		//empty box for default empty environment location
-		//Rectangle r = new Rectangle(x*Main.TILE_SIZE,y*Main.TILE_SIZE,Main.TILE_SIZE, Main.TILE_SIZE);
-		//isEmpty = true;
 		
-		//Controller.environmentGrid.getChildren().add(r);
+		if(highlightedTiles == null)
+			highlightedTiles = new ArrayList<EnvironmentTile>();
 	}
 
 	public int getXCord() {
@@ -53,21 +54,27 @@ public class EnvironmentTile {
 		return this.yCord;
 	}
 
-	public void setSelected(boolean b) {
-		if(b)
-		{
-			if(curSelectedTile != this){
-			if(curSelectedTile != null){
-				curSelectedTile.getHighlightMask().setVisible(false);
-				highlightedMask.setVisible(true);
-			
+	//highlights
+	public static void setHighlighted(Location l1, Location l2){
+		
+		for(EnvironmentTile e : highlightedTiles){
+			e.setHighlighted(false);
+		}
+		highlightedTiles.clear();
+		
+		for(int i = l1.getX(); i <= l2.getX(); i++)
+			for(int j = l2.getY(); j <= l2.getY(); j++)
+			{
+				EnvironmentTile e = Controller.currentGame.getEnvironmentTile(i, j);
+				highlightedTiles.add(e);
+				e.setHighlighted(true);
 			}
-			curSelectedTile = this;
-		}
-			
-		}
-		else highlightedMask.setVisible(false);
-			
+		
+		
+	}
+	
+	public void setHighlighted(boolean b) {
+			highlightedMask.setVisible(b);
 		
 	}
 	
