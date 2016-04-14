@@ -14,6 +14,7 @@ import application.model.tile.UnitTile;
 public class Unit {
 	
 	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove;
+	private boolean hasMoved;
 	
 	public Unit(int x, int y, UnitType type) {
 		this.xCord = x;
@@ -25,6 +26,7 @@ public class Unit {
 	    this.attackType = type.attackType();
 	    this.critChance = type.critChance();
 	    this.maxMove = type.maxMove();
+	    this.hasMoved = false;
 	}
 	
 	public int getXCord() {
@@ -46,6 +48,15 @@ public class Unit {
 	public int getTravelDist() {
 		return this.travelDist;
 	}
+	
+	public boolean getHasMoved() {
+		return this.hasMoved;
+	}
+	
+	public void switchMoved() {
+		hasMoved = !hasMoved;
+	}
+	
 	public List<UnitTile> attack(UnitTile[][] unitLocs) {
 		List<UnitTile> list = new ArrayList<>();
 		//if melee unit

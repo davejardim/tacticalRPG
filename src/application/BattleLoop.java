@@ -59,7 +59,9 @@ public class BattleLoop {
 			if (currentSelectedUnit != null) {
 				// When a unit is clicked:
 				// If another different unit is selected switch to it
-				if (tile.getUnit() != null && !tile.getUnit().equals(currentSelectedUnit)) {
+				if (tile.getUnit() != null 
+						&& !tile.getUnit().equals(currentSelectedUnit)
+						&& !tile.getUnit().getHasMoved()) {
 					currentSelectedUnit = tile.getUnit();
 					level.setSelectedUnit(currentSelectedUnit);
 				} else if (level.isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
@@ -71,7 +73,9 @@ public class BattleLoop {
 					isMenuOpen = true;
 					
 					//After moving set current unit to null
+					currentSelectedUnit.switchMoved();
 					currentSelectedUnit = null;
+					
 				} else {
 					// Throw some error message
 					// TODO: Output this into player console
@@ -79,7 +83,7 @@ public class BattleLoop {
 				}
 			} else {
 				// If no unit chosen and unit is clicked then highlight paths
-				if (tile.getUnit() != null) {
+				if (tile.getUnit() != null && !tile.getUnit().getHasMoved()) {
 					currentSelectedUnit = tile.getUnit();
 					level.setSelectedUnit(currentSelectedUnit);
 				}
