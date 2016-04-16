@@ -23,7 +23,8 @@ public class UnitTileView extends Rectangle{
 		this.setWidth(Main.TILE_SIZE);
 		this.setHeight(Main.TILE_SIZE);
 		
-		i = new Image("/application/resources/Man_256x256.png");
+		i = new Image("/application/resources/pikachu.gif");
+		//http://giphy.com/gifs/transparent-pokemon-pikachu-tu5booODekc8
 		Controller.unitGrid.getChildren().add(this);
 		
 		this.setImage(i);
