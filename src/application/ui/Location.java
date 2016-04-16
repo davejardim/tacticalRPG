@@ -1,7 +1,5 @@
 package application.ui;
 
-import javafx.scene.input.KeyCode;
-
 public class Location {
 	private int xCord;
 	private int yCord;

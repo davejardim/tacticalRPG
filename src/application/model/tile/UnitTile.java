@@ -1,6 +1,5 @@
 package application.model.tile;
 
-import application.Main;
 import application.model.game.Game;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;

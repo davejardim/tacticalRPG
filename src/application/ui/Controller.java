@@ -2,26 +2,16 @@ package application.ui;
 
 import java.io.IOException;
 
-import com.sun.glass.ui.Application;
-
 import application.Main;
 import application.model.game.Game;
 import application.model.tile.EnvironmentTile;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -47,14 +37,13 @@ public class Controller {
 	
 	
 	//local UI variables
-	private Location selectedTile1, selectedTile2;
+	private Location selectedTile1;
 	
 	private Text infoBarText;
 	
 	public Controller() {
 		
 		selectedTile1 = new Location(0,0);
-		selectedTile2 = new Location(0,0);
 		// 1) builds user interface layer by layer
 		buildUIStack();
 		
@@ -141,8 +130,6 @@ public class Controller {
 
 				int x = (int)event.getX()/Main.TILE_SIZE;
 				int y = (int) event.getY()/Main.TILE_SIZE;
-
-				selectedTile2.setCoordinate(x, y);
 				}
 			}
 			});

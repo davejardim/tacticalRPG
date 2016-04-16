@@ -1,9 +1,6 @@
 package application;
 
-import application.model.tile.UnitTile;
 import application.model.unit.Unit;
-import application.ui.UnitPopupMenu;
-import javafx.scene.input.MouseEvent;
 
 /**
  * Handles the loop of everything that occurs during the battle.

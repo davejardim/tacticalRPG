@@ -1,26 +1,13 @@
 package application.model.game;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import application.BattleLoop;
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
 import application.model.unit.Unit;
-import application.model.unit.UnitType;
 import application.ui.Controller;
-import application.ui.UnitPopupMenu;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 
 /**
  * Stores all level data and will handling the loading of levels.
