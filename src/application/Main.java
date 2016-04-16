@@ -10,7 +10,7 @@ public class Main extends Application {
 	
 	//game setup variables
 	public static final int LEVEL_WIDTH = 32;
-	public static final int LEVEL_HEIGHT = 20;
+	public static final int LEVEL_HEIGHT = 16;
 	public static final int TILE_SIZE = 32;
 	public static boolean bypassMenuToDefaultLevel = true;
 	public static Scene scene;
@@ -23,12 +23,12 @@ public class Main extends Application {
 		
 			
 			
-			int w = 1152;	//Window width
-			int h = 700;	//Window Height
+			int w = 1024;	//Window width
+			int h = 512+50;	//Window Height
 			
 			controller = new Controller();
 			
-			scene = new Scene(controller.getUILayers());
+			scene = new Scene(controller.UILayers);
 			controller.addInputControls();
 			/*Controller that handles all UI interactions
 			* 	...mainly for the Game class to handle the UI stack
@@ -38,6 +38,8 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setMinWidth(w);
 			primaryStage.setMinHeight(h);
+			primaryStage.setMaxWidth(w);
+			primaryStage.setMaxHeight(h);
 			
 			
 			//must call show() last to render the setup

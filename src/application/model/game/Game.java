@@ -34,7 +34,7 @@ public class Game {
 		selectedUnits = new ArrayList<UnitTile>();
 
 		//add default player
-				unitGrid[Main.LEVEL_WIDTH/2][Main.LEVEL_WIDTH/2] = new UnitTile(Main.LEVEL_WIDTH/2,Main.LEVEL_HEIGHT/2);
+				unitGrid[Main.LEVEL_WIDTH/2][Main.LEVEL_HEIGHT/2] = new UnitTile(Main.LEVEL_WIDTH/2,Main.LEVEL_HEIGHT/2);
 
 	}
 	

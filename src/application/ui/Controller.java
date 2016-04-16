@@ -137,14 +137,6 @@ public class Controller {
 		
 	}
  
-
-	public StackPane getUILayers(){
-		return UILayers;
-	}
-	public Parent getUIStack() {
-		return UILayers;
-	}
-	
 	
 	@SuppressWarnings("static-access")
 	private void buildUIStack(){
@@ -152,7 +144,7 @@ public class Controller {
 				//creates ui stack in layers
 				UILayers = new StackPane();
 				UILayers.setAlignment(Pos.CENTER);
-				
+				//UILayers.setLayoutY(20);
 				//	Background (not in use)
 				//Canvas c = new Canvas();
 				//c.getGraphicsContext2D().setFill(Color.BLACK);
