@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 
 public class EnvironmentTileView {
 
@@ -16,11 +17,18 @@ public class EnvironmentTileView {
 		@SuppressWarnings("unused")
 		private EnvironmentTile tile;
 		private static ImageView i;
+		private Rectangle gridBox;
 		private Rectangle highlightedMask;
 		
 		public EnvironmentTileView(EnvironmentTile t,int x, int y){
 
-		tile =  t;
+		int ts = Main.TILE_SIZE;
+		gridBox = new Rectangle(x*ts, y*ts, ts, ts);
+
+		gridBox.setFill(Color.TRANSPARENT);
+		gridBox.setStroke(Color.DARKGREEN);
+		gridBox.setStrokeWidth(1);
+		gridBox.setStrokeType(StrokeType.INSIDE);
 		
 		this.xCord = x*Main.TILE_SIZE;
 		this.yCord = y*Main.TILE_SIZE;
@@ -30,13 +38,14 @@ public class EnvironmentTileView {
 		i.setY(yCord);
 		i.setScaleX(Main.TILE_SIZE/i.getImage().getWidth());
 		i.setScaleY(Main.TILE_SIZE/i.getImage().getHeight());
-		Controller.environmentGrid.getChildren().add(i);
+
 		
-		highlightedMask = new Rectangle(x*Main.TILE_SIZE, y*Main.TILE_SIZE, Main.TILE_SIZE, Main.TILE_SIZE);
+		highlightedMask = new Rectangle(x*ts, y*ts, ts, ts);
 		highlightedMask.setFill(Color.LIGHTSKYBLUE);
 		highlightedMask.setOpacity(.5);
 		highlightedMask.setVisible(false);
-		Controller.environmentGrid.getChildren().add(highlightedMask);
+		
+		Controller.environmentGrid.getChildren().addAll(i,gridBox,highlightedMask);
 		
 		}
 

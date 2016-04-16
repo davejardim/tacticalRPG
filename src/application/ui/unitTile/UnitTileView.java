@@ -45,8 +45,10 @@ public class UnitTileView {
 	
 	public void setImage(Image img) {
 		i.setImage(img);
-		i.setScaleX(Main.TILE_SIZE/i.getImage().getWidth());
-		i.setScaleY(Main.TILE_SIZE/i.getImage().getHeight());
+		i.setFitWidth(Main.TILE_SIZE);
+		i.setFitHeight(Main.TILE_SIZE);
+		//i.setScaleX(Main.TILE_SIZE/i.getImage().getWidth());
+		//i.setScaleY(Main.TILE_SIZE/i.getImage().getHeight());
 		//i.setScaleX(Main.TILE_SIZE/i.getImage().getWidth());
 		//i.setScaleY(Main.TILE_SIZE/i.getImage().getHeight());
 	}
