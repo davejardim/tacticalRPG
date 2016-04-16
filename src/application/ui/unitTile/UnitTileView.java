@@ -13,7 +13,6 @@ import javafx.scene.shape.StrokeType;
 public class UnitTileView extends Rectangle{
 	
 	private UnitTile tile;
-	private Image i;
 	
 	public UnitTileView(UnitTile tile) {
 		this.tile = tile;
@@ -23,10 +22,8 @@ public class UnitTileView extends Rectangle{
 		this.setWidth(Main.TILE_SIZE);
 		this.setHeight(Main.TILE_SIZE);
 		
-		i = new Image("/application/resources/Man_256x256.png");
 		Controller.unitGrid.getChildren().add(this);
-		
-		this.setImage(i);
+
 		this.setStrokeType(StrokeType.OUTSIDE);
 		this.setStroke(Color.TRANSPARENT);
 		this.setStrokeWidth(4);
@@ -37,7 +34,7 @@ public class UnitTileView extends Rectangle{
 	}
 	
 	public void setImage(Image img) {
-		ImagePattern pattern = new ImagePattern(i);
+		ImagePattern pattern = new ImagePattern(img);
 		this.setFill(pattern);
 	}
 	

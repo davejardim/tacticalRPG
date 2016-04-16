@@ -4,7 +4,6 @@ import application.model.unit.Unit;
 import application.model.unit.UnitType;
 import application.ui.Controller;
 import application.ui.unitTile.UnitTileView;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
@@ -37,9 +36,9 @@ public class UnitTile {
 	 * @param tileSize
 	 * @param unitType
 	 */
-	public UnitTile(int x, int y, int tileSize, UnitType unitType) {
+	public UnitTile(int x, int y, UnitType unitType) {
 		this(x, y);	
-		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType), tileSize);
+		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType));
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
 	
@@ -47,9 +46,9 @@ public class UnitTile {
 		return this.unit;
 	}
 	
-	public void setUnit(Unit unit, int tileSize) {
+	public void setUnit(Unit unit) {
 		this.unit = unit;
-		view.setImage(new Image("/application/resources/Man.png", tileSize, tileSize, false, false));
+		view.setImage(unit.getImage());
 	}
 	
 	public void setSelected(boolean b){
@@ -83,7 +82,8 @@ public class UnitTile {
 	}
 	
 	public void onClick(MouseEvent e) {
-
+		System.out.println(xCord + ", " + yCord);
 		Controller.currentGame.onClick(this, e);
+		
 	}
 }

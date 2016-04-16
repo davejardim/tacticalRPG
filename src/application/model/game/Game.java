@@ -36,7 +36,7 @@ public class Game {
 		
 		//add default player
 		
-		unitGrid[Main.LEVEL_WIDTH/2][Main.LEVEL_HEIGHT/2] = new UnitTile(Main.LEVEL_WIDTH/2,Main.LEVEL_HEIGHT/2);	
+		unitGrid[Main.LEVEL_WIDTH/2][Main.LEVEL_HEIGHT/2] = new UnitTile(Main.LEVEL_WIDTH/2,Main.LEVEL_HEIGHT/2, UnitType.KNIGHT);	
 		isMenuOpen = false;
 		isPlayerTurn = true;
 		
@@ -152,7 +152,7 @@ public class Game {
 		int curX = unit.getXCord();
 		int curY = unit.getYCord();
 		unitGrid[curX][curY].removeUnit();
-		unitGrid[x][y].setUnit(unit, Main.TILE_SIZE);
+		unitGrid[x][y].setUnit(unit);
 		unit.setXCord(x);
 		unit.setYCord(y);
 		clearHighlights();
