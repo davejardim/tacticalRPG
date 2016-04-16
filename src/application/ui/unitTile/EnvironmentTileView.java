@@ -45,7 +45,7 @@ public class EnvironmentTileView {
 		highlightedMask.setOpacity(.5);
 		highlightedMask.setVisible(false);
 		
-		Controller.environmentGrid.getChildren().addAll(i,gridBox,highlightedMask);
+		Controller.environmentGrid.getChildren().addAll(i,highlightedMask,gridBox);
 		
 		}
 

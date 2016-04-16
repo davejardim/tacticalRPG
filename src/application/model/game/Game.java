@@ -33,8 +33,8 @@ public class Game {
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
 		
 		//add default player
+		addUnit(1,1, UnitType.PIKACHU);
 		
-		unitGrid[1][1] = new UnitTile(1,1, UnitType.PIKACHU);	
 		isMenuOpen = false;
 		isPlayerTurn = true;
 		
@@ -82,6 +82,11 @@ public class Game {
 		//if (!( x < 0 || x == xSize || y < 0 || y >= ySize))
 			unitGrid[x][y].setSelected(true);
 		
+	}
+	
+	private void addUnit(int xCord, int yCord, UnitType t){
+	
+	unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, t);
 	}
 
 	public void onClick(UnitTile tile, MouseEvent e) {

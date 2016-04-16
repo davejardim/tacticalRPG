@@ -33,13 +33,16 @@ public class UnitTileView {
 		
 
 		
-		Controller.unitGrid.getChildren().add(i);
+		
+		
 
 		r.setStrokeType(StrokeType.OUTSIDE);
 		r.setStroke(Color.TRANSPARENT);
 		r.setStrokeWidth(4);
 		r.setStrokeLineJoin(StrokeLineJoin.ROUND);
+		Controller.unitGrid.getChildren().addAll(i,r);
 		
+		r.setOnMouseClicked(e -> { tile.onClick(e);});
 		setHandles();
 	}
 	

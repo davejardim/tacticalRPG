@@ -24,13 +24,12 @@ public class Main extends Application {
 			
 			
 			int w = 1024;	//Window width
-			int h = 512+50;	//Window Height
+			int h = 512;	//Window Height
 			
 			controller = new Controller();
 			
 
 			scene = new Scene(controller.UILayers);
-			
 			/*Controller that handles all UI interactions
 			* 	...mainly for the Game class to handle the UI stack
 			*/
@@ -38,9 +37,9 @@ public class Main extends Application {
 			//setup window
 			primaryStage.setScene(scene);
 			primaryStage.setMinWidth(w);
-			primaryStage.setMinHeight(h);
+			primaryStage.setMinHeight(h+16);
 			primaryStage.setMaxWidth(w);
-			primaryStage.setMaxHeight(h);
+			primaryStage.setMaxHeight(h+16);
 			
 			
 			//must call show() last to render the setup

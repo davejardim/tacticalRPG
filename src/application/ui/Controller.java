@@ -7,8 +7,10 @@ import application.model.game.Game;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -42,12 +44,7 @@ public class Controller {
 		
 		selectedTile1 = new Location(0,0);
 		// 1) builds user interface layer by layer
-		buildUIStack();
-		
-		// 2) addInputControls executed in Main	
-		//
-		
-		
+		buildUIStack();				
 	}
 	
 
@@ -57,23 +54,21 @@ public class Controller {
 				//creates ui stack in layers
 				UILayers = new StackPane();
 				UILayers.setAlignment(Pos.CENTER);
-				//UILayers.setLayoutY(20);
-				//	Background (not in use)
-				//Canvas c = new Canvas();
-				//c.getGraphicsContext2D().setFill(Color.BLACK);
-				//c.getGraphicsContext2D().fill();
-				//UILayers.getChildren().add(c);
 				
-				
+							
 				// 	EnvironmentGrid (empty)
 				environmentGrid = new Pane();
 				UILayers.getChildren().add(environmentGrid);
 				
-				
+				int ts = Main.TILE_SIZE;
+				int w = Main.LEVEL_WIDTH;
+				int h = Main.LEVEL_HEIGHT;
 				// Unit Grid
 				unitGrid = new Pane();
 				UILayers.getChildren().add(unitGrid);
 				unitGrid.setPickOnBounds(false);
+				unitGrid.setMinSize(ts*w,ts*h);
+				unitGrid.setMaxSize(ts*w,ts*h);
 				
 				// 	HUD layer
 				overlay = new AnchorPane();
