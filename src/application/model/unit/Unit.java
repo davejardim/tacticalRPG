@@ -29,7 +29,7 @@ public class Unit {
 	    this.critChance = type.critChance();
 	    this.maxMove = type.maxMove();
 	    this.hasMoved = false;
-	    this.image = new Image("/application/resources/Man_256x256.png");
+	    this.image = type.sprite();
 	}
 	
 	public Image getImage() {

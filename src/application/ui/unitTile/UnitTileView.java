@@ -17,16 +17,22 @@ public class UnitTileView {
 	private ImageView i;
 	private Rectangle r;
 	
+	private int xCord;
+	private int yCord;
+	
 	public UnitTileView(UnitTile tile) {
 		this.tile = tile;
 		
 		i = new ImageView();
 		r = new Rectangle();
+			
 		
 		i.setX(tile.getXCord()*Main.TILE_SIZE);
 		i.setY(tile.getYCord()*Main.TILE_SIZE);
 		//i.setWidth(Main.TILE_SIZE);
 		//i.setHeight(Main.TILE_SIZE);
+		
+
 		
 		Controller.unitGrid.getChildren().add(i);
 
@@ -40,6 +46,10 @@ public class UnitTileView {
 	
 	public void setImage(Image img) {
 		i.setImage(img);
+		i.setScaleX(Main.TILE_SIZE/i.getImage().getWidth());
+		i.setScaleY(Main.TILE_SIZE/i.getImage().getHeight());
+		//i.setScaleX(Main.TILE_SIZE/i.getImage().getWidth());
+		//i.setScaleY(Main.TILE_SIZE/i.getImage().getHeight());
 	}
 	
 	public void removeImage() {
