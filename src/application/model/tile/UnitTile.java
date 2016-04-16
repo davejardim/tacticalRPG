@@ -85,8 +85,7 @@ public class UnitTile {
 	}
 	
 	public void onClick(MouseEvent e) {
-		// For now let's just show possible movement spaces
-		//currLevel.clickHandle(this, e);
+
 		System.out.println(xCord + ", " + yCord);
 	}
 }
