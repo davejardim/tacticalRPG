@@ -52,17 +52,7 @@ public class UnitTile {
 	}
 	
 	public void setSelected(boolean b){
-
-		if(!isSelected){
-			view.setStroke(Color.DEEPSKYBLUE);
-			isSelected = true;
-		}
-		else{
-			view.setStroke(Color.TRANSPARENT);
-			isSelected = false;
-		}
-		
-
+		view.setSelected(b);
 	}
 	public void removeUnit() {
 		this.unit = null;
@@ -85,5 +75,9 @@ public class UnitTile {
 		System.out.println(xCord + ", " + yCord);
 		Controller.currentGame.onClick(this, e);
 		
+	}
+
+	public boolean isSelected() {
+		return isSelected;
 	}
 }
