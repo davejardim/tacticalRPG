@@ -18,7 +18,7 @@ public class Unit {
 	private Image image;
 	private boolean hasMoved;
 	
-	public Unit(int x, int y, UnitType type) {
+	public Unit(int x, int y, UnitType type, int team) {
 		this.xCord = x;
 		this.yCord = y;
 		this.travelDist = 5; // TODO: Shouldn't be hard set
