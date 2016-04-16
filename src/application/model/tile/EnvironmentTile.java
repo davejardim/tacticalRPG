@@ -5,14 +5,9 @@ import java.util.ArrayList;
 import application.Main;
 import application.ui.Controller;
 import application.ui.Location;
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
 
 public class EnvironmentTile {
@@ -65,9 +60,11 @@ public class EnvironmentTile {
 		for(int i = l1.getX(); i <= l2.getX(); i++)
 			for(int j = l2.getY(); j <= l2.getY(); j++)
 			{
-				EnvironmentTile e = Controller.currentGame.getEnvironmentTile(i, j);
-				highlightedTiles.add(e);
-				e.setHighlighted(true);
+				if(Controller.currentGame.getEnvironmentTile(i, j) != null){
+					EnvironmentTile e = Controller.currentGame.getEnvironmentTile(i, j);
+					highlightedTiles.add(e);
+					e.setHighlighted(true);
+				}
 			}
 		
 		
