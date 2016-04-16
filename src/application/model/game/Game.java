@@ -1,6 +1,9 @@
 package application.model.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 import application.Main;
 import application.model.tile.EnvironmentTile;
@@ -22,61 +25,62 @@ public class Game {
 	private Unit currentSelectedUnit = null;
 	private EnvironmentTile environmentGrid[][];
 	private UnitTile unitGrid[][];
-		
+
 	public int xSize;
 	public int ySize;	
 	public static boolean isMenuOpen, isPlayerTurn;
 
-	
+
 	public Game() {
-			
+
 		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
 		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
-		
+
 		//add default player
-		
+
 		unitGrid[Main.LEVEL_WIDTH/2][Main.LEVEL_HEIGHT/2] = new UnitTile(Main.LEVEL_WIDTH/2,Main.LEVEL_HEIGHT/2);	
 		isMenuOpen = false;
 		isPlayerTurn = true;
 		
+
 	}
-	
+
 	public EnvironmentTile getEnvironmentTile(int x, int y){
 		if( x < 0 || x == xSize || y < 0 || y >= ySize)
 			return null;
 		return environmentGrid[x][y];
-		
+
 	}
 	private void genGrid(int w, int h){
-		
+
 		xSize = w;
 		ySize = h;
-		
-		
+
+
 		//setup plain green grass environment 
 		environmentGrid = new EnvironmentTile[w][h];
 		for(int x = 0; x < w; x++){
 			for(int y = 0; y < h; y++){
-			environmentGrid[x][y]= new EnvironmentTile(x, y);
+				environmentGrid[x][y]= new EnvironmentTile(x, y);
 			}
 		}
-		
+
 		//setup  & init of unit grid
 		unitGrid = new UnitTile[w][h];
 		System.out.println(unitGrid.length);
 		System.out.println(w + " " + h);
-		
-		
+
+
 		Controller.UILayers.setAlignment(Pos.CENTER);
 	}
 
 	public void selectUnit(int x, int y) {
-	
+
 		//if(selectedUnits.isEmpty()))
 		//if (!( x < 0 || x == xSize || y < 0 || y >= ySize))
-			unitGrid[x][y].setSelected(true);
-		
+		unitGrid[x][y].setSelected(true);
+
 	}
 
 	public void onClick(UnitTile tile, MouseEvent e) {
@@ -92,16 +96,16 @@ public class Game {
 					tile.setSelected(true);
 				} else if (isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
 					moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
-					
+
 					// Open after move menu
 					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit);
 					menu.show(Controller.UILayers, e.getScreenX(), e.getScreenY());
 					isMenuOpen = true;
-					
+
 					//After moving set current unit to null
 					currentSelectedUnit.switchMoved();
 					currentSelectedUnit = null;
-					
+
 				} else {
 					// Throw some error message
 					// TODO: Output this into player console
@@ -116,7 +120,7 @@ public class Game {
 			}
 		}
 	}
-	
+
 	/**
 	 * Given a unit set it show it's available move positions
 	 * @param unit Unit that is being selected
@@ -125,7 +129,7 @@ public class Game {
 		clearHighlights();
 		setHighlights(unit);
 	}
-	
+
 	/**
 	 * Check if given unit can validly move to given x and y coordinates
 	 * @param x X coordinate to move to 
@@ -141,7 +145,7 @@ public class Game {
 			return getValidMoves(unit.getXCord(), unit.getYCord(), unit.getTravelDist())[x][y];
 		}
 	}
-	
+
 	/**
 	 * Move given unit to given x and y coordinates
 	 * @param x X coordinate to move to
@@ -157,7 +161,7 @@ public class Game {
 		unit.setYCord(y);
 		clearHighlights();
 	}
-	
+
 	private void setHighlights(Unit unit) {
 		boolean[][] boolGrid = getValidMoves(unit.getXCord(), unit.getYCord(), unit.getTravelDist());
 		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
@@ -168,7 +172,7 @@ public class Game {
 			}
 		}
 	}
-	
+
 	private void clearHighlights() {
 		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
 			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
@@ -176,7 +180,7 @@ public class Game {
 			}
 		}
 	}
-	
+
 	private boolean[][] getValidMoves(int x, int y, int maxDist) {
 		boolean[][] highlightGrid = new boolean[Main.LEVEL_HEIGHT][Main.LEVEL_WIDTH];
 		for (int i = 0; i < Main.LEVEL_HEIGHT; i++) {
@@ -191,9 +195,32 @@ public class Game {
 		}
 		return highlightGrid;
 	}
-	
-	private double findDist(int x1, int y1, int x2, int y2) {
-		 return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+
+	private boolean[][] getValidMoves2(int x, int y, int maxDist) {
+		Comparator<int[]> comp = (sq1, sq2) -> (sq1[0] - sq2[0]);
+		PriorityQueue<int[]> Q = new PriorityQueue<>(comp);
+		int[] node;
+		boolean[][] validSquares = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
+		for (int i = Math.max(x-maxDist, 0); i < Math.min(x+maxDist, Main.LEVEL_WIDTH) ; i++)
+		{
+			for (int j = Math.max(y-maxDist, 0); i < Math.min(x+maxDist, Main.LEVEL_HEIGHT) ; j++)
+			{
+				if (i != x && j != y)
+					Q.add(new int[] {10000, i, j});
+				else
+					Q.add(new int[] {0, i, j});
+			}
+		}
+		while (!Q.isEmpty())
+		{
+			node = Q.remove();
+			System.out.println(node[1]+","+node[2]);
+		}
+		return null;
 	}
-	
+
+	private double findDist(int x1, int y1, int x2, int y2) {
+		return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+	}
+
 }
