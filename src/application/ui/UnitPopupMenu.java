@@ -3,14 +3,13 @@ package application.ui;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import application.BattleLoop;
 import application.model.unit.Unit;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 
 public class UnitPopupMenu extends ContextMenu {
 
-	public UnitPopupMenu(Unit unit, BattleLoop loop) {
+	public UnitPopupMenu(Unit unit) {
 		Collection<MenuItem> collection = new ArrayList<MenuItem>();
 		// Generate options based on current unit's location
 		
@@ -18,13 +17,13 @@ public class UnitPopupMenu extends ContextMenu {
 		MenuItem potion = new MenuItem("Use Potion");
 		
 		potion.setOnAction(e-> {
-			loop.isMenuOpen = false;
+			Controller.currentGame.isMenuOpen = false;
 		});
 		
 		MenuItem stay = new MenuItem("Do nothing");
 		
 		stay.setOnAction(e-> {
-			loop.isMenuOpen = false;
+			Controller.currentGame.isMenuOpen = false;
 		});
 		
 		collection.add(potion);

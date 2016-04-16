@@ -31,11 +31,7 @@ public class UnitTileView extends Rectangle{
 		this.setStroke(Color.TRANSPARENT);
 		this.setStrokeWidth(4);
 		this.setStrokeLineJoin(StrokeLineJoin.ROUND);
-		System.out.println(Controller.unitGrid.getChildren());
-		
-		this.setMouseTransparent(true);
-	//	this.mouse
-		
+		System.out.println(Controller.unitGrid.getChildren());		
 		
 		setHandles();
 	}

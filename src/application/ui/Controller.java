@@ -4,13 +4,8 @@ import java.io.IOException;
 
 import application.Main;
 import application.model.game.Game;
-import application.model.tile.EnvironmentTile;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -53,91 +48,7 @@ public class Controller {
 		
 	}
 	
-	public void addInputControls() {
 
-		
-		UILayers.setPickOnBounds(false);
-		
-
-		
-		Main.scene.setOnKeyTyped(new EventHandler<KeyEvent>(){
-			@Override
-			public void handle(KeyEvent event) {
-				Location l = selectedTile1;
-				if(l == null){
-					l = new Location(Controller.currentGame.xSize/2,Controller.currentGame.xSize/2);
-				}
-				else {
-					
-					int xCord = l.getX();
-					int yCord = l.getY();
-					System.out.println(event.getCharacter());
-					
-					
-					/*
-					if(event.getCharacter().equals(" "));
-						currentGame.selectUnit(l.getX(), l.getY());
-					if(event.getCharacter().equals("w"))
-						l.setCoordinate(xCord, yCord - 1);
-					if(event.getCharacter().equals("d"))
-						l.setCoordinate(xCord + 1, yCord);
-					if(event.getCharacter().equals("s"))
-						l.setCoordinate(xCord, yCord + 1);
-					if(event.getCharacter().equals("a"))
-						l.setCoordinate(xCord - 1, yCord);
-					System.out.println(infoBarText.getText());
-					
-					 
-					 */
-				}
-				
-				
-				infoBarText.setText("(" + l.getX() + ", " + l.getY()  + ")");
-				//EnvironmentTile.setHighlighted(l,l);
-			}
-		});
-		
-		environmentGrid.setOnMouseMoved(new EventHandler<MouseEvent>(){
-			@Override
-			public void handle(MouseEvent event) {
-				//System.out.println(event.toString());
-				int x = (int)event.getX()/Main.TILE_SIZE;
-				int y = (int) event.getY()/Main.TILE_SIZE;
-				
-				selectedTile1.setCoordinate(x,y);
-				
-			//	if(event.isPrimaryButtonDown())
-				//	System.out.println(event.toString());
-				
-				infoBarText.setText("(" + x + ", " + y + ")");
-				
-				if(currentGame != null) {
-					currentGame.getEnvironmentTile(x, y);
-					
-					EnvironmentTile.setHighlighted(selectedTile1,selectedTile1);
-					
-					//System.out.println("(" + x + ", " + y + ")" + " (" + selectedTile2.getX() + ", " + selectedTile2.getY() + ")");
-				}
-			}
-		});
-		
-		
-		environmentGrid.setOnMousePressed(new EventHandler<MouseEvent>(){
-			@Override
-			public void handle(MouseEvent event) {
-			if(currentGame != null){
-						
-
-				int x = (int)event.getX()/Main.TILE_SIZE;
-				int y = (int) event.getY()/Main.TILE_SIZE;
-				}
-			}
-			});
-			
-		
-	}
- 
-	
 	@SuppressWarnings("static-access")
 	private void buildUIStack(){
 		
@@ -199,28 +110,92 @@ public class Controller {
 				if(Main.bypassMenuToDefaultLevel){
 					mainMenu.setVisible(false);
 					currentGame = new Game();
-				}
-				
-		
-		
+				}	
 	}
 	
 }
 
-
-
-/*Canvas c = new Canvas(100,100);
-gameLayers.getChildren().addAll(c);
-c.getGraphicsContext2D().setFill(Color.BLACK);
-c.getGraphicsContext2D().fillRect(100,100,100,100);			
-Text t = new Text("");
-AnchorPane at = new AnchorPane(t);
-at.setBottomAnchor(t, 8.0);
-at.setLeftAnchor(t, 5.0);
-
-t.setTextAlignment(TextAlignment.LEFT);
-System.out.println(gameLayers.getChildren());
-
-c.setVisible(true);
-gameLayers.getChildren().addAll(at);
-*/
+//
+//public void addInputControls() {
+//
+//	
+//	UILayers.setPickOnBounds(false);
+//	
+//
+//	
+//	Main.scene.setOnKeyTyped(new EventHandler<KeyEvent>(){
+//		@Override
+//		public void handle(KeyEvent event) {
+//			Location l = selectedTile1;
+//			if(l == null){
+//				l = new Location(Controller.currentGame.xSize/2,Controller.currentGame.xSize/2);
+//			}
+//			else {
+//				
+//				int xCord = l.getX();
+//				int yCord = l.getY();
+//				System.out.println(event.getCharacter());
+//				
+//				
+//				/*
+//				if(event.getCharacter().equals(" "));
+//					currentGame.selectUnit(l.getX(), l.getY());
+//				if(event.getCharacter().equals("w"))
+//					l.setCoordinate(xCord, yCord - 1);
+//				if(event.getCharacter().equals("d"))
+//					l.setCoordinate(xCord + 1, yCord);
+//				if(event.getCharacter().equals("s"))
+//					l.setCoordinate(xCord, yCord + 1);
+//				if(event.getCharacter().equals("a"))
+//					l.setCoordinate(xCord - 1, yCord);
+//				System.out.println(infoBarText.getText());
+//				
+//				 
+//				 */
+//			}
+//			
+//			
+//			infoBarText.setText("(" + l.getX() + ", " + l.getY()  + ")");
+//			//EnvironmentTile.setHighlighted(l,l);
+//		}
+//	});
+//	
+//	environmentGrid.setOnMouseMoved(new EventHandler<MouseEvent>(){
+//		@Override
+//		public void handle(MouseEvent event) {
+//			//System.out.println(event.toString());
+//			int x = (int)event.getX()/Main.TILE_SIZE;
+//			int y = (int) event.getY()/Main.TILE_SIZE;
+//			
+//			selectedTile1.setCoordinate(x,y);
+//			
+//		//	if(event.isPrimaryButtonDown())
+//			//	System.out.println(event.toString());
+//			
+//			infoBarText.setText("(" + x + ", " + y + ")");
+//			
+//			if(currentGame != null) {
+//				currentGame.getEnvironmentTile(x, y);
+//				
+//				EnvironmentTile.setHighlighted(selectedTile1,selectedTile1);
+//				
+//				//System.out.println("(" + x + ", " + y + ")" + " (" + selectedTile2.getX() + ", " + selectedTile2.getY() + ")");
+//			}
+//		}
+//	});
+//	
+//	
+//	environmentGrid.setOnMousePressed(new EventHandler<MouseEvent>(){
+//		@Override
+//		public void handle(MouseEvent event) {
+//		if(currentGame != null){
+//					
+//
+//			int x = (int)event.getX()/Main.TILE_SIZE;
+//			int y = (int) event.getY()/Main.TILE_SIZE;
+//			}
+//		}
+//		});
+//		
+//	
+//}
