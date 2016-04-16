@@ -3,7 +3,6 @@ package application.ui;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import application.BattleLoop;
 import application.model.unit.Unit;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
