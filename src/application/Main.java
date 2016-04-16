@@ -24,7 +24,7 @@ public class Main extends Application {
 			
 			
 			int w = 1152;	//Window width
-			int h = 640;	//Window Height
+			int h = 700;	//Window Height
 			
 			controller = new Controller();
 			
@@ -35,8 +35,9 @@ public class Main extends Application {
 			
 			//setup window
 			primaryStage.setScene(scene);
-			primaryStage.setWidth(w);
-			primaryStage.setHeight(h);
+			primaryStage.setMinWidth(w);
+			primaryStage.setMinHeight(h);
+			
 			
 			//must call show() last to render the setup
 			primaryStage.show();
