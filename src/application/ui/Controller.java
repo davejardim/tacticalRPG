@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import application.Main;
 import application.model.game.Game;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -90,6 +92,8 @@ public class Controller {
 				infoBarText.setFont(new Font(20));
 				UILayers.getChildren().add(overlay);
 				
+				overlay.setMouseTransparent(true);
+
 				overlay.autosize();
 				
 				
@@ -113,6 +117,18 @@ public class Controller {
 				}	
 	}
 	
+	public void addInputControls(){
+		environmentGrid.setOnMouseClicked(new EventHandler<MouseEvent>(){
+			@Override
+			public void handle(MouseEvent event) {		if(currentGame != null){
+
+				int x = (int)event.getX()/Main.TILE_SIZE;
+				int y = (int) event.getY()/Main.TILE_SIZE;
+				currentGame.onClick(currentGame.unitGrid[x][y], event);
+			}
+		}
+		});
+	}
 }
 
 //
@@ -191,8 +207,8 @@ public class Controller {
 //		if(currentGame != null){
 //					
 //
-//			int x = (int)event.getX()/Main.TILE_SIZE;
-//			int y = (int) event.getY()/Main.TILE_SIZE;
+//		
+
 //			}
 //		}
 //		});

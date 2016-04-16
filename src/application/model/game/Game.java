@@ -21,7 +21,7 @@ public class Game {
 
 	private Unit currentSelectedUnit = null;
 	private EnvironmentTile environmentGrid[][];
-	private UnitTile unitGrid[][];
+	public UnitTile unitGrid[][];
 		
 	public int xSize;
 	public int ySize;	
@@ -48,6 +48,8 @@ public class Game {
 		return environmentGrid[x][y];
 		
 	}
+	
+	
 	private void genGrid(int w, int h){
 		
 		xSize = w;
@@ -85,6 +87,7 @@ public class Game {
 			if (currentSelectedUnit != null) {
 				// When a unit is clicked:
 				// If another different unit is selected switch to it
+				
 				if (tile.getUnit() != null 
 						&& !tile.getUnit().equals(currentSelectedUnit)
 						&& !tile.getUnit().getHasMoved()) {
@@ -109,6 +112,7 @@ public class Game {
 				}
 			} else {
 				// If no unit chosen and unit is clicked then highlight paths
+				System.out.println("CODE");
 				if (tile.getUnit() != null && !tile.getUnit().getHasMoved()) {
 					currentSelectedUnit = tile.getUnit();
 					tile.setSelected(true);
