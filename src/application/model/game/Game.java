@@ -38,7 +38,8 @@ public class Game {
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
 
 		//add default player
-		unitGrid[Main.LEVEL_WIDTH/2][Main.LEVEL_HEIGHT/2] = new UnitTile(Main.LEVEL_WIDTH/2,Main.LEVEL_HEIGHT/2);	
+		addUnit(4,4, UnitType.PIKACHU);
+		addUnit(4,5, UnitType.WALL);
 
 		isMenuOpen = false;
 		isPlayerTurn = true;
@@ -89,18 +90,24 @@ public class Game {
 		unitGrid[x][y].setSelected(true);
 
 	}
+	
+	private void addUnit(int xCord, int yCord, UnitType t){
+	
+	unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, t);
+	}
 
 	public void onClick(UnitTile tile, MouseEvent e) {
 		// Add up front any conditions that should prevent clicking
 		if (!isMenuOpen && isPlayerTurn) {
 			if (currentSelectedUnit != null) {
 				// When a unit is clicked:
-				// If another different unit is selected switch to it
-				
+				// If another different unit is selected switch to it	
 				if (tile.getUnit() != null 
 						&& !tile.getUnit().equals(currentSelectedUnit)
 						&& !tile.getUnit().getHasMoved()) {
-					currentSelectedUnit = tile.getUnit();
+					unitGrid[currentSelectedUnit.getXCord()][currentSelectedUnit.getYCord()].setSelected(false);
+					tile.setSelected(true);
+					setSelectedUnit(tile.getUnit());
 					tile.setSelected(true);
 				} else if (isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
 					moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
@@ -166,6 +173,7 @@ public class Game {
 		int curX = unit.getXCord();
 		int curY = unit.getYCord();
 		unitGrid[curX][curY].removeUnit();
+		unitGrid[curX][curY].setSelected(false);
 		unitGrid[x][y].setUnit(unit);
 		unit.setXCord(x);
 		unit.setYCord(y);
