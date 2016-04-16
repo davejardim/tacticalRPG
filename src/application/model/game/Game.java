@@ -43,7 +43,7 @@ public class Game {
 
 		isMenuOpen = false;
 		isPlayerTurn = true;
-		getValidMoves2(3,3,4);
+
 
 	}
 
