@@ -36,7 +36,7 @@ public class Game {
 		
 		//add default player
 		
-		unitGrid[Main.LEVEL_WIDTH/2][Main.LEVEL_HEIGHT/2] = new UnitTile(Main.LEVEL_WIDTH/2,Main.LEVEL_HEIGHT/2, UnitType.KNIGHT);	
+		unitGrid[10][10] = new UnitTile(10,10, UnitType.PIKACHU);	
 		isMenuOpen = false;
 		isPlayerTurn = true;
 		

@@ -4,48 +4,64 @@ import application.Main;
 import application.model.tile.UnitTile;
 import application.ui.Controller;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
 
-public class UnitTileView extends Rectangle{
+public class UnitTileView {
 	
 	private UnitTile tile;
+	private ImageView i;
+	private Rectangle r;
 	
 	public UnitTileView(UnitTile tile) {
 		this.tile = tile;
 		
-		this.setX(tile.getXCord()*Main.TILE_SIZE);
-		this.setY(tile.getYCord()*Main.TILE_SIZE);
-		this.setWidth(Main.TILE_SIZE);
-		this.setHeight(Main.TILE_SIZE);
+		i = new ImageView();
+		r = new Rectangle();
 		
-		Controller.unitGrid.getChildren().add(this);
+		i.setX(tile.getXCord()*Main.TILE_SIZE);
+		i.setY(tile.getYCord()*Main.TILE_SIZE);
+		//i.setWidth(Main.TILE_SIZE);
+		//i.setHeight(Main.TILE_SIZE);
+		
+		Controller.unitGrid.getChildren().add(i);
 
-		this.setStrokeType(StrokeType.OUTSIDE);
-		this.setStroke(Color.TRANSPARENT);
-		this.setStrokeWidth(4);
-		this.setStrokeLineJoin(StrokeLineJoin.ROUND);
-		System.out.println(Controller.unitGrid.getChildren());		
+		r.setStrokeType(StrokeType.OUTSIDE);
+		r.setStroke(Color.TRANSPARENT);
+		r.setStrokeWidth(4);
+		r.setStrokeLineJoin(StrokeLineJoin.ROUND);
 		
 		setHandles();
 	}
 	
 	public void setImage(Image img) {
-		ImagePattern pattern = new ImagePattern(img);
-		this.setFill(pattern);
+		i.setImage(img);
 	}
 	
 	public void removeImage() {
-		this.setFill(Color.TRANSPARENT);
+		
 	}
 	
 	private void setHandles() {
-		this.setOnMouseClicked(e -> {
-			//System.out.println("CLICK HANDLER");
-			//tile.onClick(e);
+		i.setOnMouseClicked(e -> {
+			tile.onClick(e);
 		});
+	}
+
+	public void setSelected(boolean b) {
+		
+		if(!tile.isSelected()){
+			r.setStroke(Color.DEEPSKYBLUE);
+			tile.setSelected(true);
+		}
+		else{
+			r.setStroke(Color.TRANSPARENT);
+			tile.setSelected(false);
+		}
+		
 	}
 }

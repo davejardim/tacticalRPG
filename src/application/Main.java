@@ -30,8 +30,6 @@ public class Main extends Application {
 			
 
 			scene = new Scene(controller.UILayers);
-			 controller.addInputControls();
-			//controller.addInputControls();
 			
 			/*Controller that handles all UI interactions
 			* 	...mainly for the Game class to handle the UI stack
