@@ -1,7 +1,5 @@
 package application.model.game;
 
-import java.util.ArrayList;
-
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
@@ -66,6 +64,11 @@ public class Game {
 		
 		//setup  & init of unit grid
 		unitGrid = new UnitTile[w][h];
+		for(int x = 0; x < w; x++){
+			for(int y = 0; y < h; y++){
+			unitGrid[x][y]= new UnitTile(x, y);
+			}
+		}
 		System.out.println(unitGrid.length);
 		System.out.println(w + " " + h);
 		

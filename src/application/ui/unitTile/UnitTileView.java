@@ -6,7 +6,6 @@ import application.ui.Controller;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
@@ -66,11 +65,9 @@ public class UnitTileView {
 		
 		if(!tile.isSelected()){
 			r.setStroke(Color.DEEPSKYBLUE);
-			tile.setSelected(true);
 		}
 		else{
 			r.setStroke(Color.TRANSPARENT);
-			tile.setSelected(false);
 		}
 		
 	}

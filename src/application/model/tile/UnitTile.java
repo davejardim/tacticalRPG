@@ -52,11 +52,7 @@ public class UnitTile {
 	}
 	
 	public void setSelected(boolean b){
-
 		view.setSelected(b);
-		
-		
-
 	}
 	public void removeUnit() {
 		this.unit = null;
