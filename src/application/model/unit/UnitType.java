@@ -1,16 +1,19 @@
 package application.model.unit;
 
+import javafx.scene.image.Image;
+
 //marc bluemer 
 //Mike Donohue
 
 public enum UnitType {
 
-	ARCHER(20, 7, 3, 2, 10, 2),
-    ASSASSIN(21, 8, 2, 1, 50, 2),
-	CAVILIER(25, 7, 3, 1, 10, 4),
-	KNIGHT(28, 5, 5, 1, 5, 2),
-	KING(30, 7, 4, 1, 10, 2),
-	MAGE(20, 8, 4, 3, 10, 2);
+	ARCHER(20, 7, 3, 2, 10, 2, new Image("/application/resources/Man_256x256.png")),
+    ASSASSIN(21, 8, 2, 1, 50, 2, new Image("/application/resources/Man_256x256.png")),
+	CAVILIER(25, 7, 3, 1, 10, 4, new Image("/application/resources/Man_256x256.png")),
+	KNIGHT(28, 5, 5, 1, 5, 2, new Image("/application/resources/Man_256x256.png")),
+	KING(30, 7, 4, 1, 10, 2, new Image("/application/resources/Man_256x256.png")),
+	MAGE(20, 8, 4, 3, 10, 2, new Image("/application/resources/Man_256x256.png")),
+	WALL(0,0,0,0,0,0, new Image("/application/resources/Man_256x256.png"));
 	
 	private final int hp;
 	private final int attack;
@@ -25,14 +28,16 @@ public enum UnitType {
     private final int critChance;
     //random number generator from 1 to 100. Crit if rand() < critChance
     private final int maxMove;
+    private final Image sprite;
     
-    UnitType(int hp, int attack, int def, int attackType, int critChance,int maxMove) {
+    UnitType(int hp, int attack, int def, int attackType, int critChance,int maxMove,Image sprite) {
        this.hp = hp;
        this.attack = attack;
        this.def = def;
        this.attackType = attackType;
        this.critChance = critChance;
        this.maxMove = maxMove;
+       this.sprite = sprite;
     }
     
     public int hp() { 
@@ -46,7 +51,11 @@ public enum UnitType {
     public int critChance() { 
     	return critChance; }
     public int maxMove() { 
-    	return maxMove; }
+    	return maxMove; 
+    }
+    public Image sprite(){
+    	return sprite;
+    }
     
 }
 
