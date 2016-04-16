@@ -7,13 +7,13 @@ import javafx.scene.image.Image;
 
 public enum UnitType {
 
-	ARCHER(20, 7, 3, 2, 10, 2, new Image("/application/resources/Man_256x256.png")),
-    ASSASSIN(21, 8, 2, 1, 50, 2, new Image("/application/resources/Man_256x256.png")),
-	CAVILIER(25, 7, 3, 1, 10, 4, new Image("/application/resources/Man_256x256.png")),
-	KNIGHT(28, 5, 5, 1, 5, 2, new Image("/application/resources/Man_256x256.png")),
-	KING(30, 7, 4, 1, 10, 2, new Image("/application/resources/Man_256x256.png")),
-	MAGE(20, 8, 4, 3, 10, 2, new Image("/application/resources/Man_256x256.png")),
-	WALL(0,0,0,0,0,0, new Image("/application/resources/Man_256x256.png"));
+	ARCHER(20, 7, 3, 2, 10, 2, 1, new Image("/application/resources/Man_256x256.png")),
+    ASSASSIN(21, 8, 2, 1, 50, 2, 1, new Image("/application/resources/Man_256x256.png")),
+	CAVILIER(25, 7, 3, 1, 10, 4, 1, new Image("/application/resources/Man_256x256.png")),
+	KNIGHT(28, 5, 5, 1, 5, 2, 1, new Image("/application/resources/Man_256x256.png")),
+	KING(30, 7, 4, 1, 10, 2, 1, new Image("/application/resources/Man_256x256.png")),
+	MAGE(20, 8, 4, 3, 10, 2, 1, new Image("/application/resources/Man_256x256.png")),
+	WALL(0,0,0,0,0,0, 0, new Image("/application/resources/Man_256x256.png"));
 	
 	private final int hp;
 	private final int attack;
@@ -28,9 +28,11 @@ public enum UnitType {
     private final int critChance;
     //random number generator from 1 to 100. Crit if rand() < critChance
     private final int maxMove;
+    //0 can pass, 1 cant pass
+    public final int canMove;
     private final Image sprite;
     
-    UnitType(int hp, int attack, int def, int attackType, int critChance,int maxMove,Image sprite) {
+    UnitType(int hp, int attack, int def, int attackType, int critChance,int maxMove,int canMove,Image sprite) {
        this.hp = hp;
        this.attack = attack;
        this.def = def;
@@ -38,25 +40,33 @@ public enum UnitType {
        this.critChance = critChance;
        this.maxMove = maxMove;
        this.sprite = sprite;
+       this.canMove = canMove;
     }
     
     public int hp() { 
-    	return hp; }
+    	return hp; 
+    	}
     public int attack() { 
-    	return attack; }
+    	return attack; 
+    	}
     public int def() { 
-    	return def; }
+    	return def; 
+    	}
     public int attackType() { 
-    	return attackType; }
+    	return attackType; 
+    	}
     public int critChance() { 
-    	return critChance; }
+    	return critChance; 
+    	}
     public int maxMove() { 
     	return maxMove; 
     }
     public Image sprite(){
     	return sprite;
     }
-    
+    public int canMove(){
+    	return canMove;
+    }
 }
 
 
