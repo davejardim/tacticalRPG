@@ -5,7 +5,6 @@ import application.model.unit.UnitType;
 import application.ui.Controller;
 import application.ui.unitTile.UnitTileView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 public class UnitTile {
 	

@@ -1,7 +1,5 @@
 package application.ui.unitTile;
 
-import java.util.ArrayList;
-
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.ui.Controller;

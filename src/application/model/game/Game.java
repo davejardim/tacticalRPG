@@ -171,7 +171,7 @@ public class Game {
 		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
 			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
 				if (boolGrid[i][j]) {
-					environmentGrid[5][5].setHighlighted(true);
+					environmentGrid[i][j].setHighlighted(true);
 				}
 			}
 		}

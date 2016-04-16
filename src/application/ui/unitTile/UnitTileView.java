@@ -64,8 +64,7 @@ public class UnitTileView {
 	}
 
 	public void setSelected(boolean b) {
-		
-		if(!tile.isSelected()){
+		if(b){
 			r.setStroke(Color.DEEPSKYBLUE);
 		}
 		else{
