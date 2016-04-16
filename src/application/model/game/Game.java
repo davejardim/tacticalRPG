@@ -117,7 +117,7 @@ public class Game {
 				// If no unit chosen and unit is clicked then highlight paths
 				System.out.println("CODE");
 				if (tile.getUnit() != null && !tile.getUnit().getHasMoved()) {
-					currentSelectedUnit = tile.getUnit();
+					setSelectedUnit(tile.getUnit());
 					tile.setSelected(true);
 				}
 			}
@@ -129,6 +129,7 @@ public class Game {
 	 * @param unit Unit that is being selected
 	 */
 	public void setSelectedUnit(Unit unit) {
+		currentSelectedUnit = unit;
 		clearHighlights();
 		setHighlights(unit);
 	}
@@ -170,7 +171,7 @@ public class Game {
 		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
 			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
 				if (boolGrid[i][j]) {
-					environmentGrid[i][j].setHighlighted(true);
+					environmentGrid[5][5].setHighlighted(true);
 				}
 			}
 		}
@@ -185,9 +186,9 @@ public class Game {
 	}
 	
 	private boolean[][] getValidMoves(int x, int y, int maxDist) {
-		boolean[][] highlightGrid = new boolean[Main.LEVEL_HEIGHT][Main.LEVEL_WIDTH];
-		for (int i = 0; i < Main.LEVEL_HEIGHT; i++) {
-			for (int j = 0; j < Main.LEVEL_WIDTH; j++) {
+		boolean[][] highlightGrid = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
+		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
+			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
 				if (findDist(x, y, i, j) <= maxDist
 						&& unitGrid[i][j].getUnit() == null) {
 					highlightGrid[i][j] = true;
