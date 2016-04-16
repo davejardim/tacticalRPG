@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.model.tile.UnitTile;
+import javafx.scene.image.Image;
 
 /**
  * Stores all information for a unit
@@ -14,9 +15,10 @@ import application.model.tile.UnitTile;
 public class Unit {
 	
 	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove;
+	private Image image;
 	private boolean hasMoved;
 	
-	public Unit(int x, int y, UnitType type) {
+	public Unit(int x, int y, UnitType type, int team) {
 		this.xCord = x;
 		this.yCord = y;
 		this.travelDist = 5; // TODO: Shouldn't be hard set
@@ -27,6 +29,11 @@ public class Unit {
 	    this.critChance = type.critChance();
 	    this.maxMove = type.maxMove();
 	    this.hasMoved = false;
+	    this.image = type.sprite();
+	}
+	
+	public Image getImage() {
+		return this.image;
 	}
 	
 	public int getXCord() {

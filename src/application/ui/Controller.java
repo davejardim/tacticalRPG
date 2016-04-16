@@ -90,6 +90,8 @@ public class Controller {
 				infoBarText.setFont(new Font(20));
 				UILayers.getChildren().add(overlay);
 				
+				overlay.setMouseTransparent(true);
+
 				overlay.autosize();
 				
 				
@@ -114,88 +116,3 @@ public class Controller {
 	}
 	
 }
-
-//
-//public void addInputControls() {
-//
-//	
-//	UILayers.setPickOnBounds(false);
-//	
-//
-//	
-//	Main.scene.setOnKeyTyped(new EventHandler<KeyEvent>(){
-//		@Override
-//		public void handle(KeyEvent event) {
-//			Location l = selectedTile1;
-//			if(l == null){
-//				l = new Location(Controller.currentGame.xSize/2,Controller.currentGame.xSize/2);
-//			}
-//			else {
-//				
-//				int xCord = l.getX();
-//				int yCord = l.getY();
-//				System.out.println(event.getCharacter());
-//				
-//				
-//				/*
-//				if(event.getCharacter().equals(" "));
-//					currentGame.selectUnit(l.getX(), l.getY());
-//				if(event.getCharacter().equals("w"))
-//					l.setCoordinate(xCord, yCord - 1);
-//				if(event.getCharacter().equals("d"))
-//					l.setCoordinate(xCord + 1, yCord);
-//				if(event.getCharacter().equals("s"))
-//					l.setCoordinate(xCord, yCord + 1);
-//				if(event.getCharacter().equals("a"))
-//					l.setCoordinate(xCord - 1, yCord);
-//				System.out.println(infoBarText.getText());
-//				
-//				 
-//				 */
-//			}
-//			
-//			
-//			infoBarText.setText("(" + l.getX() + ", " + l.getY()  + ")");
-//			//EnvironmentTile.setHighlighted(l,l);
-//		}
-//	});
-//	
-//	environmentGrid.setOnMouseMoved(new EventHandler<MouseEvent>(){
-//		@Override
-//		public void handle(MouseEvent event) {
-//			//System.out.println(event.toString());
-//			int x = (int)event.getX()/Main.TILE_SIZE;
-//			int y = (int) event.getY()/Main.TILE_SIZE;
-//			
-//			selectedTile1.setCoordinate(x,y);
-//			
-//		//	if(event.isPrimaryButtonDown())
-//			//	System.out.println(event.toString());
-//			
-//			infoBarText.setText("(" + x + ", " + y + ")");
-//			
-//			if(currentGame != null) {
-//				currentGame.getEnvironmentTile(x, y);
-//				
-//				EnvironmentTile.setHighlighted(selectedTile1,selectedTile1);
-//				
-//				//System.out.println("(" + x + ", " + y + ")" + " (" + selectedTile2.getX() + ", " + selectedTile2.getY() + ")");
-//			}
-//		}
-//	});
-//	
-//	
-//	environmentGrid.setOnMousePressed(new EventHandler<MouseEvent>(){
-//		@Override
-//		public void handle(MouseEvent event) {
-//		if(currentGame != null){
-//					
-//
-//			int x = (int)event.getX()/Main.TILE_SIZE;
-//			int y = (int) event.getY()/Main.TILE_SIZE;
-//			}
-//		}
-//		});
-//		
-//	
-//}

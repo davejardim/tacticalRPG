@@ -1,10 +1,10 @@
 package application.model.game;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
@@ -23,8 +23,8 @@ import javafx.scene.input.MouseEvent;
 public class Game {
 
 	private Unit currentSelectedUnit = null;
-	private EnvironmentTile environmentGrid[][];
-	private UnitTile unitGrid[][];
+	private EnvironmentTile[][] environmentGrid;
+	private UnitTile[][] unitGrid;
 
 	public int xSize;
 	public int ySize;	
@@ -38,11 +38,11 @@ public class Game {
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
 
 		//add default player
-
 		unitGrid[Main.LEVEL_WIDTH/2][Main.LEVEL_HEIGHT/2] = new UnitTile(Main.LEVEL_WIDTH/2,Main.LEVEL_HEIGHT/2);	
+
 		isMenuOpen = false;
 		isPlayerTurn = true;
-		
+		getValidMoves2(3,3,4);
 
 	}
 
@@ -52,6 +52,8 @@ public class Game {
 		return environmentGrid[x][y];
 
 	}
+	
+	
 	private void genGrid(int w, int h){
 
 		xSize = w;
@@ -68,6 +70,11 @@ public class Game {
 
 		//setup  & init of unit grid
 		unitGrid = new UnitTile[w][h];
+		for(int x = 0; x < w; x++){
+			for(int y = 0; y < h; y++){
+			unitGrid[x][y]= new UnitTile(x, y);
+			}
+		}
 		System.out.println(unitGrid.length);
 		System.out.println(w + " " + h);
 
@@ -89,6 +96,7 @@ public class Game {
 			if (currentSelectedUnit != null) {
 				// When a unit is clicked:
 				// If another different unit is selected switch to it
+				
 				if (tile.getUnit() != null 
 						&& !tile.getUnit().equals(currentSelectedUnit)
 						&& !tile.getUnit().getHasMoved()) {
@@ -113,8 +121,9 @@ public class Game {
 				}
 			} else {
 				// If no unit chosen and unit is clicked then highlight paths
+				System.out.println("CODE");
 				if (tile.getUnit() != null && !tile.getUnit().getHasMoved()) {
-					currentSelectedUnit = tile.getUnit();
+					setSelectedUnit(tile.getUnit());
 					tile.setSelected(true);
 				}
 			}
@@ -126,6 +135,7 @@ public class Game {
 	 * @param unit Unit that is being selected
 	 */
 	public void setSelectedUnit(Unit unit) {
+		currentSelectedUnit = unit;
 		clearHighlights();
 		setHighlights(unit);
 	}
@@ -156,7 +166,7 @@ public class Game {
 		int curX = unit.getXCord();
 		int curY = unit.getYCord();
 		unitGrid[curX][curY].removeUnit();
-		unitGrid[x][y].setUnit(unit, Main.TILE_SIZE);
+		unitGrid[x][y].setUnit(unit);
 		unit.setXCord(x);
 		unit.setYCord(y);
 		clearHighlights();
@@ -182,9 +192,9 @@ public class Game {
 	}
 
 	private boolean[][] getValidMoves(int x, int y, int maxDist) {
-		boolean[][] highlightGrid = new boolean[Main.LEVEL_HEIGHT][Main.LEVEL_WIDTH];
-		for (int i = 0; i < Main.LEVEL_HEIGHT; i++) {
-			for (int j = 0; j < Main.LEVEL_WIDTH; j++) {
+		boolean[][] highlightGrid = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
+		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
+			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
 				if (findDist(x, y, i, j) <= maxDist
 						&& unitGrid[i][j].getUnit() == null) {
 					highlightGrid[i][j] = true;
@@ -203,18 +213,45 @@ public class Game {
 		boolean[][] validSquares = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
 		for (int i = Math.max(x-maxDist, 0); i < Math.min(x+maxDist, Main.LEVEL_WIDTH) ; i++)
 		{
-			for (int j = Math.max(y-maxDist, 0); i < Math.min(x+maxDist, Main.LEVEL_HEIGHT) ; j++)
+			for (int j = Math.max(y-maxDist, 0); j < Math.min(x+maxDist, Main.LEVEL_HEIGHT) ; j++)
 			{
-				if (i != x && j != y)
+				if (i != x || j != y && unitGrid[i][j].isPassable())
 					Q.add(new int[] {10000, i, j});
-				else
+				else if (unitGrid[i][j].isPassable())
 					Q.add(new int[] {0, i, j});
 			}
 		}
 		while (!Q.isEmpty())
 		{
 			node = Q.remove();
-			System.out.println(node[1]+","+node[2]);
+			if (node[0]  <= maxDist) validSquares[node[1]][node[2]] = true;
+			for (int[] element : Q)
+			{
+				//Top Neighbour
+				if (element[1] == node[1] && element[2] == node[2] + 1)
+					{
+					if (element[0] > node[0] +1)
+						element[0] = node[0] + 1;
+					}
+				//Right Neighbour
+				else if (element[1] == node[1] + 1 && element[2] == node[2])
+				{
+					if (element[0] > node[0] +1)
+						element[0] = node[0] + 1;
+					}
+				//Bottom Neighbour
+				else if (element[1] == node[1] && element[2] == node[2] - 1)
+				{
+					if (element[0] > node[0] +1)
+						element[0] = node[0] + 1;
+					}
+				//Left Neighbour
+				else if (element[1] == node[1] - 1 && element[2] == node[2])
+				{
+					if (element[0] > node[0] +1)
+						element[0] = node[0] + 1;
+					}
+			}
 		}
 		return null;
 	}
