@@ -47,10 +47,14 @@ public class Game {
 		
 		selectedUnits = new ArrayList<UnitTile>();
 
-		
+		//add default player
+				unitGrid[Main.LEVEL_WIDTH/2][Main.LEVEL_WIDTH/2] = new UnitTile(Main.LEVEL_WIDTH/2,Main.LEVEL_HEIGHT/2);
+				
 	}
 	
 	public EnvironmentTile getEnvironmentTile(int x, int y){
+		if( x < 0 || x == xSize || y < 0 || y >= ySize)
+			return null;
 		return environmentGrid[x][y];
 		
 	}
@@ -72,8 +76,6 @@ public class Game {
 		unitGrid = new UnitTile[w][h];
 		System.out.println(unitGrid.length);
 		System.out.println(w + " " + h);
-		//add default player
-		unitGrid[w/2][h/2] = new UnitTile(w/2,h/2);
 		
 		
 		Controller.UILayers.setAlignment(Pos.CENTER);
@@ -82,9 +84,9 @@ public class Game {
 	public void selectUnit(int x, int y) {
 	
 		//if(selectedUnits.isEmpty()))
-		if(unitGrid[x][y] != null){
+		//if (!( x < 0 || x == xSize || y < 0 || y >= ySize))
 			unitGrid[x][y].setSelected(true);
-		}	
+		
 	}
 
 		

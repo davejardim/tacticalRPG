@@ -84,6 +84,8 @@ public class Controller {
 					int yCord = l.getY();
 					System.out.println(event.getCharacter());
 					
+					
+					/*
 					if(event.getCharacter().equals(" "));
 						currentGame.selectUnit(l.getX(), l.getY());
 					if(event.getCharacter().equals("w"))
@@ -95,11 +97,14 @@ public class Controller {
 					if(event.getCharacter().equals("a"))
 						l.setCoordinate(xCord - 1, yCord);
 					System.out.println(infoBarText.getText());
+					
+					 
+					 */
 				}
 				
 				
 				infoBarText.setText("(" + l.getX() + ", " + l.getY()  + ")");
-			//	currentGame.getLocation(l.getX(), l.getY()).setSelected(true);
+				//EnvironmentTile.setHighlighted(l,l);
 			}
 		});
 		
@@ -112,6 +117,8 @@ public class Controller {
 				
 				selectedTile1.setCoordinate(x,y);
 				
+			//	if(event.isPrimaryButtonDown())
+				//	System.out.println(event.toString());
 				
 				infoBarText.setText("(" + x + ", " + y + ")");
 				
@@ -120,16 +127,18 @@ public class Controller {
 					
 					EnvironmentTile.setHighlighted(selectedTile1,selectedTile1);
 					
-					System.out.println("(" + x + ", " + y + ")" + " (" + selectedTile2.getX() + ", " + selectedTile2.getY() + ")");
+					//System.out.println("(" + x + ", " + y + ")" + " (" + selectedTile2.getX() + ", " + selectedTile2.getY() + ")");
 				}
 			}
 		});
 		
-		environmentGrid.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		
+		environmentGrid.setOnMousePressed(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent event) {
 			if(currentGame != null){
 						
+
 				int x = (int)event.getX()/Main.TILE_SIZE;
 				int y = (int) event.getY()/Main.TILE_SIZE;
 
@@ -138,18 +147,6 @@ public class Controller {
 			}
 			});
 			
-		
-		environmentGrid.setOnDragDetected(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent event) {
-				System.out.println(event.getX());
-				
-				int x = (int)event.getX()/Main.TILE_SIZE;
-				int y = (int) event.getY()/Main.TILE_SIZE;
-				
-				selectedTile2 = new Location(x,y);
-			}});
 		
 	}
  
@@ -169,22 +166,24 @@ public class Controller {
 				UILayers = new StackPane();
 				UILayers.setAlignment(Pos.CENTER);
 				
-				// 1)	Background (not in use)
+				//	Background (not in use)
 				//Canvas c = new Canvas();
 				//c.getGraphicsContext2D().setFill(Color.BLACK);
 				//c.getGraphicsContext2D().fill();
 				//UILayers.getChildren().add(c);
 				
 				
-				// 2) 	EnvironmentGrid (empty)
+				// 	EnvironmentGrid (empty)
 				environmentGrid = new Pane();
 				UILayers.getChildren().add(environmentGrid);
 				
+				
+				// Unit Grid
 				unitGrid = new Pane();
 				UILayers.getChildren().add(unitGrid);
 				unitGrid.setPickOnBounds(false);
 				
-				// 2)	HUD layer
+				// 	HUD layer
 				overlay = new AnchorPane();
 				overlay.setPickOnBounds(false);
 				Rectangle r = new Rectangle(10,10,10,30);
