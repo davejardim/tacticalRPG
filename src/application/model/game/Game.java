@@ -6,8 +6,11 @@ import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
 import application.model.unit.Unit;
+import application.model.unit.UnitType;
 import application.ui.Controller;
+import application.ui.UnitPopupMenu;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Stores all level data and will handling the loading of levels.
@@ -19,11 +22,11 @@ public class Game {
 	private Unit currentSelectedUnit = null;
 	private EnvironmentTile environmentGrid[][];
 	private UnitTile unitGrid[][];
-	
-	private ArrayList<UnitTile> selectedUnits;
-	
+		
 	public int xSize;
-	public int ySize;
+	public int ySize;	
+	public static boolean isMenuOpen, isPlayerTurn;
+
 	
 	public Game() {
 			
@@ -31,11 +34,11 @@ public class Game {
 		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
 		
-		selectedUnits = new ArrayList<UnitTile>();
-
 		//add default player
 				unitGrid[Main.LEVEL_WIDTH/2][Main.LEVEL_WIDTH/2] = new UnitTile(Main.LEVEL_WIDTH/2,Main.LEVEL_HEIGHT/2);
-
+				
+		isMenuOpen = false;
+		isPlayerTurn = true;
 	}
 	
 	public EnvironmentTile getEnvironmentTile(int x, int y){
@@ -75,120 +78,121 @@ public class Game {
 		
 	}
 
-		
+	public void onClick(UnitTile tile, MouseEvent e) {
+		// Add up front any conditions that should prevent clicking
+		if (!isMenuOpen && isPlayerTurn) {
+			if (currentSelectedUnit != null) {
+				// When a unit is clicked:
+				// If another different unit is selected switch to it
+				if (tile.getUnit() != null 
+						&& !tile.getUnit().equals(currentSelectedUnit)
+						&& !tile.getUnit().getHasMoved()) {
+					currentSelectedUnit = tile.getUnit();
+					tile.setSelected(true);
+				} else if (isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
+					moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
+					
+					// Open after move menu
+					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit);
+					menu.show(Controller.UILayers, e.getScreenX(), e.getScreenY());
+					isMenuOpen = true;
+					
+					//After moving set current unit to null
+					currentSelectedUnit.switchMoved();
+					currentSelectedUnit = null;
+					
+				} else {
+					// Throw some error message
+					// TODO: Output this into player console
+					System.out.println("That is not a valid move");
+				}
+			} else {
+				// If no unit chosen and unit is clicked then highlight paths
+				if (tile.getUnit() != null && !tile.getUnit().getHasMoved()) {
+					currentSelectedUnit = tile.getUnit();
+					tile.setSelected(true);
+				}
+			}
+		}
+	}
 	
-//	public StackPane getView() {
-//		return this.view;
-//	}
-//	
-//	/**
-//	 * Given a unit set it show it's available move positions
-//	 * @param unit Unit that is being selected
-//	 */
-//	public void setSelectedUnit(Unit unit) {
-//		clearHighlights();
-//		setHighlights(unit);
-//	}
-//	
-//	/**
-//	 * Check if given unit can validly move to given x and y coordinates
-//	 * @param x X coordinate to move to 
-//	 * @param y Y coordinate to move to 
-//	 * @param unit Unit that is being moved
-//	 * @return True if unit can be moved, false otherwise
-//	 */
-//	public boolean isValidMove(int x, int y, Unit unit) {
-//		if (unit == null) {
-//			System.out.println("Error: no unit currently selected");
-//			return false;
-//		} else {
-//			return getValidMoves(unit.getXCord(), unit.getYCord(),
-//					unit.getTravelDist())[x][y];
-//		}
-//	}
-//	
-//	/**
-//	 * Move given unit to given x and y coordinates
-//	 * @param x X coordinate to move to
-//	 * @param y	Y coordinate to move to
-//	 * @param unit Unit to move
-//	 */
-//	public void moveUnit(int x, int y, Unit unit) {
-//		int curX = unit.getXCord();
-//		int curY = unit.getYCord();
-//		unitGrid[curX][curY].removeUnit();
-//		unitGrid[x][y].setUnit(unit, LEVEL_SIZE);
-//		unit.setXCord(x);
-//		unit.setYCord(y);
-//		clearHighlights();
-//	}
-//	
-//	private void setHighlights(Unit unit) {
-//		boolean[][] boolGrid = getValidMoves(unit.getXCord(), unit.getYCord(), unit.getTravelDist());
-//		for (int i = 0; i < LEVEL_SIZE; i++) {
-//			for (int j = 0; j < LEVEL_SIZE; j++) {
-//				if (boolGrid[i][j]) {
-//					environmentGrid[i][j].getView().setFill(Color.GREEN);
-//					environmentGrid[i][j].getView().setOpacity(.5);
-//				}
-//			}
-//		}
-//	}
-//	
-//	private void clearHighlights() {
-//		for (int i = 0; i < LEVEL_SIZE; i++) {
-//			for (int j = 0; j < LEVEL_SIZE; j++) {
-//				environmentGrid[i][j].getView().setFill(Color.TRANSPARENT);
-//			}
-//		}
-//	}
-//	
-//	private boolean[][] getValidMoves(int x, int y, int maxDist) {
-//		boolean[][] highlightGrid = new boolean[LEVEL_SIZE][LEVEL_SIZE];
-//		for (int i = 0; i < LEVEL_SIZE; i++) {
-//			for (int j = 0; j < LEVEL_SIZE; j++) {
-//				if (findDist(x, y, i, j) <= maxDist
-//						&& unitGrid[i][j].getUnit() == null) {
-//					highlightGrid[i][j] = true;
-//				} else {
-//					highlightGrid[i][j] = false;
-//				}
-//			}
-//		}
-//		return highlightGrid;
-//	}
-//	
-//	private double findDist(int x1, int y1, int x2, int y2) {
-//		 return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-//	}
-//	
-//	
-//	private void generateGrids() {
-//		environmentGrid = new EnvironmentTile[LEVEL_SIZE][LEVEL_SIZE];
-//		unitGrid = new UnitTile[LEVEL_SIZE][LEVEL_SIZE];
-//		
-//		// Right now manually generating
-//		// TODO: Load from file or something
-//		for (int i = 0; i < LEVEL_SIZE; i++) {
-//			for (int j = 0; j < LEVEL_SIZE; j++) {
-//				environmentGrid[i][j] = new EnvironmentTile(i, j, TILE_SIZE);
-//				unitGrid[i][j] = new UnitTile(i, j, TILE_SIZE);
-//			}
-//		}
-//		
-//		int mid = LEVEL_SIZE / 2;
-//
-//		unitGrid[mid][mid] = new UnitTile(mid, mid, TILE_SIZE, UnitType.MAGE);
-//		unitGrid[0][0] = new UnitTile(0, 0, TILE_SIZE, UnitType.KNIGHT);
-//
-//	}
-//	
-//	private void renderGrid() {
-//		try {
-//			this.view = FXMLLoader.load(Main.class.getResource("/application/ui/battleGrid/BattleGrid.fxml"));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	
+	/**
+	 * Given a unit set it show it's available move positions
+	 * @param unit Unit that is being selected
+	 */
+	public void setSelectedUnit(Unit unit) {
+		clearHighlights();
+		setHighlights(unit);
+	}
+	
+	/**
+	 * Check if given unit can validly move to given x and y coordinates
+	 * @param x X coordinate to move to 
+	 * @param y Y coordinate to move to 
+	 * @param unit Unit that is being moved
+	 * @return True if unit can be moved, false otherwise
+	 */
+	public boolean isValidMove(int x, int y, Unit unit) {
+		if (unit == null) {
+			System.out.println("Error: no unit currently selected");
+			return false;
+		} else {
+			return getValidMoves(unit.getXCord(), unit.getYCord(), unit.getTravelDist())[x][y];
+		}
+	}
+	
+	/**
+	 * Move given unit to given x and y coordinates
+	 * @param x X coordinate to move to
+	 * @param y	Y coordinate to move to
+	 * @param unit Unit to move
+	 */
+	public void moveUnit(int x, int y, Unit unit) {
+		int curX = unit.getXCord();
+		int curY = unit.getYCord();
+		unitGrid[curX][curY].removeUnit();
+		unitGrid[x][y].setUnit(unit, Main.TILE_SIZE);
+		unit.setXCord(x);
+		unit.setYCord(y);
+		clearHighlights();
+	}
+	
+	private void setHighlights(Unit unit) {
+		boolean[][] boolGrid = getValidMoves(unit.getXCord(), unit.getYCord(), unit.getTravelDist());
+		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
+			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
+				if (boolGrid[i][j]) {
+					environmentGrid[i][j].setHighlighted(true);
+				}
+			}
+		}
+	}
+	
+	private void clearHighlights() {
+		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
+			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
+				environmentGrid[i][j].setHighlighted(false);
+			}
+		}
+	}
+	
+	private boolean[][] getValidMoves(int x, int y, int maxDist) {
+		boolean[][] highlightGrid = new boolean[Main.LEVEL_HEIGHT][Main.LEVEL_WIDTH];
+		for (int i = 0; i < Main.LEVEL_HEIGHT; i++) {
+			for (int j = 0; j < Main.LEVEL_WIDTH; j++) {
+				if (findDist(x, y, i, j) <= maxDist
+						&& unitGrid[i][j].getUnit() == null) {
+					highlightGrid[i][j] = true;
+				} else {
+					highlightGrid[i][j] = false;
+				}
+			}
+		}
+		return highlightGrid;
+	}
+	
+	private double findDist(int x1, int y1, int x2, int y2) {
+		 return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+	}
+	
 }

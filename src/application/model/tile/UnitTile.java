@@ -1,8 +1,8 @@
 package application.model.tile;
 
-import application.model.game.Game;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
+import application.ui.Controller;
 import application.ui.unitTile.UnitTileView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -13,7 +13,6 @@ public class UnitTile {
 	private Unit unit;
 	private int xCord, yCord;
 	private UnitTileView view;
-	private Game currLevel;
 	
 	private boolean isSelected = false;
 	
@@ -85,6 +84,6 @@ public class UnitTile {
 	
 	public void onClick(MouseEvent e) {
 
-		System.out.println(xCord + ", " + yCord);
+		Controller.currentGame.onClick(this, e);
 	}
 }

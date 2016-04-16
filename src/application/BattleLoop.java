@@ -47,41 +47,41 @@ public class BattleLoop {
 //	 * @param tile UnitTile that was clicked.
 //	 * @param e MouseEvent that defines the click
 //	 */
-//	public void clickHandle(UnitTile tile, MouseEvent e) {
-//		// Add up front any conditions that should prevent clicking
-//		if (!isMenuOpen && isPlayerTurn) {
-//			if (currentSelectedUnit != null) {
-//				// When a unit is clicked:
-//				// If another different unit is selected switch to it
-//				if (tile.getUnit() != null 
-//						&& !tile.getUnit().equals(currentSelectedUnit)
-//						&& !tile.getUnit().getHasMoved()) {
-//					currentSelectedUnit = tile.getUnit();
-//					level.setSelectedUnit(currentSelectedUnit);
-//				} else if (level.isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
-//					level.moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
-//					
-//					// Open after move menu
-//					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit, this);
-//					menu.show(level.getView(), e.getScreenX(), e.getScreenY());
-//					isMenuOpen = true;
-//					
-//					//After moving set current unit to null
-//					currentSelectedUnit.switchMoved();
-//					currentSelectedUnit = null;
-//					
-//				} else {
-//					// Throw some error message
-//					// TODO: Output this into player console
-//					System.out.println("That is not a valid move");
-//				}
-//			} else {
-//				// If no unit chosen and unit is clicked then highlight paths
-//				if (tile.getUnit() != null && !tile.getUnit().getHasMoved()) {
-//					currentSelectedUnit = tile.getUnit();
-//					level.setSelectedUnit(currentSelectedUnit);
-//				}
-//			}
-//		}
-//	}
+	public void clickHandle(UnitTile tile, MouseEvent e) {
+		// Add up front any conditions that should prevent clicking
+		if (!isMenuOpen && isPlayerTurn) {
+			if (currentSelectedUnit != null) {
+				// When a unit is clicked:
+				// If another different unit is selected switch to it
+				if (tile.getUnit() != null 
+						&& !tile.getUnit().equals(currentSelectedUnit)
+						&& !tile.getUnit().getHasMoved()) {
+					currentSelectedUnit = tile.getUnit();
+					level.setSelectedUnit(currentSelectedUnit);
+				} else if (level.isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
+					level.moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
+					
+					// Open after move menu
+					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit, this);
+					menu.show(level.getView(), e.getScreenX(), e.getScreenY());
+					isMenuOpen = true;
+					
+					//After moving set current unit to null
+					currentSelectedUnit.switchMoved();
+					currentSelectedUnit = null;
+					
+				} else {
+					// Throw some error message
+					// TODO: Output this into player console
+					System.out.println("That is not a valid move");
+				}
+			} else {
+				// If no unit chosen and unit is clicked then highlight paths
+				if (tile.getUnit() != null && !tile.getUnit().getHasMoved()) {
+					currentSelectedUnit = tile.getUnit();
+					level.setSelectedUnit(currentSelectedUnit);
+				}
+			}
+		}
+	}
 }
