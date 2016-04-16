@@ -5,7 +5,6 @@ import application.model.unit.UnitType;
 import application.ui.Controller;
 import application.ui.unitTile.UnitTileView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 public class UnitTile {
 	
@@ -38,7 +37,7 @@ public class UnitTile {
 	 */
 	public UnitTile(int x, int y, UnitType unitType) {
 		this(x, y);	
-		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType));
+		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType, 0));
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
 	

@@ -24,7 +24,7 @@ public class Main extends Application {
 			
 			
 			int w = 1024;	//Window width
-			int h = 512;	//Window Height
+			int h = 512+60;	//Window Height
 			
 			controller = new Controller();
 			

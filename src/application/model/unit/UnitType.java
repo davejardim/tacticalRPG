@@ -13,9 +13,8 @@ public enum UnitType {
 	KNIGHT(28, 5, 5, 1, 5, 2, 1,new Image("/application/resources/Man_256x256.png")),
 	KING(30, 7, 4, 1, 10, 2, 1, new Image("/application/resources/Man_256x256.png")),
 	MAGE(20, 8, 4, 3, 10, 2, 1, new Image("/application/resources/Man_256x256.png")),
-	WALL(0,0,0,0,0,0, 0, new Image("/application/resources/Man_256x256.png")),
+	WALL(0,0,0,0,0,0, 0, new Image("/application/resources/brick_wall.png")),
 	PIKACHU(21, 8, 2, 1, 50, 2, 1, new Image("/application/resources/pikachu.gif"));
-
 	
 	private final int hp;
 	private final int attack;
@@ -32,7 +31,6 @@ public enum UnitType {
     private final int maxMove;
     //0 can pass, 1 cant pass
     public final int canMove;
-    public int team; 
     private final Image sprite;
     
     UnitType(int hp, int attack, int def, int attackType, int critChance,int maxMove,int canMove, Image sprite) {
@@ -43,7 +41,6 @@ public enum UnitType {
        this.critChance = critChance;
        this.maxMove = maxMove;
        this.sprite = sprite;
-       this.team = team;
        this.canMove = canMove;
        
     }
@@ -68,12 +65,6 @@ public enum UnitType {
     }
     public Image sprite(){
     	return sprite;
-    }
-    public int team(){
-    	return team;
-    }
-    public void setTeam(int team) {
-        this.team = team;
     }
     public int canMove(){
     	return canMove;

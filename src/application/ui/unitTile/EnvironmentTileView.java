@@ -1,7 +1,5 @@
 package application.ui.unitTile;
 
-import java.util.ArrayList;
-
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.ui.Controller;
@@ -46,13 +44,12 @@ public class EnvironmentTileView {
 		highlightedMask.setVisible(false);
 		
 		Controller.environmentGrid.getChildren().addAll(i,highlightedMask,gridBox);
+
 		
 		}
 
 		public void setHighlightedMask(boolean b) {
 			highlightedMask.setVisible(b);
-
-			
 		}
 		
 }
