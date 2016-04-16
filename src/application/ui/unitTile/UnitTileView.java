@@ -42,7 +42,6 @@ public class UnitTileView {
 		r.setStrokeLineJoin(StrokeLineJoin.ROUND);
 		Controller.unitGrid.getChildren().addAll(i,r);
 		
-		r.setOnMouseClicked(e -> { tile.onClick(e);});
 		setHandles();
 	}
 	
@@ -54,18 +53,18 @@ public class UnitTileView {
 	}
 	
 	public void removeImage() {
-		
+		i.setImage(null);
 	}
 	
 	private void setHandles() {
-		i.setOnMouseClicked(e -> {
+		r.setOnMouseClicked(e -> {
 			tile.onClick(e);
 		});
 	}
 
 	public void setSelected(boolean b) {
 		
-		if(!tile.isSelected()){
+		if(b){
 			r.setStroke(Color.DEEPSKYBLUE);
 		}
 		else{

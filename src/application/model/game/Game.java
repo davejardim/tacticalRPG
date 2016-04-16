@@ -101,7 +101,7 @@ public class Game {
 						&& !tile.getUnit().equals(currentSelectedUnit)
 						&& !tile.getUnit().getHasMoved()) {
 					currentSelectedUnit = tile.getUnit();
-					tile.setSelected(true);
+					setSelectedUnit(tile.getUnit());
 				} else if (isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
 					moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
 					
@@ -113,7 +113,6 @@ public class Game {
 					//After moving set current unit to null
 					currentSelectedUnit.switchMoved();
 					currentSelectedUnit = null;
-					
 				} else {
 					// Throw some error message
 					// TODO: Output this into player console
@@ -166,6 +165,7 @@ public class Game {
 		int curX = unit.getXCord();
 		int curY = unit.getYCord();
 		unitGrid[curX][curY].removeUnit();
+		unitGrid[curX][curY].setSelected(false);
 		unitGrid[x][y].setUnit(unit);
 		unit.setXCord(x);
 		unit.setYCord(y);
