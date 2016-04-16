@@ -38,7 +38,7 @@ public class UnitTile {
 	 */
 	public UnitTile(int x, int y, UnitType unitType) {
 		this(x, y);	
-		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType));
+		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType, 0));
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
 	
