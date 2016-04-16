@@ -95,13 +95,14 @@ public class Game {
 		if (!isMenuOpen && isPlayerTurn) {
 			if (currentSelectedUnit != null) {
 				// When a unit is clicked:
-				// If another different unit is selected switch to it
-				
+				// If another different unit is selected switch to it	
 				if (tile.getUnit() != null 
 						&& !tile.getUnit().equals(currentSelectedUnit)
 						&& !tile.getUnit().getHasMoved()) {
-					currentSelectedUnit = tile.getUnit();
+					unitGrid[currentSelectedUnit.getXCord()][currentSelectedUnit.getYCord()].setSelected(false);
+					tile.setSelected(true);
 					setSelectedUnit(tile.getUnit());
+					tile.setSelected(true);
 				} else if (isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
 					moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
 					
