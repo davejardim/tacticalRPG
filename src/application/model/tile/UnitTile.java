@@ -79,4 +79,11 @@ public class UnitTile {
 	public boolean isSelected() {
 		return isSelected;
 	}
+	
+	public boolean isPassable() {
+		//TODO This will eventually need to more thoroughly check passability, including whether unit is on same team etc.
+		if (! (unit == null))
+			return unit.getCanMove();
+		else return true;
+	}
 }
