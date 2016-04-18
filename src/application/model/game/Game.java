@@ -214,6 +214,7 @@ public class Game {
 		return highlightGrid;
 	}
 
+
 	private boolean[][] getValidMoves2(int x, int y, int maxDist) {
 		Comparator<int[]> comp = (sq1, sq2) -> (sq1[0] - sq2[0]);
 		PriorityQueue<int[]> Q = new PriorityQueue<>(comp);
@@ -229,6 +230,7 @@ public class Game {
 					Q.add(new int[] {0, i, j});
 			}
 		}
+		
 		while (!Q.isEmpty())
 		{
 			node = Q.remove();
@@ -263,6 +265,7 @@ public class Game {
 		}
 		return null;
 	}
+	
 
 	private double findDist(int x1, int y1, int x2, int y2) {
 		return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
