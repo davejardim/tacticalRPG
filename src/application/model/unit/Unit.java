@@ -13,57 +13,61 @@ import javafx.scene.image.Image;
  *
  */
 public class Unit {
-	
-	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove;
+
+	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove, canMove;
 	private Image image;
 	private boolean hasMoved;
-	
+
 	public Unit(int x, int y, UnitType type, int team) {
 		this.xCord = x;
 		this.yCord = y;
 		this.travelDist = 5; // TODO: Shouldn't be hard set
 		this.hp = type.hp();
-	    this.attack = type.attack();
-	    this.def = type.def();
-	    this.attackType = type.attackType();
-	    this.critChance = type.critChance();
-	    this.maxMove = type.maxMove();
-	    this.hasMoved = false;
-	    this.image = type.sprite();
+		this.attack = type.attack();
+		this.def = type.def();
+		this.attackType = type.attackType();
+		this.critChance = type.critChance();
+		this.maxMove = type.maxMove();
+		this.hasMoved = false;
+		this.image = type.sprite();
+		this.canMove = type.canMove();
 	}
-	
+
 	public Image getImage() {
 		return this.image;
 	}
-	
+
 	public int getXCord() {
 		return this.xCord;
 	}
-	
+
 	public int getYCord() {
 		return this.yCord;
 	}
-	
+
 	public void setXCord(int x) {
 		this.xCord = x;
 	}
-	
+
 	public void setYCord(int y) {
 		this.yCord = y;
 	}
-	
+
 	public int getTravelDist() {
 		return this.travelDist;
 	}
-	
+
+	public boolean getCanMove() {
+		return canMove == 1;
+	}
 	public boolean getHasMoved() {
 		return this.hasMoved;
 	}
-	
+
 	public void switchMoved() {
 		hasMoved = !hasMoved;
 	}
-	
+
 	public List<UnitTile> attack(UnitTile[][] unitLocs) {
 		List<UnitTile> list = new ArrayList<>();
 		//if melee unit
@@ -146,7 +150,7 @@ public class Unit {
 		}
 		return list;
 	}
-	
+
 	private void setUnitStats(UnitType type) {
 		switch (type) {
 		case ASSASSIN:
@@ -161,7 +165,13 @@ public class Unit {
 			break;
 		case MAGE:
 			break;
+		case PIKACHU:
+			break;
+		case WALL:
+			break;
+		default:
+			break;
 		}
-			
+
 	}
 }

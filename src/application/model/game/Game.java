@@ -53,8 +53,8 @@ public class Game {
 		return environmentGrid[x][y];
 
 	}
-	
-	
+
+
 	private void genGrid(int w, int h){
 
 		xSize = w;
@@ -73,7 +73,7 @@ public class Game {
 		unitGrid = new UnitTile[w][h];
 		for(int x = 0; x < w; x++){
 			for(int y = 0; y < h; y++){
-			unitGrid[x][y]= new UnitTile(x, y);
+				unitGrid[x][y]= new UnitTile(x, y);
 			}
 		}
 		System.out.println(unitGrid.length);
@@ -90,10 +90,10 @@ public class Game {
 		unitGrid[x][y].setSelected(true);
 
 	}
-	
+
 	private void addUnit(int xCord, int yCord, UnitType t){
-	
-	unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, t);
+
+		unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, t);
 	}
 
 	public void onClick(UnitTile tile, MouseEvent e) {
@@ -199,7 +199,7 @@ public class Game {
 		}
 	}
 
-	private boolean[][] getValidMoves(int x, int y, int maxDist) {
+	private boolean[][] getValidMoves2(int x, int y, int maxDist) {
 		boolean[][] highlightGrid = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
 		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
 			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
@@ -215,55 +215,74 @@ public class Game {
 	}
 
 
-	private boolean[][] getValidMoves2(int x, int y, int maxDist) {
+	private boolean[][] getValidMoves(int x, int y, int maxDist) {
+
 		Comparator<int[]> comp = (sq1, sq2) -> (sq1[0] - sq2[0]);
 		PriorityQueue<int[]> Q = new PriorityQueue<>(comp);
 		int[] node;
 		boolean[][] validSquares = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
-		for (int i = Math.max(x-maxDist, 0); i < Math.min(x+maxDist, Main.LEVEL_WIDTH) ; i++)
+		for (int i = Math.max(x-maxDist, 0); i <= Math.min(x+maxDist, Main.LEVEL_WIDTH) ; i++)
 		{
-			for (int j = Math.max(y-maxDist, 0); j < Math.min(x+maxDist, Main.LEVEL_HEIGHT) ; j++)
+			for (int j = Math.max(y-maxDist, 0); j <= Math.min(x+maxDist, Main.LEVEL_HEIGHT) ; j++)
 			{
-				if (i != x || j != y && unitGrid[i][j].isPassable())
-					Q.add(new int[] {10000, i, j});
-				else if (unitGrid[i][j].isPassable())
+				if (i == x && j == y)
 					Q.add(new int[] {0, i, j});
+				else if (unitGrid[i][j].isPassable())
+					Q.add(new int[] {10000, i, j});
+
 			}
 		}
 		
 		while (!Q.isEmpty())
 		{
 			node = Q.remove();
-			if (node[0]  <= maxDist) validSquares[node[1]][node[2]] = true;
+			if (node[0] > maxDist) continue;
+			if (0 != node[0]) validSquares[node[1]][node[2]] = true;
+			ArrayList<int[]> nodeNeighbours = new ArrayList<>();
 			for (int[] element : Q)
 			{
 				//Top Neighbour
 				if (element[1] == node[1] && element[2] == node[2] + 1)
-					{
-					if (element[0] > node[0] +1)
+				{
+					if (element[0] > node[0] +1) {
 						element[0] = node[0] + 1;
+						nodeNeighbours.add(element);
 					}
+				}
 				//Right Neighbour
 				else if (element[1] == node[1] + 1 && element[2] == node[2])
 				{
-					if (element[0] > node[0] +1)
+					if (element[0] > node[0] +1) {
 						element[0] = node[0] + 1;
+						nodeNeighbours.add(element);
+					
 					}
+				}
 				//Bottom Neighbour
 				else if (element[1] == node[1] && element[2] == node[2] - 1)
 				{
-					if (element[0] > node[0] +1)
+					if (element[0] > node[0] +1) {
 						element[0] = node[0] + 1;
+						nodeNeighbours.add(element);
 					}
+				}
 				//Left Neighbour
 				else if (element[1] == node[1] - 1 && element[2] == node[2])
 				{
-					if (element[0] > node[0] +1)
+					if (element[0] > node[0] +1) {
 						element[0] = node[0] + 1;
+						nodeNeighbours.add(element);
 					}
+				}
+			}
+			//Resort neighbours back into priority queue:
+			for (int[] neighbour : nodeNeighbours)
+			{
+				Q.remove(neighbour);
+				Q.add(neighbour);
 			}
 		}
-		return null;
+		return validSquares;
 	}
 	
 
