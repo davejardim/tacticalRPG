@@ -85,7 +85,6 @@ public class Controller {
 				
 				charSelectionMenu = new StackPane();
 				UILayers.getChildren().add(charSelectionMenu);
-				charSelect = new CharacterSelection();
 				charSelectionMenu.setVisible(false);
 				
 				

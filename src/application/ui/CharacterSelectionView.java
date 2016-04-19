@@ -34,12 +34,18 @@ public class CharacterSelectionView
 	@SuppressWarnings("static-access")
 	public CharacterSelectionView( CharacterSelection cs){
 
+		model = cs;
+		
+		w = Main.TILE_SIZE*model.getGridWidth();
+		h = Main.TILE_SIZE*model.getGridHeight();
+		
 		HBox teamBox = new HBox();
 		teamBox.setSpacing(300);
 		teamBox.setAlignment(Pos.CENTER);
 
 		team1Pane = new Pane();
 		team2Pane = new Pane();
+		
 		teamBox.getChildren().addAll(team1Pane,team2Pane);
 		BorderPane menuBox = new BorderPane();
 		Label title = new Label("Pick Your Teams:");

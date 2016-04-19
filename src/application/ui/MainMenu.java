@@ -2,6 +2,7 @@ package application.ui;
 
 import java.io.IOException;
 
+import application.model.game.CharacterSelection;
 import application.model.game.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ public class MainMenu {
 	@FXML protected void handleNewGameButtonAction (ActionEvent event) throws IOException, InterruptedException {
 		
 		mainMenu.setVisible(false);
+		Controller.charSelect = new CharacterSelection();
 		Controller.charSelectionMenu.setVisible(true);	
 		
 	}

@@ -51,6 +51,7 @@ private CharacterTeam charTeam1, charTeam2;
 		
 		if(charTeam1.isReady() && charTeam2.isReady()){
 			Controller.charSelectionMenu.setVisible(false);
+			Controller.currentGame = new Game();
 			Controller.currentGame.startGame(charTeam1.getPlayers(), charTeam2.getPlayers());
 		}
 	}

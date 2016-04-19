@@ -69,7 +69,7 @@ public class UnitTileView {
 		currentHp.setY(Main.TILE_SIZE*tile.getYCord());
 		currentHp.setFont(new Font(14));
 				
-		Controller.unitGrid.getChildren().addAll(unitImage,unitHighlighting, status, currentHp);
+		viewPane.getChildren().addAll(unitImage,unitHighlighting, status, currentHp);
 
 		
 		setHandles();
