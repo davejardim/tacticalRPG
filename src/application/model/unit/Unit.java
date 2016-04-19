@@ -14,14 +14,13 @@ import javafx.scene.image.Image;
  */
 public class Unit {
 
-	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove, canMove;
+	private int yCord, xCord, hp, attack, def, attackType, critChance, maxMove, canMove;
 	private Image image;
 	private boolean hasMoved;
 
 	public Unit(int x, int y, UnitType type, int team) {
 		this.xCord = x;
 		this.yCord = y;
-		this.travelDist = 5; // TODO: Shouldn't be hard set
 		this.hp = type.hp();
 		this.attack = type.attack();
 		this.def = type.def();
@@ -32,7 +31,21 @@ public class Unit {
 		this.image = type.sprite();
 		this.canMove = type.canMove();
 	}
-
+	public int getHp(){
+		return hp;
+	}
+	public int getAttack(){
+		return attack;
+	}
+	public int getDef(){
+		return def;
+	}
+	public int getAttackType(){
+		return attackType;
+	}
+	public int getCritChance(){
+		return critChance;
+	}
 	public Image getImage() {
 		return this.image;
 	}
@@ -52,9 +65,13 @@ public class Unit {
 	public void setYCord(int y) {
 		this.yCord = y;
 	}
+	
+	public void setHp(int hp){
+		this.hp = hp;
+	}
 
-	public int getTravelDist() {
-		return this.travelDist;
+	public int getMaxMove() {
+		return this.maxMove;
 	}
 
 	public boolean getCanMove() {
@@ -68,7 +85,7 @@ public class Unit {
 		hasMoved = !hasMoved;
 	}
 
-	public List<UnitTile> attack(UnitTile[][] unitLocs) {
+	public List<UnitTile> attackOptions(UnitTile[][] unitLocs) {
 		List<UnitTile> list = new ArrayList<>();
 		//if melee unit
 		if(this.attackType==1){
@@ -149,6 +166,10 @@ public class Unit {
 			}
 		}
 		return list;
+	}
+	
+	public void attack(){
+		
 	}
 
 	private void setUnitStats(UnitType type) {

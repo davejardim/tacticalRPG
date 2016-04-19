@@ -38,8 +38,87 @@ public class Game {
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
 
 		//add default player
-		addUnit(4,4, UnitType.PIKACHU);
-		addUnit(4,5, UnitType.WALL);
+		
+		//entrance
+		addUnit(10,0, UnitType.WALL);
+		addUnit(10,4, UnitType.WALL);
+		addUnit(10,5, UnitType.WALL);
+		addUnit(10,6, UnitType.WALL);
+		addUnit(10,7, UnitType.WALL);
+		addUnit(10,8, UnitType.WALL);
+		addUnit(10,9, UnitType.WALL);
+		addUnit(10,14, UnitType.WALL);
+		addUnit(10,15, UnitType.WALL);
+		int a = 0;
+		//tunnel
+		addUnit(11,a, UnitType.WALL);
+		addUnit(12,a, UnitType.WALL);
+		addUnit(13,a, UnitType.WALL);
+		addUnit(14,a, UnitType.WALL);
+		addUnit(15,a, UnitType.WALL);
+		addUnit(16,a, UnitType.WALL);
+		addUnit(17,a, UnitType.WALL);
+		addUnit(18,a, UnitType.WALL);
+		addUnit(19,a, UnitType.WALL);
+		addUnit(20,a, UnitType.WALL);
+		addUnit(21,a, UnitType.WALL);
+		addUnit(22,a, UnitType.WALL);
+		addUnit(23,a, UnitType.WALL);
+		addUnit(24,a, UnitType.WALL);
+		addUnit(25,a, UnitType.WALL);
+		addUnit(26,a, UnitType.WALL);
+		addUnit(27,a, UnitType.WALL);
+		addUnit(28,a, UnitType.WALL);
+		addUnit(29,a, UnitType.WALL);
+		addUnit(30,a, UnitType.WALL);
+		addUnit(31,a, UnitType.WALL);
+		a = 4;
+		addUnit(11,a, UnitType.WALL);
+		addUnit(12,a, UnitType.WALL);
+		addUnit(13,a, UnitType.WALL);
+		addUnit(14,a, UnitType.WALL);
+		addUnit(15,a, UnitType.WALL);
+		addUnit(18,a, UnitType.WALL);
+		addUnit(19,a, UnitType.WALL);
+		addUnit(20,a, UnitType.WALL);
+		addUnit(21,a, UnitType.WALL);
+		addUnit(22,a, UnitType.WALL);
+		addUnit(23,a, UnitType.WALL);
+		addUnit(24,a, UnitType.WALL);
+		addUnit(25,a, UnitType.WALL);
+		addUnit(26,a, UnitType.WALL);
+		addUnit(30,a, UnitType.WALL);
+		addUnit(31,a, UnitType.WALL);
+		addUnit(30,1, UnitType.WALL);
+		addUnit(30,2, UnitType.WALL);
+		addUnit(30,3, UnitType.WALL);
+		addUnit(31,1, UnitType.WALL);
+		addUnit(31,2, UnitType.WALL);
+		addUnit(31,3, UnitType.WALL);
+		
+		
+		//bottom wall
+		addUnit(11,15, UnitType.WALL);
+		addUnit(12,15, UnitType.WALL);
+		addUnit(13,15, UnitType.WALL);
+		addUnit(14,15, UnitType.WALL);
+		addUnit(15,15, UnitType.WALL);
+		addUnit(16,15, UnitType.WALL);
+		addUnit(17,15, UnitType.WALL);
+		addUnit(18,15, UnitType.WALL);
+		addUnit(19,15, UnitType.WALL);
+		addUnit(20,15, UnitType.WALL);
+		addUnit(21,15, UnitType.WALL);
+		addUnit(22,15, UnitType.WALL);
+		addUnit(23,15, UnitType.WALL);
+		addUnit(24,15, UnitType.WALL);
+		addUnit(25,15, UnitType.WALL);
+		addUnit(26,15, UnitType.WALL);
+		addUnit(27,15, UnitType.WALL);
+		addUnit(28,15, UnitType.WALL);
+		addUnit(29,15, UnitType.WALL);
+		addUnit(30,15, UnitType.WALL);
+		addUnit(31,15, UnitType.WALL);
 
 		isMenuOpen = false;
 		isPlayerTurn = true;
@@ -159,7 +238,7 @@ public class Game {
 			System.out.println("Error: no unit currently selected");
 			return false;
 		} else {
-			return getValidMoves(unit.getXCord(), unit.getYCord(), unit.getTravelDist())[x][y];
+			return getValidMoves(unit.getXCord(), unit.getYCord(), unit.getMaxMove())[x][y];
 		}
 	}
 
@@ -181,7 +260,7 @@ public class Game {
 	}
 
 	private void setHighlights(Unit unit) {
-		boolean[][] boolGrid = getValidMoves(unit.getXCord(), unit.getYCord(), unit.getTravelDist());
+		boolean[][] boolGrid = getValidMoves(unit.getXCord(), unit.getYCord(), unit.getMaxMove());
 		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
 			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
 				if (boolGrid[i][j]) {
