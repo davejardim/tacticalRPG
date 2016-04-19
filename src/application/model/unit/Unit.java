@@ -174,8 +174,44 @@ public class Unit {
 		return list;
 	}
 	
-	public void attack(){
-		
+	public void attack(Unit attackee){
+		//melee attackers
+		if(this.attackType==1){
+			if(attackee.getAttackType()==1){
+				//attackee takes damage
+				attackee.setHp(this.getAttack() - attackee.getHp());
+				if(attackee.getHp()==0){
+					//death
+				}
+				else{
+					this.hp = this.hp - attackee.getAttack();
+				}
+			}
+			if(attackee.getAttackType()==2){
+				attackee.setHp(this.getAttack() - attackee.getHp());
+				if(attackee.getHp()==0){
+					//death
+				}
+			}
+		}
+		//ranged
+		if(this.attackType==2){
+			if(attackee.getAttackType()==2){
+				attackee.setHp(this.getAttack() - attackee.getHp());
+				if(attackee.getHp()==0){
+					//death
+				}
+				else{
+					this.hp = this.hp - attackee.getAttack();
+				}
+			}
+			if(attackee.getAttackType()==1){
+				attackee.setHp(this.getAttack() - attackee.getHp());
+				if(attackee.getHp()==0){
+					//death
+				}
+			}
+		}	
 	}
 
 	private void setUnitStats(UnitType type) {
