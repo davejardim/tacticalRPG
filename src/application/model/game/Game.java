@@ -56,10 +56,8 @@ public class Game {
 
 
 	private void genGrid(int w, int h){
-
 		xSize = w;
 		ySize = h;
-
 
 		//setup plain green grass environment 
 		environmentGrid = new EnvironmentTile[w][h];
@@ -84,11 +82,7 @@ public class Game {
 	}
 
 	public void selectUnit(int x, int y) {
-
-		//if(selectedUnits.isEmpty()))
-		//if (!( x < 0 || x == xSize || y < 0 || y >= ySize))
 		unitGrid[x][y].setSelected(true);
-
 	}
 
 	private void addUnit(int xCord, int yCord, UnitType t){
@@ -104,7 +98,8 @@ public class Game {
 				// If another different unit is selected switch to it	
 				if (tile.getUnit() != null 
 						&& !tile.getUnit().equals(currentSelectedUnit)
-						&& !tile.getUnit().getHasMoved()) {
+						&& !tile.getUnit().getHasMoved()
+						&& tile.getUnit().getCanMove()) {
 					unitGrid[currentSelectedUnit.getXCord()][currentSelectedUnit.getYCord()].setSelected(false);
 					tile.setSelected(true);
 					setSelectedUnit(tile.getUnit());
@@ -129,7 +124,7 @@ public class Game {
 			} else {
 				// If no unit chosen and unit is clicked then highlight paths
 				System.out.println("CODE");
-				if (tile.getUnit() != null && !tile.getUnit().getHasMoved()) {
+				if (tile.getUnit() != null && !tile.getUnit().getHasMoved() && tile.getUnit().getCanMove()) {
 					setSelectedUnit(tile.getUnit());
 					tile.setSelected(true);
 				}
@@ -198,23 +193,8 @@ public class Game {
 			}
 		}
 	}
-
-	private boolean[][] getValidMoves2(int x, int y, int maxDist) {
-		boolean[][] highlightGrid = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
-		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
-			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
-				if (findDist(x, y, i, j) <= maxDist
-						&& unitGrid[i][j].getUnit() == null) {
-					highlightGrid[i][j] = true;
-				} else {
-					highlightGrid[i][j] = false;
-				}
-			}
-		}
-		return highlightGrid;
-	}
-
-
+	
+	// Uses Dijkstra's to find valid paths given a certain distance
 	private boolean[][] getValidMoves(int x, int y, int maxDist) {
 
 		Comparator<int[]> comp = (sq1, sq2) -> (sq1[0] - sq2[0]);
@@ -284,10 +264,4 @@ public class Game {
 		}
 		return validSquares;
 	}
-	
-
-	private double findDist(int x1, int y1, int x2, int y2) {
-		return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-	}
-
 }
