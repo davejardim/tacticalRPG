@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 //Mike Donohue
 
 public enum UnitType {
-	
+	//hp/attack/def/attackType/critChance/maxMove/canMove/Image
 	ARCHER(20, 7, 3, 2, 10, 2, true, new Image("/application/resources/Man_256x256.png")),
     ASSASSIN(21, 8, 2, 1, 50, 2, true, new Image("/application/resources/Man_256x256.png")),
 	CAVILIER(25, 7, 3, 1, 10, 4, true, new Image("/application/resources/Man_256x256.png")),
@@ -14,7 +14,8 @@ public enum UnitType {
 	KING(30, 7, 4, 1, 10, 2, true, new Image("/application/resources/Man_256x256.png")),
 	MAGE(20, 8, 4, 3, 10, 2, true, new Image("/application/resources/Man_256x256.png")),
 	WALL(0,0,0,0,0,0, false, new Image("/application/resources/brick_wall.png")),
-	PIKACHU(21, 8, 2, 1, 50, 2, true, new Image("/application/resources/pikachu.gif"));
+	PIKACHU(21, 8, 2, 1, 50, 4, true, new Image("/application/resources/pikachu.gif")),
+	KOFFING(30, 4, 6, 1, 10, 2, true, new Image("/application/resources/koffing.gif"));
 	
 	private final int hp;
 	private final int attack;
@@ -33,7 +34,7 @@ public enum UnitType {
     public final boolean canMove;
     private final Image sprite;
     
-    UnitType(int hp, int attack, int def, int attackType, int critChance,int maxMove,boolean canMove, Image sprite) {
+    UnitType(int hp, int attack, int def, int attackType, int critChance, int maxMove, boolean canMove, Image sprite) {
        this.hp = hp;
        this.attack = attack;
        this.def = def;

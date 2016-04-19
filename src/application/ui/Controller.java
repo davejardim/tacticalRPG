@@ -107,7 +107,7 @@ public class Controller {
 				// Auto set player units (testing purposes)
 				ArrayList<Unit> player1 = new ArrayList<Unit>();
 				ArrayList<Unit> player2 = new ArrayList<Unit>();
-				player1.add(new Unit(5, 5, UnitType.PIKACHU, 1));
+				player1.add(new Unit(5, 5, UnitType.KOFFING, 1));
 				player1.add(new Unit(6, 10, UnitType.PIKACHU, 1));
 				player1.add(new Unit(5, 15, UnitType.PIKACHU, 1));
 				player2.add(new Unit(30, 5, UnitType.PIKACHU, 2));
