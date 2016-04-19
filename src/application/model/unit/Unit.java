@@ -17,6 +17,7 @@ public class Unit {
 	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove;
 	private Image image;
 	private boolean hasMoved, canMove;
+	private UnitType type;
 
 	public Unit(int x, int y, UnitType type, int team) {
 		this.xCord = x;
@@ -31,6 +32,7 @@ public class Unit {
 		this.hasMoved = false;
 		this.image = type.sprite();
 		this.canMove = type.canMove();
+		this.type = type;
 	}
 
 	public Image getImage() {
@@ -66,6 +68,10 @@ public class Unit {
 
 	public void switchMoved() {
 		hasMoved = !hasMoved;
+	}
+	
+	public UnitType getType() {
+		return this.type;
 	}
 
 	public List<UnitTile> attack(UnitTile[][] unitLocs) {

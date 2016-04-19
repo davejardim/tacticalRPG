@@ -2,14 +2,12 @@ package application.model.game;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
 import application.model.unit.Unit;
-import application.model.unit.UnitType;
 import application.ui.Controller;
 import application.ui.UnitPopupMenu;
 import javafx.geometry.Pos;
@@ -31,20 +29,22 @@ public class Game {
 	public static boolean isMenuOpen, isPlayerTurn;
 
 
-	public Game() {
+	public Game(ArrayList<Unit> player1Chars, ArrayList<Unit> player2Chars) {
 
 		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
 		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
 
-		//add default player
-		addUnit(4,4, UnitType.PIKACHU);
-		addUnit(4,5, UnitType.WALL);
+		// Add all player units
+		for(Unit unit : player1Chars) {
+			addUnit(unit);
+		}
+		for(Unit unit : player2Chars) {
+			addUnit(unit);
+		}
 
 		isMenuOpen = false;
 		isPlayerTurn = true;
-
-
 	}
 
 	public EnvironmentTile getEnvironmentTile(int x, int y){
@@ -85,9 +85,8 @@ public class Game {
 		unitGrid[x][y].setSelected(true);
 	}
 
-	private void addUnit(int xCord, int yCord, UnitType t){
-
-		unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, t);
+	private void addUnit(Unit unit){
+		unitGrid[unit.getXCord()][unit.getYCord()] = new UnitTile(unit.getXCord(), unit.getYCord(), unit.getType());
 	}
 
 	public void onClick(UnitTile tile, MouseEvent e) {

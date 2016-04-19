@@ -17,10 +17,9 @@ public class MainMenu {
 	}
 	
 	
-	@FXML protected void handleNewGameButtonAction (ActionEvent event) throws IOException {
-		
-		//Level level = new Level(10,10);
-		Controller.currentGame = new Game();
+	@FXML protected void handleNewGameButtonAction (ActionEvent event) throws IOException {		
+		//TODO: Have new game direct to the player select screen
+		//Controller.currentGame = new Game();
 		
 		mainMenu.setVisible(false);
 		
