@@ -85,8 +85,8 @@ public class Unit {
 		return this.hasMoved;
 	}
 
-	public void switchMoved() {
-		hasMoved = !hasMoved;
+	public void setMoved(boolean b) {
+		hasMoved = b;
 	}
 	
 	public UnitType getType() {

@@ -110,9 +110,7 @@ public class Game {
 						&& tile.getUnit().getCanMove()) 
 				{
 					unitGrid[currentSelectedUnit.getXCord()][currentSelectedUnit.getYCord()].setSelected(false);
-					tile.setSelected(true);
 					setSelectedUnit(tile.getUnit());
-					tile.setSelected(true);
 				} else if (isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
 					moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
 
@@ -122,7 +120,7 @@ public class Game {
 					isMenuOpen = true;
 
 					//After moving set current unit to null
-					currentSelectedUnit.switchMoved();
+					currentSelectedUnit.setMoved(true);
 					currentSelectedUnit = null;
 
 				} else {
@@ -137,7 +135,6 @@ public class Game {
 											&& tile.getUnit().getCanMove()
 											&& isCurrentPlayersUnit(tile.getUnit())) {
 					setSelectedUnit(tile.getUnit());
-					tile.setSelected(true);
 				}
 			}
 		}
@@ -147,15 +144,16 @@ public class Game {
 		// Start by changing players units hasMoved variable
 		if (playerTurn == 1) {
 			for (Unit unit : player1Chars) {
-				unit.switchMoved();
+				unit.setMoved(false);
 			}
 		} else {
 			for (Unit unit : player2Chars) {
-				unit.switchMoved();
+				unit.setMoved(false);
 			}
 		}
 		
-		// Then switch the player
+		// Clear selected unit, then switch the player
+		setSelectedUnit(null);
 		switchPlayer();
 	}
 	
@@ -180,9 +178,15 @@ public class Game {
 	 * @param unit Unit that is being selected
 	 */
 	public void setSelectedUnit(Unit unit) {
+		if (!(currentSelectedUnit == null)) {
+			unitGrid[currentSelectedUnit.getXCord()][currentSelectedUnit.getYCord()].setSelected(false);
+		}
 		currentSelectedUnit = unit;
 		clearHighlights();
-		setHighlights(unit);
+		if (!(unit == null)) {
+			unitGrid[unit.getXCord()][unit.getYCord()].setSelected(true);
+			setHighlights(unit);
+		}
 	}
 
 	/**
