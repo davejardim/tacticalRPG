@@ -38,9 +38,9 @@ public class Main extends Application {
 			//setup window
 			primaryStage.setScene(scene);
 			primaryStage.setMinWidth(w);
-			primaryStage.setMinHeight(h+16);
+			primaryStage.setMinHeight(h+32);
 			primaryStage.setMaxWidth(w);
-			primaryStage.setMaxHeight(h+16);
+			primaryStage.setMaxHeight(h+32);
 			
 			
 			//must call show() last to render the setup

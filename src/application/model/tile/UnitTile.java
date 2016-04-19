@@ -1,8 +1,10 @@
 package application.model.tile;
 
 import application.model.unit.Unit;
+
 import application.model.unit.UnitType;
 import application.ui.CharacterSelectionView;
+
 import application.ui.Controller;
 import application.ui.unitTile.UnitTileView;
 import javafx.scene.input.MouseEvent;
@@ -40,9 +42,26 @@ public class UnitTile {
 	public UnitTile(int x, int y, Pane pane, UnitType unitType) {
 		this(x, y, pane);	
 		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType, 0));
-		// TODO: Differentiate based on unit type (most likely be done in Unit class)
+	}
+
+//	public UnitTile(Unit unit) {
+//		this(unit.getXCord(), unit.getYCord());	
+//		setUnit(unit);
+//		// TODO: Differentiate based on unit type (most likely be done in Unit class)
+//	}
+//	
+	public void showUnitText() {
+		if (unit != null) {
+			view.setText("Test", unit.getHp() + " / " + unit.getHpTotal());
+		}
 	}
 	
+	public void hideUnitText() {
+		if (unit != null) {
+			view.setText("", "");
+		}
+	}
+
 	public Unit getUnit() {
 		return this.unit;
 	}
@@ -74,6 +93,7 @@ public class UnitTile {
 	
 	public void onClick(MouseEvent e) {
 		System.out.println(xCord + ", " + yCord);
+
 		
 		if(view.getViewPane().equals(CharacterSelectionView.team1Pane))
 			Controller.charSelect.onClick(1, this);
@@ -90,7 +110,7 @@ public class UnitTile {
 	
 	public boolean isPassable() {
 		//TODO This will eventually need to more thoroughly check passability, including whether unit is on same team etc.
-		if (! (unit == null))
+		if (!(unit == null))
 			return unit.getCanMove();
 		else return true;
 	}

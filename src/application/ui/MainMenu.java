@@ -16,17 +16,10 @@ public class MainMenu {
 		System.out.println("hello");
 	}
 	
-	
 	@FXML protected void handleNewGameButtonAction (ActionEvent event) throws IOException, InterruptedException {
 		
-		//Level level = new Level(10,10);
-		
-		
 		mainMenu.setVisible(false);
-		Controller.charSelectionMenu.setVisible(true);
-
-		
-		
+		Controller.charSelectionMenu.setVisible(true);	
 		
 	}
 	

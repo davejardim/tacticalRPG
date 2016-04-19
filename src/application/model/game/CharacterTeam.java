@@ -43,8 +43,6 @@ public class CharacterTeam {
 		}
 		
 		characterGrid[0][0] =  UnitType.ASSASSIN;
-		characterGrid[0][0] = UnitType.CAVILIER;
-		characterGrid[0][0] = UnitType.KNIGHT;
 		characterGrid[0][0] = UnitType.ASSASSIN;
 		characterGrid[0][0] = UnitType.ASSASSIN;
 
