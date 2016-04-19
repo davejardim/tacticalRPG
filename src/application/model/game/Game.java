@@ -37,10 +37,6 @@ public class Game {
 		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 		// Add all player units
 		this.player1Chars = player1Chars;
 		this.player2Chars = player2Chars;

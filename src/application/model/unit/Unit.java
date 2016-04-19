@@ -14,12 +14,8 @@ import javafx.scene.image.Image;
  */
 public class Unit {
 
-<<<<<<< HEAD
-	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove;
-=======
 
 	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove, team;
->>>>>>> origin/master
 	private Image image;
 	private boolean hasMoved, canMove;
 	private UnitType type;
