@@ -14,9 +14,14 @@ import javafx.scene.image.Image;
  */
 public class Unit {
 
+<<<<<<< HEAD
 	private int yCord, xCord, hp, attack, def, attackType, critChance, maxMove, canMove;
+=======
+	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove;
+>>>>>>> origin/master
 	private Image image;
-	private boolean hasMoved;
+	private boolean hasMoved, canMove;
+	private UnitType type;
 
 	public Unit(int x, int y, UnitType type, int team) {
 		this.xCord = x;
@@ -30,6 +35,7 @@ public class Unit {
 		this.hasMoved = false;
 		this.image = type.sprite();
 		this.canMove = type.canMove();
+		this.type = type;
 	}
 	public int getHp(){
 		return hp;
@@ -75,7 +81,7 @@ public class Unit {
 	}
 
 	public boolean getCanMove() {
-		return canMove == 1;
+		return canMove;
 	}
 	public boolean getHasMoved() {
 		return this.hasMoved;
@@ -83,6 +89,10 @@ public class Unit {
 
 	public void switchMoved() {
 		hasMoved = !hasMoved;
+	}
+	
+	public UnitType getType() {
+		return this.type;
 	}
 
 	public List<UnitTile> attackOptions(UnitTile[][] unitLocs) {

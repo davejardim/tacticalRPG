@@ -41,7 +41,10 @@ public class UnitTile {
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> origin/master
 	public Unit getUnit() {
 		return this.unit;
 	}
@@ -83,7 +86,7 @@ public class UnitTile {
 	
 	public boolean isPassable() {
 		//TODO This will eventually need to more thoroughly check passability, including whether unit is on same team etc.
-		if (! (unit == null))
+		if (!(unit == null))
 			return unit.getCanMove();
 		else return true;
 	}

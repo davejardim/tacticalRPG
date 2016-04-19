@@ -1,15 +1,15 @@
 package application.ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import application.Main;
 import application.model.game.Game;
+import application.model.unit.Unit;
+import application.model.unit.UnitType;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -104,10 +104,21 @@ public class Controller {
 					e.printStackTrace();
 				}
 				
+				// Auto set player units (testing purposes)
+				ArrayList<Unit> player1 = new ArrayList<Unit>();
+				ArrayList<Unit> player2 = new ArrayList<Unit>();
+				player1.add(new Unit(5, 5, UnitType.PIKACHU, 1));
+				player1.add(new Unit(6, 10, UnitType.PIKACHU, 1));
+				player1.add(new Unit(5, 15, UnitType.PIKACHU, 1));
+				player2.add(new Unit(30, 5, UnitType.PIKACHU, 2));
+				player2.add(new Unit(24, 8, UnitType.PIKACHU, 2));
+				player2.add(new Unit(26, 10, UnitType.PIKACHU, 2));
+				
+				
 				//hides main menu (testing purposes) and instead creates default game
 				if(Main.bypassMenuToDefaultLevel){
 					mainMenu.setVisible(false);
-					currentGame = new Game();
+					currentGame = new Game(player1, player2);
 				}	
 	}
 	
