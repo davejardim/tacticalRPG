@@ -226,19 +226,19 @@ public class Unit {
 			break;
 		case ARCHER:
 			break;
-		case CAVILIER:
+		case LINK:
 			break;
-		case KNIGHT:
+		case MARIO:
 			break;
-		case KING:
+		case MJ:
 			break;
-		case MAGE:
-			break;
-		case PIKACHU:
+		case CAP:
 			break;
 		case WALL:
 			break;
-		default:
+		case PIKACHU:
+			break;
+		case KOFFING:
 			break;
 		}
 

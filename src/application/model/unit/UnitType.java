@@ -9,10 +9,10 @@ public enum UnitType {
 	//hp/attack/def/attackType/critChance/maxMove/canMove/Image
 	ARCHER(20, 7, 3, 2, 10, 2, true, new Image("/application/resources/Man_256x256.png")),
     ASSASSIN(21, 8, 2, 1, 50, 2, true, new Image("/application/resources/Man_256x256.png")),
-	CAVILIER(25, 7, 3, 1, 10, 4, true, new Image("/application/resources/Man_256x256.png")),
-	KNIGHT(28, 5, 5, 1, 5, 2, true,new Image("/application/resources/Man_256x256.png")),
-	KING(30, 7, 4, 1, 10, 2, true, new Image("/application/resources/Man_256x256.png")),
-	MAGE(20, 8, 4, 3, 10, 2, true, new Image("/application/resources/Man_256x256.png")),
+	LINK(25, 7, 3, 1, 10, 4, true, new Image("/application/resources/toon_link.gif")),
+	MARIO(28, 5, 5, 1, 5, 2, true,new Image("/application/resources/Mario.gif")),
+	MJ(30, 7, 4, 1, 10, 2, true, new Image("/application/resources/MJ.gif")),
+	CAP(20, 8, 4, 3, 10, 2, true, new Image("/application/resources/Cap.gif")),
 	WALL(0,0,0,0,0,0, false, new Image("/application/resources/brick_wall.png")),
 	PIKACHU(21, 8, 2, 1, 50, 4, true, new Image("/application/resources/pikachu.gif")),
 	KOFFING(30, 4, 6, 1, 10, 2, true, new Image("/application/resources/koffing.gif"));
