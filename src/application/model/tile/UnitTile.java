@@ -41,6 +41,10 @@ public class UnitTile {
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
 	
+<<<<<<< HEAD
+	
+=======
+>>>>>>> origin/master
 	public Unit getUnit() {
 		return this.unit;
 	}
