@@ -23,10 +23,12 @@ public class Game {
 	private Unit currentSelectedUnit = null;
 	private EnvironmentTile[][] environmentGrid;
 	private UnitTile[][] unitGrid;
+	private int playerTurn;
+	private ArrayList<Unit> player1Chars, player2Chars;
 
 	public int xSize;
 	public int ySize;	
-	public static boolean isMenuOpen, isPlayerTurn;
+	public static boolean isMenuOpen;
 
 
 	public Game(ArrayList<Unit> player1Chars, ArrayList<Unit> player2Chars) {
@@ -36,6 +38,8 @@ public class Game {
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
 
 		// Add all player units
+		this.player1Chars = player1Chars;
+		this.player2Chars = player2Chars;
 		for(Unit unit : player1Chars) {
 			addUnit(unit);
 		}
@@ -45,7 +49,7 @@ public class Game {
 
 
 		isMenuOpen = false;
-		isPlayerTurn = true;
+		playerTurn = 1;
 	}
 
 	public EnvironmentTile getEnvironmentTile(int x, int y){
@@ -82,25 +86,29 @@ public class Game {
 
 		Controller.UILayers.setAlignment(Pos.CENTER);
 	}
+	
+	
 
 	public void selectUnit(int x, int y) {
 		unitGrid[x][y].setSelected(true);
 	}
 
 	private void addUnit(Unit unit){
-		unitGrid[unit.getXCord()][unit.getYCord()] = new UnitTile(unit.getXCord(), unit.getYCord(), unit.getType());
+		unitGrid[unit.getXCord()][unit.getYCord()] = new UnitTile(unit);
 	}
 
 	public void onClick(UnitTile tile, MouseEvent e) {
 		// Add up front any conditions that should prevent clicking
-		if (!isMenuOpen && isPlayerTurn) {
+		if (!isMenuOpen) {
 			if (currentSelectedUnit != null) {
 				// When a unit is clicked:
 				// If another different unit is selected switch to it	
 				if (tile.getUnit() != null 
 						&& !tile.getUnit().equals(currentSelectedUnit)
+						&& isCurrentPlayersUnit(tile.getUnit())
 						&& !tile.getUnit().getHasMoved()
-						&& tile.getUnit().getCanMove()) {
+						&& tile.getUnit().getCanMove()) 
+				{
 					unitGrid[currentSelectedUnit.getXCord()][currentSelectedUnit.getYCord()].setSelected(false);
 					tile.setSelected(true);
 					setSelectedUnit(tile.getUnit());
@@ -125,7 +133,9 @@ public class Game {
 			} else {
 				// If no unit chosen and unit is clicked then highlight paths
 				System.out.println("CODE");
-				if (tile.getUnit() != null && !tile.getUnit().getHasMoved() && tile.getUnit().getCanMove()) {
+				if (tile.getUnit() != null && !tile.getUnit().getHasMoved() 
+											&& tile.getUnit().getCanMove()
+											&& isCurrentPlayersUnit(tile.getUnit())) {
 					setSelectedUnit(tile.getUnit());
 					tile.setSelected(true);
 				}
@@ -134,7 +144,35 @@ public class Game {
 	}
 	
 	public void endTurn() {
+		// Start by changing players units hasMoved variable
+		if (playerTurn == 1) {
+			for (Unit unit : player1Chars) {
+				unit.switchMoved();
+			}
+		} else {
+			for (Unit unit : player2Chars) {
+				unit.switchMoved();
+			}
+		}
 		
+		// Then switch the player
+		switchPlayer();
+	}
+	
+	/**
+	 * Switch the turn to the other player
+	 */
+	private void switchPlayer() {
+		playerTurn = (playerTurn == 1) ? 2 : 1;
+	}
+	
+	/**
+	 * Given a unit check whether it's current players unit
+	 * @param unit Unit being selected
+	 * @return If current players unit
+	 */
+	private boolean isCurrentPlayersUnit(Unit unit) {
+		return playerTurn == unit.getTeam();
 	}
 
 	/**
