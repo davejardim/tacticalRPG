@@ -40,11 +40,7 @@ public class UnitTile {
 		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType, 0));
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
-	
-<<<<<<< HEAD
-	
-=======
->>>>>>> origin/master
+
 	public Unit getUnit() {
 		return this.unit;
 	}
