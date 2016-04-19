@@ -2,7 +2,10 @@ package application.model.game;
 
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
+import java.util.Collection;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import application.Main;
@@ -25,10 +28,12 @@ public class Game {
 	private Unit currentSelectedUnit = null;
 	private EnvironmentTile[][] environmentGrid;
 	private UnitTile[][] unitGrid;
+	private int playerTurn;
+	private ArrayList<Unit> player1Chars, player2Chars;
 
 	public int xSize;
 	public int ySize;	
-	public static boolean isMenuOpen, isPlayerTurn;
+	public static boolean isMenuOpen;
 
 
 	public Game() {
@@ -36,30 +41,76 @@ public class Game {
 		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
 		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
-
+		
+	}
+	
+	public void startGame(){
 		//add default player
 		addUnit(4,4, UnitType.PIKACHU);
 		addUnit(4,5, UnitType.WALL);
 
 		isMenuOpen = false;
-		isPlayerTurn = true;
+		playerTurn = 1;
+	}
+	
+	public void startGame(Collection<UnitTile> t1, Collection<UnitTile> t2){
+		int y = 1;
+		for(UnitTile t : t1){
+			addUnit(1,y, t.getType());
+			y = y + 3;
+		}
+		y = 1;
+		for(UnitTile t : t2){
+			addUnit(30,y, t.getType());
+			y = y + 3;
+		}
+
+//		
+//		// Add all player units
+//		this.player1Chars = player1Chars;
+//		this.player2Chars = player2Chars;
+//		for(Unit unit : player1Chars) {
+//			addUnit(unit);
+//		}
+//		for(Unit unit : player2Chars) {
+//			addUnit(unit);
+//		}
 
 
+		isMenuOpen = false;
+		playerTurn = 1;
 	}
 
+	
+	public void startGame(ArrayList<Unit> player1, ArrayList<Unit> player2) {
+		int y = 1;
+		for(Unit t : player1){
+			addUnit(1,y, t.getType());
+			y = y + 3;
+		}
+		y = 1;
+		for(Unit t : player2){
+			addUnit(30,y, t.getType());
+			y = y + 3;
+		}
+		isMenuOpen = false;
+		playerTurn = 1;
+		
+	}
+	
 	public EnvironmentTile getEnvironmentTile(int x, int y){
 		if( x < 0 || x == xSize || y < 0 || y >= ySize)
 			return null;
 		return environmentGrid[x][y];
 
 	}
+	
+	
 
 
 	private void genGrid(int w, int h){
-
 		xSize = w;
 		ySize = h;
-
 
 		//setup plain green grass environment 
 		environmentGrid = new EnvironmentTile[w][h];
@@ -73,52 +124,56 @@ public class Game {
 		unitGrid = new UnitTile[w][h];
 		for(int x = 0; x < w; x++){
 			for(int y = 0; y < h; y++){
-				unitGrid[x][y]= new UnitTile(x, y);
+				unitGrid[x][y]= new UnitTile(x, y, Controller.unitGrid);
 			}
 		}
-		System.out.println(unitGrid.length);
 		System.out.println(w + " " + h);
 
 
 		Controller.UILayers.setAlignment(Pos.CENTER);
 	}
+	
+	
 
 	public void selectUnit(int x, int y) {
-
-		//if(selectedUnits.isEmpty()))
-		//if (!( x < 0 || x == xSize || y < 0 || y >= ySize))
 		unitGrid[x][y].setSelected(true);
-
 	}
 
+	
 	private void addUnit(int xCord, int yCord, UnitType t){
 
-		unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, t);
+		unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, Controller.unitGrid, t);
 	}
+	
+	//private void addUnit(Unit unit){
+	//	unitGrid[unit.getXCord()][unit.getYCord()] = new UnitTile();
+
+	//}
 
 	public void onClick(UnitTile tile, MouseEvent e) {
 		// Add up front any conditions that should prevent clicking
-		if (!isMenuOpen && isPlayerTurn) {
+		if (!isMenuOpen) {
 			if (currentSelectedUnit != null) {
 				// When a unit is clicked:
 				// If another different unit is selected switch to it	
 				if (tile.getUnit() != null 
 						&& !tile.getUnit().equals(currentSelectedUnit)
-						&& !tile.getUnit().getHasMoved()) {
+						&& isCurrentPlayersUnit(tile.getUnit())
+						&& !tile.getUnit().getHasMoved()
+						&& tile.getUnit().getCanMove()) 
+				{
 					unitGrid[currentSelectedUnit.getXCord()][currentSelectedUnit.getYCord()].setSelected(false);
-					tile.setSelected(true);
 					setSelectedUnit(tile.getUnit());
-					tile.setSelected(true);
 				} else if (isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
 					moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
 
 					// Open after move menu
-					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit);
+					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit, unitGrid);
 					menu.show(Controller.UILayers, e.getScreenX(), e.getScreenY());
 					isMenuOpen = true;
 
 					//After moving set current unit to null
-					currentSelectedUnit.switchMoved();
+					currentSelectedUnit.setMoved(true);
 					currentSelectedUnit = null;
 
 				} else {
@@ -129,12 +184,46 @@ public class Game {
 			} else {
 				// If no unit chosen and unit is clicked then highlight paths
 				System.out.println("CODE");
-				if (tile.getUnit() != null && !tile.getUnit().getHasMoved()) {
+				if (tile.getUnit() != null && !tile.getUnit().getHasMoved() 
+											&& tile.getUnit().getCanMove()
+											&& isCurrentPlayersUnit(tile.getUnit())) {
 					setSelectedUnit(tile.getUnit());
-					tile.setSelected(true);
 				}
 			}
 		}
+	}
+	
+	public void endTurn() {
+		// Start by changing players units hasMoved variable
+		if (playerTurn == 1) {
+			for (Unit unit : player1Chars) {
+				unit.setMoved(false);
+			}
+		} else {
+			for (Unit unit : player2Chars) {
+				unit.setMoved(false);
+			}
+		}
+		
+		// Clear selected unit, then switch the player
+		setSelectedUnit(null);
+		switchPlayer();
+	}
+	
+	/**
+	 * Switch the turn to the other player
+	 */
+	private void switchPlayer() {
+		playerTurn = (playerTurn == 1) ? 2 : 1;
+	}
+	
+	/**
+	 * Given a unit check whether it's current players unit
+	 * @param unit Unit being selected
+	 * @return If current players unit
+	 */
+	private boolean isCurrentPlayersUnit(Unit unit) {
+		return playerTurn == unit.getTeam();
 	}
 
 	/**
@@ -142,9 +231,15 @@ public class Game {
 	 * @param unit Unit that is being selected
 	 */
 	public void setSelectedUnit(Unit unit) {
+		if (!(currentSelectedUnit == null)) {
+			unitGrid[currentSelectedUnit.getXCord()][currentSelectedUnit.getYCord()].setSelected(false);
+		}
 		currentSelectedUnit = unit;
 		clearHighlights();
-		setHighlights(unit);
+		if (!(unit == null)) {
+			unitGrid[unit.getXCord()][unit.getYCord()].setSelected(true);
+			setHighlights(unit);
+		}
 	}
 
 	/**
@@ -159,7 +254,7 @@ public class Game {
 			System.out.println("Error: no unit currently selected");
 			return false;
 		} else {
-			return getValidMoves(unit.getXCord(), unit.getYCord(), unit.getTravelDist())[x][y];
+			return getValidMoves(unit.getXCord(), unit.getYCord(), unit.getMaxMove())[x][y];
 		}
 	}
 
@@ -181,7 +276,7 @@ public class Game {
 	}
 
 	private void setHighlights(Unit unit) {
-		boolean[][] boolGrid = getValidMoves(unit.getXCord(), unit.getYCord(), unit.getTravelDist());
+		boolean[][] boolGrid = getValidMoves(unit.getXCord(), unit.getYCord(), unit.getMaxMove());
 		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
 			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
 				if (boolGrid[i][j]) {
@@ -198,28 +293,15 @@ public class Game {
 			}
 		}
 	}
-
-	private boolean[][] getValidMoves2(int x, int y, int maxDist) {
-		boolean[][] highlightGrid = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
-		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
-			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
-				if (findDist(x, y, i, j) <= maxDist
-						&& unitGrid[i][j].getUnit() == null) {
-					highlightGrid[i][j] = true;
-				} else {
-					highlightGrid[i][j] = false;
-				}
-			}
-		}
-		return highlightGrid;
-	}
-
+	
+	// Uses Dijkstra's to find valid paths given a certain distance
 	private boolean[][] getValidMoves(int x, int y, int maxDist) {
+
 		Comparator<int[]> comp = (sq1, sq2) -> (sq1[0] - sq2[0]);
 		PriorityQueue<int[]> Q = new PriorityQueue<>(comp);
 		int[] node;
 		boolean[][] validSquares = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
-		for (int i = Math.max(x-maxDist, 0); i <= Math.min(x+maxDist, Main.LEVEL_WIDTH) ; i++)
+		for (int i = Math.max(x-maxDist, 0); i < Math.min(x+maxDist, Main.LEVEL_WIDTH) ; i++)
 		{
 			for (int j = Math.max(y-maxDist, 0); j <= Math.min(x+maxDist+1, Main.LEVEL_HEIGHT) ; j++)
 			{
@@ -230,6 +312,7 @@ public class Game {
 
 			}
 		}
+		
 		while (!Q.isEmpty())
 		{
 			node = Q.remove();
@@ -282,8 +365,5 @@ public class Game {
 		return validSquares;
 	}
 
-	private double findDist(int x1, int y1, int x2, int y2) {
-		return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-	}
-
+	
 }

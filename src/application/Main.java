@@ -1,5 +1,6 @@
 package application;
 	
+import application.model.game.Game;
 import application.ui.Controller;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -23,8 +24,8 @@ public class Main extends Application {
 		
 			
 			
-			int w = 1024+60;	//Window width
-			int h = 512+60;	//Window Height
+			int w = 1024+50;	//Window width
+			int h = 512+52;	//Window Height
 			
 			controller = new Controller();
 			
@@ -37,9 +38,9 @@ public class Main extends Application {
 			//setup window
 			primaryStage.setScene(scene);
 			primaryStage.setMinWidth(w);
-			primaryStage.setMinHeight(h+16);
+			primaryStage.setMinHeight(h+32);
 			primaryStage.setMaxWidth(w);
-			primaryStage.setMaxHeight(h+16);
+			primaryStage.setMaxHeight(h+32);
 			
 			
 			//must call show() last to render the setup

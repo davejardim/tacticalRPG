@@ -16,19 +16,19 @@ public class MainMenu {
 		System.out.println("hello");
 	}
 	
-	
-	@FXML protected void handleNewGameButtonAction (ActionEvent event) throws IOException {
-		
-		//Level level = new Level(10,10);
-		Controller.currentGame = new Game();
+	@FXML protected void handleNewGameButtonAction (ActionEvent event) throws IOException, InterruptedException {
 		
 		mainMenu.setVisible(false);
+		Controller.charSelectionMenu.setVisible(true);	
 		
 	}
 	
 	@FXML protected void handleLoadGameButtonAction (ActionEvent event) {
 		//Bring up game load screen
 		//menuPane.setVisible(false);
+	}
+	@FXML protected void handleGameEditorAction (ActionEvent event) {
+		
 	}
 	
 }
