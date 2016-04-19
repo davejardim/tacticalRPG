@@ -14,8 +14,8 @@ import javafx.scene.image.Image;
  */
 public class Unit {
 
-
-	private int yCord, xCord, travelDist, hp, attack, def, attackType, critChance, maxMove, team;
+	private final int hpTotal;
+	private int yCord, xCord, hp, attack, def, attackType, critChance, maxMove, team;
 	private Image image;
 	private boolean hasMoved, canMove;
 	private UnitType type;
@@ -23,6 +23,7 @@ public class Unit {
 	public Unit(int x, int y, UnitType type, int team) {
 		this.xCord = x;
 		this.yCord = y;
+		this.hpTotal = type.hp();
 		this.hp = type.hp();
 		this.attack = type.attack();
 		this.def = type.def();
@@ -34,6 +35,9 @@ public class Unit {
 		this.canMove = type.canMove();
 		this.team = team;
 		this.type = type;
+	}
+	public int getHpTotal() {
+		return hpTotal;
 	}
 	public int getHp(){
 		return hp;

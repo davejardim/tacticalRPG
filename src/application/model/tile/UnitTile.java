@@ -39,6 +39,18 @@ public class UnitTile {
 		setUnit(unit);
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
+	
+	public void showUnitText() {
+		if (unit != null) {
+			view.setText("Test", unit.getHp() + " / " + unit.getHpTotal());
+		}
+	}
+	
+	public void hideUnitText() {
+		if (unit != null) {
+			view.setText("", "");
+		}
+	}
 
 	public Unit getUnit() {
 		return this.unit;
