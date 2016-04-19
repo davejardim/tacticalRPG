@@ -53,6 +53,8 @@ public class Game {
 		return environmentGrid[x][y];
 
 	}
+	
+	
 
 
 	private void genGrid(int w, int h){
@@ -74,7 +76,6 @@ public class Game {
 				unitGrid[x][y]= new UnitTile(x, y);
 			}
 		}
-		System.out.println(unitGrid.length);
 		System.out.println(w + " " + h);
 
 
@@ -129,6 +130,10 @@ public class Game {
 				}
 			}
 		}
+	}
+	
+	public void endTurn() {
+		
 	}
 
 	/**
