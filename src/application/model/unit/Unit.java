@@ -101,84 +101,84 @@ public class Unit {
 		return team;
 	}
 
-	public List<UnitTile> attackOptions(UnitTile[][] unitLocs) {
-		List<UnitTile> list = new ArrayList<>();
+	public List<Unit> attackOptions(UnitTile[][] unitLocs) {
+		List<Unit> list = new ArrayList<>();
 		//if melee unit
 		if(this.attackType==1){
 			//if up 1
-			if(unitLocs[this.yCord+1][this.xCord].getUnit()==null){
+			if(unitLocs[this.xCord+1][this.yCord].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord+1][this.xCord]);
+				list.add(unitLocs[this.xCord+1][this.yCord].getUnit());
 			}
 			//if down 1
-			if(unitLocs[this.yCord-1][this.xCord].getUnit()==null){
+			if(unitLocs[this.xCord-1][this.yCord].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord-1][this.xCord]);
+				list.add(unitLocs[this.xCord-1][this.yCord].getUnit());
 			}
 			//if 1 right
-			if(unitLocs[this.yCord][this.xCord+1].getUnit()==null){
+			if(unitLocs[this.xCord][this.yCord+1].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord][this.xCord+1]);
+				list.add(unitLocs[this.xCord][this.yCord+1].getUnit());
 			}
 			//if one left
-			if(unitLocs[this.yCord][this.xCord-1].getUnit()==null){
+			if(unitLocs[this.xCord][this.yCord-1].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord][this.xCord-1]);
+				list.add(unitLocs[this.xCord][this.yCord-1].getUnit());
 			}
 		}
 		//if ranged unit
 		if(this.attackType==2){
 			//if up right
-			if(unitLocs[this.yCord+1][this.xCord+1].getUnit()==null){
+			if(unitLocs[this.xCord+1][this.yCord+1].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord+1][this.xCord+1]);
+				list.add(unitLocs[this.xCord+1][this.yCord+1].getUnit());
 			}
 			//if up left
-			if(unitLocs[this.yCord+1][this.xCord-1].getUnit()==null){
+			if(unitLocs[this.xCord+1][this.yCord-1].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord+1][this.xCord-1]);
+				list.add(unitLocs[this.xCord+1][this.yCord-1].getUnit());
 			}
 			//if down right
-			if(unitLocs[this.yCord-1][this.xCord+1].getUnit()==null){
+			if(unitLocs[this.xCord-1][this.yCord+1].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord-1][this.xCord+1]);
+				list.add(unitLocs[this.xCord-1][this.yCord+1].getUnit());
 			}
 			//if down left
-			if(unitLocs[this.yCord-1][this.xCord-1].getUnit()==null){
+			if(unitLocs[this.xCord-1][this.yCord-1].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord+1][this.xCord+1]);
+				list.add(unitLocs[this.xCord+1][this.yCord+1].getUnit());
 			}
 			//if up 2
-			if(unitLocs[this.yCord+2][this.xCord].getUnit()==null){
+			if(unitLocs[this.xCord+2][this.yCord].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord+2][this.xCord]);
+				list.add(unitLocs[this.xCord+2][this.yCord].getUnit());
 			}
 			//if down 2
-			if(unitLocs[this.yCord-2][this.xCord].getUnit()==null){
+			if(unitLocs[this.xCord-2][this.yCord].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord-2][this.xCord]);
+				list.add(unitLocs[this.xCord-2][this.yCord].getUnit());
 			}
 			//if 2 right
-			if(unitLocs[this.yCord][this.xCord+2].getUnit()==null){
+			if(unitLocs[this.xCord][this.yCord+2].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord][this.xCord+2]);
+				list.add(unitLocs[this.xCord][this.yCord+2].getUnit());
 			}
 			//if 2 left
-			if(unitLocs[this.yCord][this.xCord-2].getUnit()==null){
+			if(unitLocs[this.xCord][this.yCord-2].getUnit()==null){
 			}
 			else{
-				list.add(unitLocs[this.yCord][this.xCord-2]);
+				list.add(unitLocs[this.xCord][this.yCord-2].getUnit());
 			}
 		}
 		return list;
@@ -189,7 +189,7 @@ public class Unit {
 		if(this.attackType==1){
 			if(attackee.getAttackType()==1){
 				//attackee takes damage
-				attackee.setHp(this.getAttack() - attackee.getHp());
+				attackee.setHp(attackee.getHp()-this.getAttack());
 				if(attackee.getHp()==0){
 					//death
 				}
@@ -198,7 +198,7 @@ public class Unit {
 				}
 			}
 			if(attackee.getAttackType()==2){
-				attackee.setHp(this.getAttack() - attackee.getHp());
+				attackee.setHp(attackee.getHp() - this.getAttack());
 				if(attackee.getHp()==0){
 					//death
 				}
@@ -207,7 +207,7 @@ public class Unit {
 		//ranged
 		if(this.attackType==2){
 			if(attackee.getAttackType()==2){
-				attackee.setHp(this.getAttack() - attackee.getHp());
+				attackee.setHp(attackee.getHp()-this.getAttack());
 				if(attackee.getHp()==0){
 					//death
 				}
@@ -216,7 +216,7 @@ public class Unit {
 				}
 			}
 			if(attackee.getAttackType()==1){
-				attackee.setHp(this.getAttack() - attackee.getHp());
+				attackee.setHp(attackee.getHp() - this.getAttack());
 				if(attackee.getHp()==0){
 					//death
 				}

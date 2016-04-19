@@ -19,9 +19,9 @@ public class UnitPopupMenu extends ContextMenu {
 		MenuItem potion = new MenuItem("Attack");
 		
 		potion.setOnAction(e-> {
-			List<UnitTile> attackOptions = unit.attackOptions(unitLocs);
-			unit.attack(attackOptions.get(0).getUnit());
-			System.out.println(attackOptions.get(0).getUnit().getHp());
+			List<Unit> attackOptions = unit.attackOptions(unitLocs);
+			unit.attack(attackOptions.get(0));
+			System.out.println(attackOptions.get(0).getHp());
 			Controller.currentGame.isMenuOpen = false;
 		});
 		
