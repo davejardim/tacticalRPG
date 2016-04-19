@@ -9,6 +9,7 @@ import application.model.unit.Unit;
 import application.model.unit.UnitType;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -38,6 +39,7 @@ public class Controller {
 	private Location selectedTile1;
 	
 	private Text infoBarText;
+	private Button endTurn;
 	
 	public Controller() {
 		
@@ -74,16 +76,24 @@ public class Controller {
 				overlay.setPickOnBounds(false);
 				Rectangle r = new Rectangle(10,10,10,30);
 				infoBarText = new Text("Hello");
+				infoBarText.setFont(new Font(20));
 				infoBarText.setFill(Color.BLACK);
 				r.setWidth(200);
 				r.setOpacity(0.2);
-				overlay.getChildren().addAll(r,infoBarText);
+				endTurn = new Button("End Turn");
+				endTurn.setFont(new Font(20));
+				endTurn.setOnMouseClicked(e->{
+					currentGame.endTurn();
+				});
+				overlay.getChildren().addAll(r,infoBarText, endTurn);
 				overlay.setBottomAnchor(infoBarText, 3.0);
 				overlay.setLeftAnchor(infoBarText, 5.0);
 				overlay.setLeftAnchor(r, 0.0);
 				overlay.setBottomAnchor(r, 0.0);
-				//overlay.setRightAnchor(r, 0.0);
-				infoBarText.setFont(new Font(20));
+				overlay.setBottomAnchor(endTurn, 3.0);
+				overlay.setRightAnchor(endTurn, 5.0);
+				
+				
 				UILayers.getChildren().add(overlay);
 				
 				overlay.setMouseTransparent(true);

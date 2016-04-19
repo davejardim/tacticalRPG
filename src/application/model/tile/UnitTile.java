@@ -1,7 +1,6 @@
 package application.model.tile;
 
 import application.model.unit.Unit;
-import application.model.unit.UnitType;
 import application.ui.Controller;
 import application.ui.unitTile.UnitTileView;
 import javafx.scene.input.MouseEvent;
@@ -35,9 +34,9 @@ public class UnitTile {
 	 * @param tileSize
 	 * @param unitType
 	 */
-	public UnitTile(int x, int y, UnitType unitType) {
-		this(x, y);	
-		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType, 0));
+	public UnitTile(Unit unit) {
+		this(unit.getXCord(), unit.getYCord());	
+		setUnit(unit);
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
 
