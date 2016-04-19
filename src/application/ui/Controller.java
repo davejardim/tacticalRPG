@@ -96,7 +96,7 @@ public class Controller {
 				
 				UILayers.getChildren().add(overlay);
 				
-				overlay.setMouseTransparent(true);
+				//overlay.setMouseTransparent(true);
 
 				overlay.autosize();
 				

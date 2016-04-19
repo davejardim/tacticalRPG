@@ -244,9 +244,9 @@ public class Game {
 		PriorityQueue<int[]> Q = new PriorityQueue<>(comp);
 		int[] node;
 		boolean[][] validSquares = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
-		for (int i = Math.max(x-maxDist, 0); i <= Math.min(x+maxDist, Main.LEVEL_WIDTH) ; i++)
+		for (int i = Math.max(x-maxDist, 0); i < Math.min(x+maxDist, Main.LEVEL_WIDTH) ; i++)
 		{
-			for (int j = Math.max(y-maxDist, 0); j <= Math.min(x+maxDist, Main.LEVEL_HEIGHT) ; j++)
+			for (int j = Math.max(y-maxDist, 0); j < Math.min(x+maxDist, Main.LEVEL_HEIGHT) ; j++)
 			{
 				if (i == x && j == y)
 					Q.add(new int[] {0, i, j});
