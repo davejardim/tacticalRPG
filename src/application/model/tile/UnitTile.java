@@ -41,6 +41,13 @@ public class UnitTile {
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
 	
+	public int isPassable(){
+		if(){
+			
+		}
+		
+	}
+	
 	public Unit getUnit() {
 		return this.unit;
 	}

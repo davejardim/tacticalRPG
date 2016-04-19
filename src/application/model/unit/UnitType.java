@@ -29,8 +29,9 @@ public enum UnitType {
     private final int critChance;
     //random number generator from 1 to 100. Crit if rand() < critChance
     private final int maxMove;
-    //0 can pass, 1 cant pass
-    public final int canMove;
+    //1 can pass, 0 cant pass
+    private final int canMove;
+    
     private final Image sprite;
     
     UnitType(int hp, int attack, int def, int attackType, int critChance,int maxMove,int canMove, Image sprite) {
