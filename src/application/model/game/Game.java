@@ -115,7 +115,7 @@ public class Game {
 					moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
 
 					// Open after move menu
-					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit);
+					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit, unitGrid);
 					menu.show(Controller.UILayers, e.getScreenX(), e.getScreenY());
 					isMenuOpen = true;
 
