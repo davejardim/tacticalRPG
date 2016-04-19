@@ -70,6 +70,9 @@ public enum UnitType {
     	return canMove;
     }
     
+    
+  
+    
 }
 
 

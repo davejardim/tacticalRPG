@@ -3,6 +3,7 @@ package application.model.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import application.Main;
@@ -36,15 +37,31 @@ public class Game {
 		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
 		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
 		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
-
+		
+	}
+	
+	public void startGame(){
 		//add default player
 		addUnit(4,4, UnitType.PIKACHU);
 		addUnit(4,5, UnitType.WALL);
 
 		isMenuOpen = false;
 		isPlayerTurn = true;
-
-
+	}
+	
+	public void startGame(Collection<UnitTile> t1, Collection<UnitTile> t2){
+		int y = 1;
+		for(UnitTile t : t1){
+			addUnit(1,y, t.getType());
+			y = y + 3;
+		}
+		y = 1;
+		for(UnitTile t : t2){
+			addUnit(30,y, t.getType());
+			y = y + 3;
+		}
+		isMenuOpen = false;
+		isPlayerTurn = true;
 	}
 
 	public EnvironmentTile getEnvironmentTile(int x, int y){
@@ -73,7 +90,7 @@ public class Game {
 		unitGrid = new UnitTile[w][h];
 		for(int x = 0; x < w; x++){
 			for(int y = 0; y < h; y++){
-				unitGrid[x][y]= new UnitTile(x, y);
+				unitGrid[x][y]= new UnitTile(x, y, Controller.unitGrid);
 			}
 		}
 		System.out.println(unitGrid.length);
@@ -93,7 +110,7 @@ public class Game {
 
 	private void addUnit(int xCord, int yCord, UnitType t){
 
-		unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, t);
+		unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, Controller.unitGrid, t);
 	}
 
 	public void onClick(UnitTile tile, MouseEvent e) {

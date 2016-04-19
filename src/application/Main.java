@@ -1,5 +1,6 @@
 package application;
 	
+import application.model.game.Game;
 import application.ui.Controller;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -23,8 +24,8 @@ public class Main extends Application {
 		
 			
 			
-			int w = 1024+60;	//Window width
-			int h = 512+60;	//Window Height
+			int w = 1024+50;	//Window width
+			int h = 512+52;	//Window Height
 			
 			controller = new Controller();
 			

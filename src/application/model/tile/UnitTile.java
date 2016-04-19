@@ -2,9 +2,11 @@ package application.model.tile;
 
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
+import application.ui.CharacterSelectionView;
 import application.ui.Controller;
 import application.ui.unitTile.UnitTileView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 public class UnitTile {
 	
@@ -20,10 +22,10 @@ public class UnitTile {
 	 * @param y
 	 * @param tileSize
 	 */
-	public UnitTile(int x, int y) {
+	public UnitTile(int x, int y, Pane p) {
 		this.xCord = x;
 		this.yCord = y;
-		this.view = new UnitTileView(this);
+		this.view = new UnitTileView(this, p);
 		this.unit = null;
 		
 	}
@@ -35,8 +37,8 @@ public class UnitTile {
 	 * @param tileSize
 	 * @param unitType
 	 */
-	public UnitTile(int x, int y, UnitType unitType) {
-		this(x, y);	
+	public UnitTile(int x, int y, Pane pane, UnitType unitType) {
+		this(x, y, pane);	
 		setUnit(new Unit(this.getXCord(), this.getYCord(), unitType, 0));
 		// TODO: Differentiate based on unit type (most likely be done in Unit class)
 	}
@@ -72,7 +74,13 @@ public class UnitTile {
 	
 	public void onClick(MouseEvent e) {
 		System.out.println(xCord + ", " + yCord);
-		Controller.currentGame.onClick(this, e);
+		
+		if(view.getViewPane().equals(CharacterSelectionView.team1Pane))
+			Controller.charSelect.onClick(1, this);
+		else if(view.getViewPane().equals(CharacterSelectionView.team2Pane))
+			Controller.charSelect.onClick(2, this);
+		else
+			Controller.currentGame.onClick(this, e);
 		
 	}
 
@@ -85,5 +93,15 @@ public class UnitTile {
 		if (! (unit == null))
 			return unit.getCanMove();
 		else return true;
+	}
+
+	public void setGrid(Pane p) {
+		view.setGrid(p);
+		
+	}
+	
+	public UnitType getType()
+	{
+		return unit.getType();
 	}
 }

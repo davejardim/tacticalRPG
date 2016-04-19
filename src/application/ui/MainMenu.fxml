@@ -16,9 +16,12 @@
          </font>
       </Text>
    	
-   	<Button alignment="CENTER" onAction="#handleNewGameButtonAction" prefHeight="26.0" prefWidth="171.0" text="Start New Game" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+   	<Button alignment="CENTER" onAction="#handleNewGameButtonAction" prefHeight="26.0" prefWidth="171.0" text="New Game" GridPane.columnIndex="0" GridPane.rowIndex="1" />
    		
    	<Button onAction="#handleLoadGameButtonAction" prefHeight="26.0" prefWidth="173.0" text="Load Game" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+   
+     <Button onAction="#handleGameEditorAction" prefHeight="26.0" prefWidth="173.0" text="Level Editor" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+   
    </children>
    
    <stylesheets>

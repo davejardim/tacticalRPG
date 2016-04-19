@@ -5,6 +5,7 @@ import application.model.tile.UnitTile;
 import application.ui.Controller;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineJoin;
@@ -15,9 +16,11 @@ public class UnitTileView {
 	private UnitTile tile;
 	private ImageView i;
 	private Rectangle r;
+	private Pane viewPane;
 	
-	public UnitTileView(UnitTile tile) {
+	public UnitTileView(UnitTile tile, Pane p) {
 		this.tile = tile;
+		viewPane = p;
 		
 		i = new ImageView();
 		
@@ -40,7 +43,7 @@ public class UnitTileView {
 		r.setStroke(Color.TRANSPARENT);
 		r.setStrokeWidth(4);
 		r.setStrokeLineJoin(StrokeLineJoin.ROUND);
-		Controller.unitGrid.getChildren().addAll(i,r);
+		viewPane.getChildren().addAll(i,r);
 		
 		setHandles();
 	}
@@ -70,6 +73,14 @@ public class UnitTileView {
 		else{
 			r.setStroke(Color.TRANSPARENT);
 		}
+		
+	}
+
+	public Pane getViewPane(){
+			return viewPane;
+	}
+	public void setGrid(Pane p) {
+		viewPane = p;
 		
 	}
 }

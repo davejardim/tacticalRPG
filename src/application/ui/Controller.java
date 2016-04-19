@@ -3,16 +3,22 @@ package application.ui;
 import java.io.IOException;
 
 import application.Main;
+import application.model.game.CharacterSelection;
 import application.model.game.Game;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -26,12 +32,14 @@ public class Controller {
 	
 	//current game, accessible by all
 	public static Game currentGame;
-	
+	public static CharacterSelection charSelect;
 	//layers
 	public static StackPane UILayers; //contains the panes below
 	public static Pane environmentGrid;
 	public static AnchorPane overlay;
 	public static Pane unitGrid;
+	public static Pane charSelectionMenu;
+
 	
 	
 	//local UI variables
@@ -69,6 +77,16 @@ public class Controller {
 				unitGrid.setMinSize(ts*w,ts*h);
 				unitGrid.setMaxSize(ts*w,ts*h);
 				
+				
+				
+				charSelectionMenu = new StackPane();
+				UILayers.getChildren().add(charSelectionMenu);
+				charSelect = new CharacterSelection();
+				charSelectionMenu.setVisible(false);
+				
+				
+	
+				
 				// 	HUD layer
 				overlay = new AnchorPane();
 				overlay.setPickOnBounds(false);
@@ -104,10 +122,15 @@ public class Controller {
 					e.printStackTrace();
 				}
 				
+				
+				Controller.currentGame = new Game();
+				
 				//hides main menu (testing purposes) and instead creates default game
 				if(Main.bypassMenuToDefaultLevel){
+					
 					mainMenu.setVisible(false);
-					currentGame = new Game();
+	
+					Controller.currentGame.startGame();
 				}	
 	}
 	
