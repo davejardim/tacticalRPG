@@ -18,11 +18,7 @@ import application.ui.UnitPopupMenu;
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 
-/**
- * Stores all level data and will handling the loading of levels.
- * @author markbluemer
- *
- */
+
 public class Game {
 
 	private Unit currentSelectedUnit = null;
@@ -39,12 +35,14 @@ public class Game {
 	public Game() {
 
 		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
-		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
-		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
 		
+		// These should already be set
+//		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
+//		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);	
+		startGame();
 	}
 	
-	public void startGame(){
+	private void startGame(){
 		//add default player
 		addUnit(4,4, UnitType.PIKACHU);
 		addUnit(4,5, UnitType.WALL);

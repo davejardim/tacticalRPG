@@ -164,8 +164,15 @@ public class CharacterSelectionView extends BorderPane
 				setSelected(tile);
 			});
 		}
+		
+		// Add characters to team
 		addToTeam.setOnMouseClicked(e->{
 			model.addChar(selected);
+		});
+		
+		// Start the game
+		startGame.setOnMouseClicked(e->{
+			Controller.getInstance().startGame();
 		});
 	}
 

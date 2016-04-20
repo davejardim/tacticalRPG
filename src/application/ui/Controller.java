@@ -39,7 +39,7 @@ public class Controller {
 	//layers
 	public static StackPane UILayers; //contains the panes below
 	public static Pane environmentGrid;
-	public static AnchorPane overlay;
+	public AnchorPane overlay;
 	public static Pane unitGrid;
 	
 	private Text infoBarText;
@@ -79,6 +79,56 @@ public class Controller {
 	public void buildCharacterSelectionMenu() {
 		charSelect = new CharacterSelection();
 		UILayers.getChildren().add(charSelect.getView());
+	}
+	
+	public void startGame() {
+		// Close the unit selection menu
+		UILayers.getChildren().remove(charSelect.getView());
+		
+		// Environment Grid
+		environmentGrid = new Pane();
+		environmentGrid.setMinSize(Main.TILE_SIZE*Main.LEVEL_WIDTH, Main.TILE_SIZE*Main.LEVEL_HEIGHT);
+		environmentGrid.setMaxSize(Main.TILE_SIZE*Main.LEVEL_WIDTH, Main.TILE_SIZE*Main.LEVEL_HEIGHT);
+		
+		// Unit Grid
+		unitGrid = new Pane();
+		unitGrid.setPickOnBounds(false);
+		unitGrid.setMinSize(Main.TILE_SIZE*Main.LEVEL_WIDTH, Main.TILE_SIZE*Main.LEVEL_HEIGHT);
+		unitGrid.setMaxSize(Main.TILE_SIZE*Main.LEVEL_WIDTH, Main.TILE_SIZE*Main.LEVEL_HEIGHT);
+		
+		// HUD Layers
+		overlay = new AnchorPane();
+		overlay.setPickOnBounds(false);
+		
+		// Info Bar
+		Rectangle r = new Rectangle(10, 10, 10, 30);
+		r.setWidth(200);
+		r.setOpacity(0.2);
+		infoBarText = new Text("Hello");
+		infoBarText.setFont(new Font(20));
+		infoBarText.setFill(Color.BLACK);
+		
+		// End Turn Button
+		endTurn = new Button("End Turn");
+		endTurn.setFont(new Font(20));
+		endTurn.setOnMouseClicked(e->{
+			currentGame.endTurn();
+		});
+		overlay.getChildren().addAll(r, infoBarText, endTurn);
+		AnchorPane.setBottomAnchor(infoBarText, 3.0);
+		AnchorPane.setLeftAnchor(infoBarText, 5.0);
+		AnchorPane.setLeftAnchor(r, 0.0);
+		AnchorPane.setBottomAnchor(r, 0.0);
+		AnchorPane.setBottomAnchor(endTurn, 3.0);
+		AnchorPane.setRightAnchor(endTurn, 5.0);
+
+		UILayers.getChildren().addAll(environmentGrid, unitGrid, overlay);	
+		
+		currentGame = new Game();
+	}
+	
+	public void buildStage() {
+		// EnvironmentGrid
 	}
 	
 //	@SuppressWarnings("static-access")

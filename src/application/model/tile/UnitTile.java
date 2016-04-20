@@ -93,14 +93,6 @@ public class UnitTile {
 	
 	public void onClick(MouseEvent e) {
 		System.out.println(xCord + ", " + yCord);
-
-		
-		if(view.getViewPane().equals(CharacterSelectionView.team1Pane))
-			Controller.charSelect.onClick(1, this);
-		else if(view.getViewPane().equals(CharacterSelectionView.team2Pane))
-			Controller.charSelect.onClick(2, this);
-		else
-			Controller.currentGame.onClick(this, e);
 		
 	}
 
