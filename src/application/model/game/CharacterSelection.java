@@ -51,19 +51,21 @@ public class CharacterSelection {
 //			Controller.currentGame.startGame(charTeam1.getPlayers(), charTeam2.getPlayers());
 //		}
 //	}
+
 	
-	public void onClick(CharSelectTile selectedUnit) {
-		addChar(selectedUnit.getType());
-		view.addCharToView(selectedUnit, currTeam);
+	// Add the chosen character type to the current team and then add to view
+	public void addChar(CharSelectTile selectedChar) {
+		if (currTeam == 1) {
+			charTeam1.add(new Unit(0, 0, selectedChar.getType(), 1));
+		} else {
+			charTeam2.add(new Unit(0, 0, selectedChar.getType(), 2));
+		}
+		view.addCharToView(selectedChar, currTeam);
+		switchTeams();
 	}
 	
-	// Add the chosen character type to the current team
-	public void addChar(UnitType type) {
-		if (currTeam == 1) {
-			charTeam1.add(new Unit(0, 0, type, 1));
-		} else {
-			charTeam2.add(new Unit(0, 0, type, 2));
-		}
+	private void switchTeams() {
+		currTeam = (currTeam == 1) ? 2 : 1;
 	}
 
 }

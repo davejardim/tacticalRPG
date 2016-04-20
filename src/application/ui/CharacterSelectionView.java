@@ -135,7 +135,7 @@ public class CharacterSelectionView extends BorderPane
 			});
 		}
 		addToTeam.setOnMouseClicked(e->{
-			//model.addChar();
+			model.addChar(selected);
 		});
 	}
 
