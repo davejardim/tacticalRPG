@@ -73,6 +73,7 @@ public class CharacterSelectionView extends BorderPane
 		startGame.setAlignment(Pos.CENTER);
 		startGame.setMinWidth(500);
 		startGame.setMinHeight(50);
+		startGame.setDisable(true);
 		
 		// Buttons to add to teams
 		addToTeam = new Button("Add to current Team");
@@ -122,6 +123,12 @@ public class CharacterSelectionView extends BorderPane
 		} else {
 			playerTurn.setText("Player 1");
 		}
+	}
+	
+	public void switchToDone() {
+		addToTeam.setDisable(true);
+		playerTurn.setText("Character choice done");
+		startGame.setDisable(false);
 	}
 	
 	

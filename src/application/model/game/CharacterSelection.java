@@ -39,19 +39,6 @@ public class CharacterSelection {
 		return view;
 	}
 
-//	public void onClick(int team, UnitTile unitTile) {
-//
-//		if(team == 1)
-//			charTeam1.toggleSelection(unitTile);
-//		if(team == 2)
-//			charTeam2.toggleSelection(unitTile);
-//		
-//		if(charTeam1.isReady() && charTeam2.isReady()){
-//			//Controller.charSelectionMenu.setVisible(false);
-//			Controller.currentGame.startGame(charTeam1.getPlayers(), charTeam2.getPlayers());
-//		}
-//	}
-
 	
 	// Add the chosen character type to the current team and then add to view
 	public void addChar(CharSelectTile selectedChar) {
@@ -64,9 +51,18 @@ public class CharacterSelection {
 		switchTeams();
 	}
 	
+	// Switch teams or finish choosing
 	private void switchTeams() {
-		currTeam = (currTeam == 1) ? 2 : 1;
-		view.switchTeams();
+		if (!isDone()) {
+			currTeam = (currTeam == 1) ? 2 : 1;
+			view.switchTeams();
+		} else {
+			view.switchToDone();
+		}
+	}
+	
+	private boolean isDone() {
+		return charTeam2.size() == 2;
 	}
 
 }
