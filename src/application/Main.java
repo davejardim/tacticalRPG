@@ -1,6 +1,5 @@
 package application;
 	
-import application.model.game.Game;
 import application.ui.Controller;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,8 +15,6 @@ public class Main extends Application {
 	public static boolean bypassMenuToDefaultLevel = false;
 	public static Scene scene;
 	
-	public static Controller controller;
-	
 	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage primaryStage) {	
@@ -27,10 +24,11 @@ public class Main extends Application {
 			int w = 1024+50;	//Window width
 			int h = 512+52;	//Window Height
 			
-			controller = new Controller();
+			// Instantiate controller
+			Controller.getInstance();
 			
 
-			scene = new Scene(controller.UILayers);
+			scene = new Scene(Controller.getInstance().UILayers);
 			/*Controller that handles all UI interactions
 			* 	...mainly for the Game class to handle the UI stack
 			*/

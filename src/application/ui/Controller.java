@@ -27,11 +27,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+// Let's go ahead and make this a singleton
 public class Controller {
+	private static Controller instance = null;
 	
 	private GridPane mainMenu;
-	
-	
 	
 	//current game, accessible by all
 	public static Game currentGame;
@@ -41,120 +41,141 @@ public class Controller {
 	public static Pane environmentGrid;
 	public static AnchorPane overlay;
 	public static Pane unitGrid;
-	public static Pane charSelectionMenu;
-
-	
-	
-	//local UI variables
-	private Location selectedTile1;
 	
 	private Text infoBarText;
 	private Button endTurn;
 	
-	public Controller() {
-		
-		selectedTile1 = new Location(0,0);
-		// 1) builds user interface layer by layer
-		buildUIStack();				
+	// Private to prevent instantiation from elsewhere
+	private Controller() {
+		buildMenu();				
 	}
 	
-
-	@SuppressWarnings("static-access")
-	private void buildUIStack(){
-		
-				//creates ui stack in layers
-				UILayers = new StackPane();
-				UILayers.setAlignment(Pos.CENTER);
-				
-							
-				// 	EnvironmentGrid (empty)
-				environmentGrid = new Pane();
-				UILayers.getChildren().add(environmentGrid);
-				
-				int ts = Main.TILE_SIZE;
-				int w = Main.LEVEL_WIDTH;
-				int h = Main.LEVEL_HEIGHT;
-				// Unit Grid
-				unitGrid = new Pane();
-				UILayers.getChildren().add(unitGrid);
-				unitGrid.setPickOnBounds(false);
-				unitGrid.setMinSize(ts*w,ts*h);
-				unitGrid.setMaxSize(ts*w,ts*h);
-				
-				
-				
-				charSelectionMenu = new StackPane();
-				UILayers.getChildren().add(charSelectionMenu);
-				charSelect = new CharacterSelection();
-				charSelectionMenu.setVisible(false);
-				
-				
-	
-				
-				// 	HUD layer
-				overlay = new AnchorPane();
-				overlay.setPickOnBounds(false);
-				Rectangle r = new Rectangle(10,10,10,30);
-				infoBarText = new Text("Hello");
-				infoBarText.setFont(new Font(20));
-				infoBarText.setFill(Color.BLACK);
-				r.setWidth(200);
-				r.setOpacity(0.2);
-				endTurn = new Button("End Turn");
-				endTurn.setFont(new Font(20));
-				endTurn.setOnMouseClicked(e->{
-					currentGame.endTurn();
-				});
-				overlay.getChildren().addAll(r,infoBarText, endTurn);
-				overlay.setBottomAnchor(infoBarText, 3.0);
-				overlay.setLeftAnchor(infoBarText, 5.0);
-				overlay.setLeftAnchor(r, 0.0);
-				overlay.setBottomAnchor(r, 0.0);
-				overlay.setBottomAnchor(endTurn, 3.0);
-				overlay.setRightAnchor(endTurn, 5.0);
-				
-				
-				UILayers.getChildren().add(overlay);
-				
-				//overlay.setMouseTransparent(true);
-
-				overlay.autosize();
-				
-				
-				
-				
-				// 3) MainMenu Layer
-				//loads and display main menu
-				try {
-					mainMenu = FXMLLoader.load(getClass().getResource("/application/ui/MainMenu.fxml"));
-					UILayers.getChildren().add(mainMenu);
-					
-				} catch (IOException e) {
-					System.out.println("MainMenu.fxml error?");
-					e.printStackTrace();
-				}
-				
-
-				// Auto set player units (testing purposes)
-				ArrayList<Unit> player1 = new ArrayList<Unit>();
-				ArrayList<Unit> player2 = new ArrayList<Unit>();
-				player1.add(new Unit(5, 5, UnitType.KOFFING, 1));
-				player1.add(new Unit(5, 7, UnitType.MARIO, 1));
-				player1.add(new Unit(5, 15, UnitType.CAP, 1));
-				player2.add(new Unit(30, 5, UnitType.LINK, 2));
-				player2.add(new Unit(24, 8, UnitType.PIKACHU, 2));
-				player2.add(new Unit(26, 10, UnitType.PIKACHU, 2));
-				
-
-				
-				//hides main menu (testing purposes) and instead creates default game
-				if(Main.bypassMenuToDefaultLevel){
-					
-					mainMenu.setVisible(false);
-					
-					currentGame = new Game();
-					Controller.currentGame.startGame(player1, player2);
-				}	
+	/**
+	 * Used to get and instantiate the Controller
+	 * @return The current controller instance
+	 */
+	public static Controller getInstance() {
+		if (instance == null) {
+			instance = new Controller();
+		}
+		return instance;
 	}
 	
+	public void buildMenu() {
+		//creates ui stack in layers
+		UILayers = new StackPane();
+		UILayers.setAlignment(Pos.CENTER);
+		
+		try {
+			mainMenu = FXMLLoader.load(getClass().getResource("/application/ui/MainMenu.fxml"));
+			UILayers.getChildren().add(mainMenu);
+			
+		} catch (IOException e) {
+			System.out.println("MainMenu.fxml error?");
+			e.printStackTrace();
+		}
+	}
+	
+	public void buildCharacterSelectionMenu() {
+		charSelect = new CharacterSelection();
+		UILayers.getChildren().add(charSelect.getView());
+	}
+	
+//	@SuppressWarnings("static-access")
+//	private void buildUIStack(){
+//		
+//				//creates ui stack in layers
+//				UILayers = new StackPane();
+//				UILayers.setAlignment(Pos.CENTER);
+//				
+//							
+//				// 	EnvironmentGrid (empty)
+//				environmentGrid = new Pane();
+//				UILayers.getChildren().add(environmentGrid);
+//				
+//				int ts = Main.TILE_SIZE;
+//				int w = Main.LEVEL_WIDTH;
+//				int h = Main.LEVEL_HEIGHT;
+//				// Unit Grid
+//				unitGrid = new Pane();
+//				UILayers.getChildren().add(unitGrid);
+//				unitGrid.setPickOnBounds(false);
+//				unitGrid.setMinSize(ts*w,ts*h);
+//				unitGrid.setMaxSize(ts*w,ts*h);
+//				
+//				
+//				
+//				charSelectionMenu = new StackPane();
+//				UILayers.getChildren().add(charSelectionMenu);
+//				charSelect = new CharacterSelection();
+//				charSelectionMenu.setVisible(false);
+//				
+//				
+//	
+//				
+//				// 	HUD layer
+//				overlay = new AnchorPane();
+//				overlay.setPickOnBounds(false);
+//				Rectangle r = new Rectangle(10,10,10,30);
+//				infoBarText = new Text("Hello");
+//				infoBarText.setFont(new Font(20));
+//				infoBarText.setFill(Color.BLACK);
+//				r.setWidth(200);
+//				r.setOpacity(0.2);
+//				endTurn = new Button("End Turn");
+//				endTurn.setFont(new Font(20));
+//				endTurn.setOnMouseClicked(e->{
+//					currentGame.endTurn();
+//				});
+//				overlay.getChildren().addAll(r,infoBarText, endTurn);
+//				overlay.setBottomAnchor(infoBarText, 3.0);
+//				overlay.setLeftAnchor(infoBarText, 5.0);
+//				overlay.setLeftAnchor(r, 0.0);
+//				overlay.setBottomAnchor(r, 0.0);
+//				overlay.setBottomAnchor(endTurn, 3.0);
+//				overlay.setRightAnchor(endTurn, 5.0);
+//				
+//				
+//				UILayers.getChildren().add(overlay);
+//				
+//				//overlay.setMouseTransparent(true);
+//
+//				overlay.autosize();
+//				
+//				
+//				
+//				
+//				// 3) MainMenu Layer
+//				//loads and display main menu
+//				try {
+//					mainMenu = FXMLLoader.load(getClass().getResource("/application/ui/MainMenu.fxml"));
+//					UILayers.getChildren().add(mainMenu);
+//					
+//				} catch (IOException e) {
+//					System.out.println("MainMenu.fxml error?");
+//					e.printStackTrace();
+//				}
+//				
+//
+//				// Auto set player units (testing purposes)
+//				ArrayList<Unit> player1 = new ArrayList<Unit>();
+//				ArrayList<Unit> player2 = new ArrayList<Unit>();
+//				player1.add(new Unit(5, 5, UnitType.KOFFING, 1));
+//				player1.add(new Unit(5, 7, UnitType.MARIO, 1));
+//				player1.add(new Unit(5, 15, UnitType.CAP, 1));
+//				player2.add(new Unit(30, 5, UnitType.LINK, 2));
+//				player2.add(new Unit(24, 8, UnitType.PIKACHU, 2));
+//				player2.add(new Unit(26, 10, UnitType.PIKACHU, 2));
+//				
+//
+//				
+//				//hides main menu (testing purposes) and instead creates default game
+//				if(Main.bypassMenuToDefaultLevel){
+//					
+//					mainMenu.setVisible(false);
+//					
+//					currentGame = new Game();
+//					Controller.currentGame.startGame(player1, player2);
+//				}	
+//	}
 }
