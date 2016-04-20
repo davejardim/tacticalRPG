@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import application.model.game.CharacterSelection;
 import application.model.tile.CharSelectTile;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class CharacterSelectionView extends BorderPane
 {
@@ -24,6 +26,7 @@ public class CharacterSelectionView extends BorderPane
 	private CharacterSelection model;
 	private int player1Row, player2Row;
 	private Button startGame, addToTeam;
+	private Text playerTurn;
 	private CharSelectTile selected;
 	private ArrayList<CharSelectTile> charChoices;
 
@@ -48,11 +51,22 @@ public class CharacterSelectionView extends BorderPane
 		team1Pane.setPrefSize(200, 400);
 		team2Pane.setPrefSize(200, 400);
 	
+		// Group for text
+		GridPane topText = new GridPane();
+		topText.setMinWidth(1000);
+		topText.setAlignment(Pos.CENTER);
+		
 		// Title	
-		Label title = new Label("Pick your Teams: ");
-		title.setMinWidth(1000);
-		title.setAlignment(Pos.CENTER);
+		Text title = new Text("Pick your Teams: ");
 		title.setFont(new Font("Didot Bold", 20));
+		
+		// Player turn
+		playerTurn = new Text("Player 1");
+		playerTurn.setFont(new Font("Didot Bold", 14));
+		playerTurn.setTextAlignment(TextAlignment.CENTER);
+		
+		topText.add(title, 0, 0);
+		topText.add(playerTurn, 0, 1);
 		
 		// Button to start the game
 		startGame = new Button("Start Game!");
@@ -71,7 +85,7 @@ public class CharacterSelectionView extends BorderPane
 		
 		
 		// Add everything to the BorderPane
-		this.setTop(title);
+		this.setTop(topText);
 		this.setLeft(team1Pane);
 		this.setRight(team2Pane);
 		this.setCenter(charPane);
@@ -101,6 +115,15 @@ public class CharacterSelectionView extends BorderPane
 		
 		setSelected(charChoices.get(0));
 	}
+	
+	public void switchTeams() {
+		if (playerTurn.getText().equals("Player 1")) {
+			playerTurn.setText("Player 2");
+		} else {
+			playerTurn.setText("Player 1");
+		}
+	}
+	
 	
 	public void addCharToView(CharSelectTile selectedUnit, int team) {
 		// TODO: duplicate the selectedUnit somehow

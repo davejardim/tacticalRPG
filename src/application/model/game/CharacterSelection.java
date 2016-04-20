@@ -66,6 +66,7 @@ public class CharacterSelection {
 	
 	private void switchTeams() {
 		currTeam = (currTeam == 1) ? 2 : 1;
+		view.switchTeams();
 	}
 
 }
