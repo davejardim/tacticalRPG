@@ -23,7 +23,11 @@ public class CharPlacement {
 	}
 	
 	public void onClick(SelectionTile tile) {
-			selectedTile = tile;
+		if (selectedTile != null){
+			selectedTile.removeHighlight();
+		}
+		tile.setHighlight();
+		selectedTile = tile;
 	}
 	
 	public SelectionTile getSelected() {

@@ -20,19 +20,15 @@ public class CharPlacementView {
 		ArrayList<Unit> team2 = model.getSelectedChars().getTeam2();
 		
 		// Create and populate a box for team 1
-		HBox team1Box = new HBox();
+		HBox team1Box = new HBox(); 
 		for (Unit unit : team1) {
-			SelectionTile temp = new SelectionTile(unit);
-			setHandle(temp);
-			team1Box.getChildren().add(temp);
+			team1Box.getChildren().add(setHandle(new SelectionTile(unit)));
 		}
 		
 		// Create and populate a box for team 2
 		HBox team2Box = new HBox();
 		for (Unit unit : team2) {
-			SelectionTile temp = new SelectionTile(unit);
-			setHandle(temp);
-			team2Box.getChildren().add(temp);
+			team2Box.getChildren().add(setHandle(new SelectionTile(unit)));
 		}
 		
 		AnchorPane.setTopAnchor(team1Box, 0.0);
@@ -42,9 +38,11 @@ public class CharPlacementView {
 		Controller.getInstance().overlay.getChildren().addAll(team1Box, team2Box);
 	}
 	
-	public void setHandle(SelectionTile tile) {
+	private SelectionTile setHandle(SelectionTile tile) {
 		tile.setOnMouseClicked(e->{
 			model.onClick(tile);
 		});
+		
+		return tile;
 	}
 }

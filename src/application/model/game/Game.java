@@ -177,6 +177,7 @@ public class Game {
 			SelectionTile selectedTile = Controller.getInstance().charPlacement.getSelected();
 			if (selectedTile.getUnit() != null) {
 				tile.setUnit(selectedTile.getUnit());
+				selectedTile.removeHighlight();
 				selectedTile.remove();
 			}
 		}
