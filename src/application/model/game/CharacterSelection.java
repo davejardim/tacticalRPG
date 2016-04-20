@@ -38,6 +38,14 @@ public class CharacterSelection {
 	public CharacterSelectionView getView() {
 		return view;
 	}
+	
+	public ArrayList<Unit> getTeam1() {
+		return charTeam1;
+	}
+	
+	public ArrayList<Unit> getTeam2() {
+		return charTeam2;
+	}
 
 	
 	// Add the chosen character type to the current team and then add to view
@@ -64,7 +72,7 @@ public class CharacterSelection {
 	private boolean isDone() {
 		return charTeam2.size() == 2;
 	}
-
+	
 }
 
 

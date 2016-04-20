@@ -2,20 +2,18 @@ package application.model.game;
 
 
 import java.util.ArrayList;
-
-import java.util.Arrays;
 import java.util.Collection;
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
+
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
 import application.ui.Controller;
+import application.ui.SelectionTile;
 import application.ui.UnitPopupMenu;
-import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 
 
@@ -26,6 +24,7 @@ public class Game {
 	private UnitTile[][] unitGrid;
 	private int playerTurn;
 	private ArrayList<Unit> player1Chars, player2Chars;
+	private boolean isCharPlacement;
 
 	public int xSize;
 	public int ySize;	
@@ -33,16 +32,17 @@ public class Game {
 
 
 	public Game() {
-
+		isMenuOpen = false;
+		isCharPlacement = true;
 		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
-		
-		// These should already be set
-//		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
-//		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);	
-		startGame();
+		startCharPlacement();
 	}
 	
-	private void startGame(){
+	public void startCharPlacement() {
+		Controller.getInstance().buildCharPlacement();
+	}
+	
+	public void startGame(){
 		//add default player
 		addUnit(4,4, UnitType.PIKACHU);
 		addUnit(4,5, UnitType.WALL);
@@ -80,17 +80,9 @@ public class Game {
 	}
 
 	
-	public void startGame(ArrayList<Unit> player1, ArrayList<Unit> player2) {
-		int y = 1;
-		for(Unit t : player1){
-			addUnit(1,y, t.getType());
-			y = y + 3;
-		}
-		y = 1;
-		for(Unit t : player2){
-			addUnit(30,y, t.getType());
-			y = y + 3;
-		}
+	public void startGame(ArrayList<Unit> team1, ArrayList<Unit> team2) {
+		player1Chars = team1;
+		player2Chars = team2;
 		isMenuOpen = false;
 		playerTurn = 1;
 		
@@ -125,10 +117,6 @@ public class Game {
 				unitGrid[x][y]= new UnitTile(x, y, Controller.unitGrid);
 			}
 		}
-		System.out.println(w + " " + h);
-
-
-		Controller.UILayers.setAlignment(Pos.CENTER);
 	}
 	
 	
@@ -142,15 +130,10 @@ public class Game {
 
 		unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, Controller.unitGrid, t);
 	}
-	
-	//private void addUnit(Unit unit){
-	//	unitGrid[unit.getXCord()][unit.getYCord()] = new UnitTile();
-
-	//}
 
 	public void onClick(UnitTile tile, MouseEvent e) {
 		// Add up front any conditions that should prevent clicking
-		if (!isMenuOpen) {
+		if (!isMenuOpen && !isCharPlacement) {
 			if (currentSelectedUnit != null) {
 				// When a unit is clicked:
 				// If another different unit is selected switch to it	
@@ -187,6 +170,14 @@ public class Game {
 											&& isCurrentPlayersUnit(tile.getUnit())) {
 					setSelectedUnit(tile.getUnit());
 				}
+			}
+		}
+		
+		if (isCharPlacement) {
+			SelectionTile selectedTile = Controller.getInstance().charPlacement.getSelected();
+			if (selectedTile.getUnit() != null) {
+				tile.setUnit(selectedTile.getUnit());
+				selectedTile.remove();
 			}
 		}
 	}

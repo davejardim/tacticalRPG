@@ -93,7 +93,7 @@ public class UnitTile {
 	
 	public void onClick(MouseEvent e) {
 		System.out.println(xCord + ", " + yCord);
-		
+		Controller.currentGame.onClick(this, e);
 	}
 
 	public boolean isSelected() {
