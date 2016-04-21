@@ -29,6 +29,24 @@ public class Game {
 	public int xSize;
 	public int ySize;	
 	public static boolean isMenuOpen;
+	
+	public String testLevel = 
+			"00000000000111111111111111111111" +
+			"00000010000000000000000000000011" +
+			"00000010000000000000000000000011" +
+			"00000000000111001111111000111111" +
+			"00000000000111000000000000000001" +
+			"00000000000111000000000000000001" +
+			"00000000000111000000000000000001" +
+			"00000100000100000000000000000001" +
+			"00000000000100000000000000000001" +
+			"00010000000100000000001100000001" +
+			"00000000000100000000001100000001" +
+			"00000100000000000000001100000001" +
+			"00000000000000000000000000000001" +
+			"00010000000000000000000000000001" +
+			"00000000000100000000000000000001" +
+			"00000000000111111111111111111111";
 
 
 	public Game() {
@@ -38,7 +56,21 @@ public class Game {
 		player1Chars = new ArrayList<Unit>();
 		player2Chars = new ArrayList<Unit>();
 		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
+		populateWalls(testLevel);
 		startCharPlacement();
+		
+	}
+	//places walls based on a string
+	public void populateWalls(String walls){
+	int i = 0;
+	for (int j = 0; j < 16; j++) {
+		 for (int n = 0; n < 32; n++) {
+			 if(walls.charAt(i)=='1'){
+				 addUnit(n,j,UnitType.WALL);
+			 }
+	     i++;
+		 }
+	}
 	}
 	
 	public void startCharPlacement() {
