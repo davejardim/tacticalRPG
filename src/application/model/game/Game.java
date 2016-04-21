@@ -33,7 +33,10 @@ public class Game {
 
 	public Game() {
 		isMenuOpen = false;
+		playerTurn = 1;
 		isCharPlacement = true;
+		player1Chars = new ArrayList<Unit>();
+		player2Chars = new ArrayList<Unit>();
 		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
 		startCharPlacement();
 	}
@@ -41,44 +44,6 @@ public class Game {
 	public void startCharPlacement() {
 		Controller.getInstance().buildCharPlacement();
 	}
-	
-	public void startGame(){
-		//add default player
-		addUnit(4,4, UnitType.PIKACHU);
-		addUnit(4,5, UnitType.WALL);
-
-		isMenuOpen = false;
-		playerTurn = 1;
-	}
-	
-	public void startGame(Collection<UnitTile> t1, Collection<UnitTile> t2){
-		int y = 1;
-		for(UnitTile t : t1){
-			addUnit(1,y, t.getType());
-			y = y + 3;
-		}
-		y = 1;
-		for(UnitTile t : t2){
-			addUnit(30,y, t.getType());
-			y = y + 3;
-		}
-
-//		
-//		// Add all player units
-//		this.player1Chars = player1Chars;
-//		this.player2Chars = player2Chars;
-//		for(Unit unit : player1Chars) {
-//			addUnit(unit);
-//		}
-//		for(Unit unit : player2Chars) {
-//			addUnit(unit);
-//		}
-
-
-		isMenuOpen = false;
-		playerTurn = 1;
-	}
-
 	
 	public void startGame(ArrayList<Unit> team1, ArrayList<Unit> team2) {
 		player1Chars = team1;
@@ -176,9 +141,17 @@ public class Game {
 		if (isCharPlacement) {
 			SelectionTile selectedTile = Controller.getInstance().charPlacement.getSelected();
 			if (selectedTile.getUnit() != null) {
-				tile.setUnit(selectedTile.getUnit());
+				if (selectedTile.getUnit().getTeam() == 1) {
+					player1Chars.add(selectedTile.getUnit());
+				} else {
+					player2Chars.add(selectedTile.getUnit());
+				}
+				moveUnit(tile.getXCord(), tile.getYCord(), selectedTile.getUnit());
 				selectedTile.removeHighlight();
 				selectedTile.remove();
+				if (Controller.getInstance().charPlacement.isDone()) {
+					isCharPlacement = false;
+				}
 			}
 		}
 	}

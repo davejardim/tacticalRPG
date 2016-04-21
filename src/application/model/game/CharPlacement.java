@@ -7,10 +7,14 @@ public class CharPlacement {
 	private CharPlacementView view;
 	private CharacterSelection charSelect;
 	private SelectionTile selectedTile;
+	private int totalChars, charsPlaced; // Really janky way of determining if done
 	
 	public CharPlacement(CharacterSelection charSelect) {
 		selectedTile = null;
 		this.charSelect = charSelect;
+		totalChars += charSelect.getTeam1().size();
+		totalChars += charSelect.getTeam2().size();
+		charsPlaced = 0;
 		view = new CharPlacementView(this);
 	}
 	
@@ -32,5 +36,9 @@ public class CharPlacement {
 	
 	public SelectionTile getSelected() {
 		return selectedTile;
+	}
+	
+	public boolean isDone() {
+		return ++charsPlaced == totalChars;
 	}
 }
