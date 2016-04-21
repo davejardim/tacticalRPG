@@ -82,7 +82,9 @@ public class CharacterSelectionView extends BorderPane
 		
 		// HBox to hold all of these buttons
 		HBox buttons = new HBox(10);
+		buttons.setMinWidth(1000);
 		buttons.getChildren().addAll(startGame, addToTeam);
+		buttons.setAlignment(Pos.CENTER);
 		
 		
 		// Add everything to the BorderPane
