@@ -316,7 +316,7 @@ public class Game {
 		{
 			node = Q.remove();
 			if (node[0] > maxDist) continue;
-			if (0 != node[0] && (unitGrid[node[1]][node[2]].getUnit() == null)) validSquares[node[1]][node[2]] = true;
+			if ((unitGrid[node[1]][node[2]].getUnit() == null) || node[0] == 0) validSquares[node[1]][node[2]] = true;
 			ArrayList<int[]> nodeNeighbours = new ArrayList<>();
 			for (int[] element : Q)
 			{
