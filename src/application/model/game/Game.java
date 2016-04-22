@@ -300,9 +300,9 @@ public class Game {
 		PriorityQueue<int[]> Q = new PriorityQueue<>(comp);
 		int[] node;
 		boolean[][] validSquares = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
-		for (int i = Math.max(x-maxDist, 0); i < Math.min(x+maxDist, Main.LEVEL_WIDTH) ; i++)
+		for (int i = Math.max(x-maxDist, 0); i < Math.min(x+maxDist+1, Main.LEVEL_WIDTH) ; i++)
 		{
-			for (int j = Math.max(y-maxDist, 0); j <= Math.min(x+maxDist+1, Main.LEVEL_HEIGHT) ; j++)
+			for (int j = Math.max(y-maxDist, 0); j < Math.min(x+maxDist+1, Main.LEVEL_HEIGHT) ; j++)
 			{
 				if (i == x && j == y)
 					Q.add(new int[] {0, i, j});
@@ -316,7 +316,7 @@ public class Game {
 		{
 			node = Q.remove();
 			if (node[0] > maxDist) continue;
-			if (0 != node[0]) validSquares[node[1]][node[2]] = true;
+			if (0 != node[0] && (unitGrid[node[1]][node[2]].getUnit() == null)) validSquares[node[1]][node[2]] = true;
 			ArrayList<int[]> nodeNeighbours = new ArrayList<>();
 			for (int[] element : Q)
 			{
