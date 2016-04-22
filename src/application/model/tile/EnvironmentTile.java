@@ -36,4 +36,14 @@ public class EnvironmentTile {
 	public boolean isSelected(){
 		return selected;
 	}
+
+	public void setEnvironment(EnvironmentType t) {
+		view.setEnvironment(t);
+		
+	}
+
+	public void removeFromGrid() {
+		view.removeFromGrid();
+		
+	}
 }

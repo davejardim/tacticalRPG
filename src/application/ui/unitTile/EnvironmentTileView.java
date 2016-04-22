@@ -32,12 +32,13 @@ public class EnvironmentTileView {
 		this.xCord = x*Main.TILE_SIZE;
 		this.yCord = y*Main.TILE_SIZE;
 		
-		i = new ImageView();
-		i.setImage(t.getEnvType().getSprite());
+		i = new ImageView(t.getEnvType().getSprite());
+		i.setFitWidth(Main.TILE_SIZE);
+		i.setFitHeight(Main.TILE_SIZE);
 		i.setX(xCord);
 		i.setY(yCord);
-		i.setScaleX(Main.TILE_SIZE/i.getImage().getWidth());
-		i.setScaleY(Main.TILE_SIZE/i.getImage().getHeight());
+		//i.setScaleX(Main.TILE_SIZE/i.getImage().getWidth());
+		//i.setScaleY(Main.TILE_SIZE/i.getImage().getHeight());
 
 		
 		highlightedMask = new Rectangle(x*ts, y*ts, ts, ts);
@@ -52,6 +53,16 @@ public class EnvironmentTileView {
 
 		public void setHighlightedMask(boolean b) {
 			highlightedMask.setVisible(b);
+		}
+
+		public void setEnvironment(EnvironmentType t) {
+			i.setImage(t.getSprite());
+			
+		}
+
+		public void removeFromGrid() {
+		
+			
 		}
 		
 }
