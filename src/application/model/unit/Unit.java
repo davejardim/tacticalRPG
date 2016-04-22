@@ -103,8 +103,8 @@ public class Unit {
 		return team;
 	}
 
-	public List<Unit> attackOptions(UnitTile[][] unitLocs) {
-		List<Unit> list = new ArrayList<>();
+	public ArrayList<Unit> attackOptions(UnitTile[][] unitLocs) {
+		ArrayList<Unit> list = new ArrayList<>();
 		//if melee unit
 		if(this.attackType==1){
 			//if up 1

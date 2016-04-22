@@ -15,15 +15,18 @@ public class UnitPopupMenu extends ContextMenu {
 		Collection<MenuItem> collection = new ArrayList<MenuItem>();
 		// Generate options based on current unit's location
 		
-		// These currently have no use
-		MenuItem potion = new MenuItem("Attack");
-		
-		potion.setOnAction(e-> {
-			List<Unit> attackOptions = unit.attackOptions(unitLocs);
-			unit.attack(attackOptions.get(0));
-			System.out.println(attackOptions.get(0).getHp());
-			Controller.currentGame.isMenuOpen = false;
-		});
+		// Find all attack options
+		ArrayList<Unit> attackOptions = unit.attackOptions(unitLocs);
+		for (Unit u : attackOptions) {
+			MenuItem newAttack = new MenuItem(unit.getType().toString());
+			newAttack.setOnAction(e-> {
+				unit.attack(u);
+				Controller.getInstance().setInfoBarText(unit.getType().toString() + " attacked " +
+															u.getType().toString() + " for " + unit.getAttack() + " HP!");
+				Controller.currentGame.isMenuOpen = false;
+			});
+			collection.add(newAttack);
+		}
 		
 		MenuItem stay = new MenuItem("Do nothing");
 		
@@ -31,7 +34,6 @@ public class UnitPopupMenu extends ContextMenu {
 			Controller.currentGame.isMenuOpen = false;
 		});
 		
-		collection.add(potion);
 		collection.add(stay);
 		
 		this.getItems().addAll(collection);

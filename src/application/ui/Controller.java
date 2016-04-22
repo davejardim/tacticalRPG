@@ -167,4 +167,8 @@ public class Controller {
 		
 		
 	}
+	
+	public void setInfoBarText(String text) {
+		infoBarText.setText(text);
+	}
 }
