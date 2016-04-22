@@ -29,6 +29,9 @@ public class EnvironmentTile {
 	public void setHighlighted(boolean b) {
 			view.setHighlightedMask(b);	
 	}
+	public EnvironmentType getEnvType(){
+		return this.type;
+	}
 	
 	public boolean isSelected(){
 		return selected;

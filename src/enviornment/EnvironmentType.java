@@ -3,7 +3,8 @@ package enviornment;
 import javafx.scene.image.Image;
 
 public enum EnvironmentType {
-	WALL(new Image("/application/resources/brick_wall.png"));
+	WALL(new Image("/application/resources/brick_wall.png")),
+	GRASS(new Image("/application/resources/grass.png"));
 	
     private final Image sprite;
     

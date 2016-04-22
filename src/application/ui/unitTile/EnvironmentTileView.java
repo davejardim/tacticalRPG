@@ -31,7 +31,7 @@ public class EnvironmentTileView {
 		this.xCord = x*Main.TILE_SIZE;
 		this.yCord = y*Main.TILE_SIZE;
 		
-		i = new ImageView(new Image("/application/resources/grass.png"));
+		i = new ImageView(t.getEnvType().getSprite());
 		i.setX(xCord);
 		i.setY(yCord);
 		i.setScaleX(Main.TILE_SIZE/i.getImage().getWidth());
