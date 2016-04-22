@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import application.model.unit.Unit;
 import application.ui.unitTile.EnvironmentTileView;
-import enviornment.Environment;
 import enviornment.EnvironmentType;
 
 public class EnvironmentTile {
@@ -18,8 +17,9 @@ public class EnvironmentTile {
 	private boolean selected = false;
 	
 	public EnvironmentTile(int x, int y, EnvironmentType type) {
-		view = new EnvironmentTileView(this, x,y);
 		this.type = type;
+		view = new EnvironmentTileView(this, x,y);
+		
 		
 		if(highlightedTiles == null)
 			highlightedTiles = new ArrayList<EnvironmentTile>();
