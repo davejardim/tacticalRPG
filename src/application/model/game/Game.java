@@ -70,7 +70,7 @@ public class Game {
 	for (int j = 0; j < 16; j++) {
 		 for (int n = 0; n < 32; n++) {
 			 if(walls.charAt(i)=='1'){
-				 addUnit(n,j,UnitType.WALL);
+				 addUnit(n,j,UnitType.PIKACHU);
 			 }
 	     i++;
 		 }

@@ -80,8 +80,8 @@ public class UnitTileView {
 
 	}
 	
-	public void remove() {
-		Controller.getInstance().unitGrid.getChildren().removeAll(unitImage, unitHighlighting, status, currentHp);
+	public void removeImage() {
+		this.unitImage.setImage(null);
 	}
 	
 	private void setHandles() {
