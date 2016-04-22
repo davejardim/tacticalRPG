@@ -115,7 +115,7 @@ public class Controller {
 		
 		// Info Bar
 		Rectangle r = new Rectangle(10, 10, 10, 30);
-		r.setWidth(400);
+		r.setWidth(200);
 		r.setOpacity(0.2);
 		infoBarText = new Text("Hello");
 		infoBarText.setFont(new Font(20));
@@ -123,12 +123,15 @@ public class Controller {
 		
 		// End Turn Button
 		endTurn = new Button("End Turn");
-		endTurn.setFont(new Font(18));
+		endTurn.setFont(new Font(20));
 		endTurn.setOnMouseClicked(e->{
 			currentGame.endTurn();
 		});
 		overlay.getChildren().addAll(r, infoBarText, endTurn);
-		AnchorPane.setTopAnchor(infoBarText, 0.0);
+		AnchorPane.setBottomAnchor(infoBarText, 3.0);
+		AnchorPane.setLeftAnchor(infoBarText, 5.0);
+		AnchorPane.setLeftAnchor(r, 0.0);
+		AnchorPane.setBottomAnchor(r, 0.0);
 		AnchorPane.setBottomAnchor(endTurn, 3.0);
 		AnchorPane.setRightAnchor(endTurn, 5.0);
 
@@ -164,8 +167,9 @@ public class Controller {
 		
 		
 	}
-	
+
 	public void addInfoBarText(String text) {
 		infoBarText.setText(text);
 	}
+
 }
