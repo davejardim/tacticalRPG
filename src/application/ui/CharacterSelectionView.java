@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import application.model.game.CharacterSelection;
 import application.model.tile.CharSelectTile;
+import application.model.unit.UnitType;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -26,7 +27,6 @@ public class CharacterSelectionView extends BorderPane
 	private CharacterSelection model;
 	private int player1Row, player2Row;
 	private Button startGame, addToTeam;
-	private Text playerTurn;
 	private CharSelectTile selected;
 	private ArrayList<CharSelectTile> charChoices;
 
@@ -44,39 +44,29 @@ public class CharacterSelectionView extends BorderPane
 		charPane.setMaxHeight(400);
 		charPane.setMinWidth(600);
 		charPane.setMaxWidth(600);
+		charPane.setAlignment(Pos.CENTER);
 		
 		// Add a Pane for each team
 		team1Pane = new GridPane();
 		team2Pane = new GridPane();
 		team1Pane.setPrefSize(200, 400);
 		team2Pane.setPrefSize(200, 400);
-	
-		// Group for text
-		GridPane topText = new GridPane();
-		topText.setMinWidth(1000);
-		topText.setAlignment(Pos.CENTER);
 		
 		// Title	
 		Text title = new Text("Pick your Teams: ");
-		title.setFont(new Font("Didot Bold", 20));
-		
-		// Player turn
-		playerTurn = new Text("Player 1");
-		playerTurn.setFont(new Font("Didot Bold", 14));
-		playerTurn.setTextAlignment(TextAlignment.CENTER);
-		
-		topText.add(title, 0, 0);
-		topText.add(playerTurn, 0, 1);
+		title.setFont(new Font("Didot Bold", 32));
 		
 		// Button to start the game
 		startGame = new Button("Start Game!");
+		startGame.setFont(new Font("Didot Bold", 20));
 		startGame.setAlignment(Pos.CENTER);
 		startGame.setMinWidth(500);
 		startGame.setMinHeight(50);
 		startGame.setDisable(true);
 		
 		// Buttons to add to teams
-		addToTeam = new Button("Add to current Team");
+		addToTeam = new Button("Add to Team 1");
+		addToTeam.setFont(new Font("Didot Bold", 20));
 		addToTeam.setMinHeight(50);
 		addToTeam.setMinWidth(200);
 		
@@ -88,11 +78,12 @@ public class CharacterSelectionView extends BorderPane
 		
 		
 		// Add everything to the BorderPane
-		this.setTop(topText);
+		this.setTop(title);
 		this.setLeft(team1Pane);
 		this.setRight(team2Pane);
 		this.setCenter(charPane);
 		this.setBottom(buttons);
+		this.setAlignment(title, Pos.CENTER);
 		
 		populateChars();
 		setHandles();
@@ -102,12 +93,13 @@ public class CharacterSelectionView extends BorderPane
 	private void populateChars() {
 		charChoices = new ArrayList<CharSelectTile>();
 		
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		charChoices.add(new CharSelectTile(UnitType.LINK));	
+		charChoices.add(new CharSelectTile(UnitType.MARIO));	
+		charChoices.add(new CharSelectTile(UnitType.MJ));	
+		charChoices.add(new CharSelectTile(UnitType.CAP));	
+		charChoices.add(new CharSelectTile(UnitType.PIKACHU));	
+		charChoices.add(new CharSelectTile(UnitType.KOFFING));	
+		charChoices.add(new CharSelectTile(UnitType.BB8));
 		
 		int inc = 0;
 		for (int i = 0; i < GRID_WIDTH; i++) {
@@ -120,23 +112,23 @@ public class CharacterSelectionView extends BorderPane
 	}
 	
 	public void switchTeams() {
-		if (playerTurn.getText().equals("Player 1")) {
-			playerTurn.setText("Player 2");
+		if (addToTeam.getText().equals("Add to Team 1")) {
+			addToTeam.setText("Add to team 2");
 		} else {
-			playerTurn.setText("Player 1");
+			addToTeam.setText("Add to Team 1");
 		}
 	}
 	
 	public void switchToDone() {
 		addToTeam.setDisable(true);
-		playerTurn.setText("Character choice done");
+		addToTeam.setText("Character choice done");
 		startGame.setDisable(false);
 	}
 	
 	
 	public void addCharToView(CharSelectTile selectedUnit, int team) {
-		// TODO: duplicate the selectedUnit somehow
-		CharSelectTile newTile = new CharSelectTile("/application/resources/pikachu.png");
+		
+		CharSelectTile newTile = new CharSelectTile(selectedUnit.getType());
 		if (team == 1) {
 			team1Pane.add(newTile, 0, player1Row++);
 		} else {

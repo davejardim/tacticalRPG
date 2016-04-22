@@ -2,7 +2,6 @@ package application.model.game;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -61,13 +60,21 @@ public class Game {
 		startCharPlacement();
 		
 	}
+	
+	public UnitTile[][] getUnitGrid() {
+		return unitGrid;
+	}
 	//places walls based on a string
 	public void populateWalls(String walls){
 	int i = 0;
 	for (int j = 0; j < 16; j++) {
 		 for (int n = 0; n < 32; n++) {
 			 if(walls.charAt(i)=='1'){
+<<<<<<< HEAD
 				 addEnv(n,j,EnvironmentType.WALL);
+=======
+				 
+>>>>>>> origin/master
 			 }
 	     i++;
 		 }
@@ -188,6 +195,7 @@ public class Game {
 				selectedTile.remove();
 				if (Controller.getInstance().charPlacement.isDone()) {
 					isCharPlacement = false;
+					Controller.getInstance().addInfoBarText("Player 1 start");
 				}
 			}
 		}
@@ -215,6 +223,7 @@ public class Game {
 	 */
 	private void switchPlayer() {
 		playerTurn = (playerTurn == 1) ? 2 : 1;
+		Controller.getInstance().addInfoBarText("Player " + playerTurn + " start");
 	}
 	
 	/**
@@ -301,9 +310,9 @@ public class Game {
 		PriorityQueue<int[]> Q = new PriorityQueue<>(comp);
 		int[] node;
 		boolean[][] validSquares = new boolean[Main.LEVEL_WIDTH][Main.LEVEL_HEIGHT];
-		for (int i = Math.max(x-maxDist, 0); i < Math.min(x+maxDist, Main.LEVEL_WIDTH) ; i++)
+		for (int i = Math.max(x-maxDist, 0); i < Math.min(x+maxDist+1, Main.LEVEL_WIDTH) ; i++)
 		{
-			for (int j = Math.max(y-maxDist, 0); j < Math.min(x+maxDist, Main.LEVEL_HEIGHT) ; j++)
+			for (int j = Math.max(y-maxDist, 0); j < Math.min(y+maxDist+1, Main.LEVEL_HEIGHT) ; j++)
 			{
 				if (i == x && j == y)
 					Q.add(new int[] {0, i, j});
@@ -317,7 +326,7 @@ public class Game {
 		{
 			node = Q.remove();
 			if (node[0] > maxDist) continue;
-			if (0 != node[0]) validSquares[node[1]][node[2]] = true;
+			if ((unitGrid[node[1]][node[2]].getUnit() == null) || node[0] == 0) validSquares[node[1]][node[2]] = true;
 			ArrayList<int[]> nodeNeighbours = new ArrayList<>();
 			for (int[] element : Q)
 			{

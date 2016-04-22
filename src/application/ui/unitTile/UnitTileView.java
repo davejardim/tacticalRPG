@@ -81,7 +81,7 @@ public class UnitTileView {
 	}
 	
 	public void removeImage() {
-		unitImage.setImage(null);
+		this.unitImage.setImage(null);
 	}
 	
 	private void setHandles() {

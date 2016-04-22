@@ -14,15 +14,15 @@ public class Main extends Application {
 	public static final int TILE_SIZE = 32;
 	public static boolean bypassMenuToDefaultLevel = false;
 	public static Scene scene;
-	
+	public static final String playerResource = "/application/resources/player/";
 	@SuppressWarnings("static-access")
 	@Override
-	public void start(Stage primaryStage) {	
+	public void start(Stage primaryStage) throws Exception {	
 		
 			
 			
-			int w = 1024+50;	//Window width
-			int h = 512+52;	//Window Height
+			int w = 1024+64;	//Window width
+			int h = 512+64;	//Window Height
 			
 			// Instantiate controller
 			Controller.getInstance();
@@ -43,6 +43,8 @@ public class Main extends Application {
 			
 			//must call show() last to render the setup
 			primaryStage.show();
+			
+			LevelEditor le = new LevelEditor();
 			
 		
 	}

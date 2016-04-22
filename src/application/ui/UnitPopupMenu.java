@@ -21,9 +21,10 @@ public class UnitPopupMenu extends ContextMenu {
 				if (unit.getTeam() != u.getTeam()) {
 				MenuItem newAttack = new MenuItem("Attack " + u.getType().toString());
 				newAttack.setOnAction(e-> {
+					// TODO: Move to attack method
+					Controller.getInstance().addInfoBarText(unit.getType().toString() + " attacked " +
+							u.getType().toString() + " for " + unit.getAttack() + " HP!");
 					unit.attack(u);
-					Controller.getInstance().setInfoBarText(unit.getType().toString() + " attacked " +
-																u.getType().toString() + " for " + unit.getAttack() + " HP!");
 					Controller.currentGame.isMenuOpen = false;
 				});
 				collection.add(newAttack);

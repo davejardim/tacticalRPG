@@ -1,14 +1,10 @@
 ## Need to implement:
-- Implement death on hp of 0
 - Add capture point
 - Add attacking text to overlay
 - Status text shows current status of character 
-- When switching turns add player name to the overlay
-- Add player selection menu (DAVE)
 - Load wall locations from a text file
 - Clean up unnecessary functions 
 - Add descriptions to functions if necessary
 
 ## Need to fix:
-- Dijstra's doesn't find correct paths
-- Players shouldn't be able to move on top of eachother
+- Dijkstra's Bermuda triangle
