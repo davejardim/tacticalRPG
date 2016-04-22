@@ -187,6 +187,7 @@ public class Game {
 				selectedTile.remove();
 				if (Controller.getInstance().charPlacement.isDone()) {
 					isCharPlacement = false;
+					Controller.getInstance().addInfoBarText("Player 1 start");
 				}
 			}
 		}
@@ -214,6 +215,7 @@ public class Game {
 	 */
 	private void switchPlayer() {
 		playerTurn = (playerTurn == 1) ? 2 : 1;
+		Controller.getInstance().addInfoBarText("Player " + playerTurn + " start");
 	}
 	
 	/**
