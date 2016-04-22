@@ -3,6 +3,7 @@ package application.ui.unitTile;
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.ui.Controller;
+import enviornment.EnvironmentType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -18,8 +19,8 @@ public class EnvironmentTileView {
 		private Rectangle gridBox;
 		private Rectangle highlightedMask;
 		
-		public EnvironmentTileView(EnvironmentTile t,int x, int y){
-
+		public EnvironmentTileView(EnvironmentTile t, int x, int y){
+			
 		int ts = Main.TILE_SIZE;
 		gridBox = new Rectangle(x*ts, y*ts, ts, ts);
 
@@ -31,7 +32,8 @@ public class EnvironmentTileView {
 		this.xCord = x*Main.TILE_SIZE;
 		this.yCord = y*Main.TILE_SIZE;
 		
-		i = new ImageView(new Image("/application/resources/grass.png"));
+		i = new ImageView();
+		i.setImage(t.getEnvType().getSprite());
 		i.setX(xCord);
 		i.setY(yCord);
 		i.setScaleX(Main.TILE_SIZE/i.getImage().getWidth());

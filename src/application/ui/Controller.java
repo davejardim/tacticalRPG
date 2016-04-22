@@ -115,9 +115,9 @@ public class Controller {
 		
 		// Info Bar
 		Rectangle r = new Rectangle(10, 10, 10, 30);
-		r.setWidth(400);
+		r.setWidth(200);
 		r.setOpacity(0.2);
-		infoBarText = new Text();
+		infoBarText = new Text("Hello");
 		infoBarText.setFont(new Font(20));
 		infoBarText.setFill(Color.BLACK);
 		
@@ -167,8 +167,9 @@ public class Controller {
 		
 		
 	}
-	
+
 	public void addInfoBarText(String text) {
 		infoBarText.setText(text);
 	}
+
 }
