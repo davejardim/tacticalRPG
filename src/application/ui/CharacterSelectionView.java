@@ -45,6 +45,7 @@ public class CharacterSelectionView extends BorderPane
 		charPane.setMaxHeight(400);
 		charPane.setMinWidth(600);
 		charPane.setMaxWidth(600);
+		charPane.setAlignment(Pos.CENTER);
 		
 		// Add a Pane for each team
 		team1Pane = new GridPane();
@@ -103,13 +104,6 @@ public class CharacterSelectionView extends BorderPane
 	private void populateChars() {
 		charChoices = new ArrayList<CharSelectTile>();
 		
-		//charChoices.add(new CharSelectTile(UnitType.CAP));
-		//charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		//charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		//charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		//charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		
-		
 		charChoices.add(new CharSelectTile(UnitType.LINK));	
 		charChoices.add(new CharSelectTile(UnitType.MARIO));	
 		charChoices.add(new CharSelectTile(UnitType.MJ));	
@@ -125,7 +119,7 @@ public class CharacterSelectionView extends BorderPane
 			}
 		}
 		
-		//setSelected(charChoices.get(0));
+		setSelected(charChoices.get(0));
 	}
 	
 	public void switchTeams() {
