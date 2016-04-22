@@ -1,5 +1,4 @@
 ## Need to implement:
-- Implement death on hp of 0
 - Add capture point
 - Add attacking text to overlay
 - Status text shows current status of character 

@@ -60,6 +60,10 @@ public class Game {
 		startCharPlacement();
 		
 	}
+	
+	public UnitTile[][] getUnitGrid() {
+		return unitGrid;
+	}
 	//places walls based on a string
 	public void populateWalls(String walls){
 	int i = 0;
