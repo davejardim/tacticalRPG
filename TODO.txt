@@ -9,5 +9,4 @@
 - Add descriptions to functions if necessary
 
 ## Need to fix:
-- Dijstra's doesn't find correct paths
-- Players shouldn't be able to move on top of eachother
+- Dijkstra's Bermuda triangle
