@@ -2,7 +2,6 @@ package enviornment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import application.model.tile.UnitTile;
 import javafx.scene.image.Image;
 
