@@ -104,7 +104,7 @@ public class Game {
 		environmentGrid = new EnvironmentTile[w][h];
 		for(int x = 0; x < w; x++){
 			for(int y = 0; y < h; y++){
-				environmentGrid[x][y]= new EnvironmentTile(x, y,null);
+				environmentGrid[x][y]= new EnvironmentTile(x, y, EnvironmentType.GRASS);
 			}
 		}
 
