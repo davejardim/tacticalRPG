@@ -76,7 +76,7 @@ public class UnitTile {
 	}
 	public void removeUnit() {
 		this.unit = null;
-		view.remove();
+		view.removeImage();
 	}
 	
 	public int getXCord() {

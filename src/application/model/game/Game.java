@@ -71,6 +71,7 @@ public class Game {
 		 for (int n = 0; n < 32; n++) {
 			 if(walls.charAt(i)=='1'){
 				 addUnit(n,j,UnitType.KOFFING);
+
 			 }
 	     i++;
 		 }
@@ -187,6 +188,7 @@ public class Game {
 				selectedTile.remove();
 				if (Controller.getInstance().charPlacement.isDone()) {
 					isCharPlacement = false;
+					Controller.getInstance().addInfoBarText("Player 1 start");
 				}
 			}
 		}
@@ -214,6 +216,7 @@ public class Game {
 	 */
 	private void switchPlayer() {
 		playerTurn = (playerTurn == 1) ? 2 : 1;
+		Controller.getInstance().addInfoBarText("Player " + playerTurn + " start");
 	}
 	
 	/**

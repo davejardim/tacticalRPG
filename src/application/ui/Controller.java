@@ -117,7 +117,7 @@ public class Controller {
 		Rectangle r = new Rectangle(10, 10, 10, 30);
 		r.setWidth(400);
 		r.setOpacity(0.2);
-		infoBarText = new Text("Hello");
+		infoBarText = new Text();
 		infoBarText.setFont(new Font(20));
 		infoBarText.setFill(Color.BLACK);
 		
