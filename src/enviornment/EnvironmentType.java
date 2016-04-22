@@ -2,12 +2,12 @@ package enviornment;
 
 import javafx.scene.image.Image;
 
-public enum EnviornmentType {
+public enum EnvironmentType {
 	WALL(new Image("/application/resources/brick_wall.png"));
 	
     private final Image sprite;
     
-    EnviornmentType(Image sprite) {
+    EnvironmentType(Image sprite) {
        this.sprite = sprite;
     }
     public Image getSprite(){

@@ -14,6 +14,7 @@ import application.model.unit.UnitType;
 import application.ui.Controller;
 import application.ui.SelectionTile;
 import application.ui.UnitPopupMenu;
+import enviornment.EnvironmentType;
 import javafx.scene.input.MouseEvent;
 
 
@@ -66,7 +67,7 @@ public class Game {
 	for (int j = 0; j < 16; j++) {
 		 for (int n = 0; n < 32; n++) {
 			 if(walls.charAt(i)=='1'){
-				 addUnit(n,j,UnitType.WALL);
+				 addEnv(n,j,EnvironmentType.WALL);
 			 }
 	     i++;
 		 }
@@ -103,7 +104,7 @@ public class Game {
 		environmentGrid = new EnvironmentTile[w][h];
 		for(int x = 0; x < w; x++){
 			for(int y = 0; y < h; y++){
-				environmentGrid[x][y]= new EnvironmentTile(x, y);
+				environmentGrid[x][y]= new EnvironmentTile(x, y,null);
 			}
 		}
 
@@ -126,6 +127,10 @@ public class Game {
 	private void addUnit(int xCord, int yCord, UnitType t){
 
 		unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, Controller.unitGrid, t);
+	}
+
+	private void addEnv(int xCord, int yCord, EnvironmentType t){
+		environmentGrid[xCord][yCord] = new EnvironmentTile(xCord, yCord, t);
 	}
 
 	public void onClick(UnitTile tile, MouseEvent e) {
