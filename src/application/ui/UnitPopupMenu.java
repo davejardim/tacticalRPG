@@ -17,15 +17,17 @@ public class UnitPopupMenu extends ContextMenu {
 		
 		// Find all attack options
 		ArrayList<Unit> attackOptions = unit.attackOptions(unitLocs);
-		for (Unit u : attackOptions) {
-			MenuItem newAttack = new MenuItem(unit.getType().toString());
-			newAttack.setOnAction(e-> {
-				unit.attack(u);
-				Controller.getInstance().setInfoBarText(unit.getType().toString() + " attacked " +
-															u.getType().toString() + " for " + unit.getAttack() + " HP!");
-				Controller.currentGame.isMenuOpen = false;
-			});
-			collection.add(newAttack);
+			for (Unit u : attackOptions) {
+				if (unit.getTeam() != u.getTeam()) {
+				MenuItem newAttack = new MenuItem("Attack " + u.getType().toString());
+				newAttack.setOnAction(e-> {
+					unit.attack(u);
+					Controller.getInstance().setInfoBarText(unit.getType().toString() + " attacked " +
+																u.getType().toString() + " for " + unit.getAttack() + " HP!");
+					Controller.currentGame.isMenuOpen = false;
+				});
+				collection.add(newAttack);
+			}
 		}
 		
 		MenuItem stay = new MenuItem("Do nothing");
