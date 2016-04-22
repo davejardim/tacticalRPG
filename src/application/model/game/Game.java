@@ -10,6 +10,7 @@ import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
+import application.ui.Animation;
 import application.ui.Controller;
 import application.ui.SelectionTile;
 import application.ui.UnitPopupMenu;
@@ -265,14 +266,16 @@ public class Game {
 	 * @param y	Y coordinate to move to
 	 * @param unit Unit to move
 	 */
-	public void moveUnit(int x, int y, Unit unit) {
+	public void moveUnit(int toX, int toY, Unit unit) {
 		int curX = unit.getXCord();
 		int curY = unit.getYCord();
+		
 		unitGrid[curX][curY].removeUnit();
 		unitGrid[curX][curY].setSelected(false);
-		unitGrid[x][y].setUnit(unit);
-		unit.setXCord(x);
-		unit.setYCord(y);
+		Animation.moveUnit(unit, toX, toY);
+		unitGrid[toX][toY].setUnit(unit);
+		unit.setXCord(toX);
+		unit.setYCord(toY);
 		clearHighlights();
 	}
 
@@ -296,7 +299,7 @@ public class Game {
 	}
 	
 	// Uses Dijkstra's to find valid paths given a certain distance
-	private boolean[][] getValidMoves(int x, int y, int maxDist) {
+	public boolean[][] getValidMoves(int x, int y, int maxDist) {
 
 		Comparator<int[]> comp = (sq1, sq2) -> (sq1[0] - sq2[0]);
 		PriorityQueue<int[]> Q = new PriorityQueue<>(comp);
@@ -308,7 +311,7 @@ public class Game {
 			{
 				if (i == x && j == y)
 					Q.add(new int[] {0, i, j});
-				else if (unitGrid[i][j].isPassable())
+				else if (environmentGrid[i][j].getEnvType().isPassable())
 					Q.add(new int[] {10000, i, j});
 
 			}
