@@ -2,27 +2,21 @@ package application.model.game;
 
 
 import java.util.ArrayList;
-
-import java.util.Arrays;
 import java.util.Collection;
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
+
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
 import application.model.unit.Unit;
 import application.model.unit.UnitType;
 import application.ui.Controller;
+import application.ui.SelectionTile;
 import application.ui.UnitPopupMenu;
-import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 
-/**
- * Stores all level data and will handling the loading of levels.
- * @author markbluemer
- *
- */
+
 public class Game {
 
 	private Unit currentSelectedUnit = null;
@@ -30,69 +24,66 @@ public class Game {
 	private UnitTile[][] unitGrid;
 	private int playerTurn;
 	private ArrayList<Unit> player1Chars, player2Chars;
+	private boolean isCharPlacement;
 
 	public int xSize;
 	public int ySize;	
 	public static boolean isMenuOpen;
+	
+	public String testLevel = 
+			"00000000000111111111111111111111" +
+			"00000010000000000000000000000011" +
+			"00000010000000000000000000000011" +
+			"00000000000111001111111000111111" +
+			"00000000000111000000000000000001" +
+			"00000000000111000000000000000001" +
+			"00000000000111000000000000000001" +
+			"00000100000100000000000000000001" +
+			"00000000000100000000000000000001" +
+			"00010000000100000000001100000001" +
+			"00000000000100000000001100000001" +
+			"00000100000000000000001100000001" +
+			"00000000000000000000000000000001" +
+			"00010000000000000000000000000001" +
+			"00000000000100000000000000000001" +
+			"00000000000111111111111111111111";
 
 
 	public Game() {
-
+		isMenuOpen = false;
+		playerTurn = 1;
+		isCharPlacement = true;
+		player1Chars = new ArrayList<Unit>();
+		player2Chars = new ArrayList<Unit>();
 		genGrid(Main.LEVEL_WIDTH,Main.LEVEL_HEIGHT);
-		Controller.environmentGrid.setMaxWidth(xSize*Main.TILE_SIZE);
-		Controller.environmentGrid.setMaxHeight(ySize*Main.TILE_SIZE);
+		populateWalls(testLevel);
+		startCharPlacement();
 		
 	}
 	
-	public void startGame(){
-		//add default player
-		addUnit(4,4, UnitType.PIKACHU);
-		addUnit(4,5, UnitType.WALL);
-
-		isMenuOpen = false;
-		playerTurn = 1;
+	public UnitTile[][] getUnitGrid() {
+		return unitGrid;
+	}
+	//places walls based on a string
+	public void populateWalls(String walls){
+	int i = 0;
+	for (int j = 0; j < 16; j++) {
+		 for (int n = 0; n < 32; n++) {
+			 if(walls.charAt(i)=='1'){
+				 addUnit(n,j,UnitType.WALL);
+			 }
+	     i++;
+		 }
+	}
 	}
 	
-	public void startGame(Collection<UnitTile> t1, Collection<UnitTile> t2){
-		int y = 1;
-		for(UnitTile t : t1){
-			addUnit(1,y, t.getType());
-			y = y + 3;
-		}
-		y = 1;
-		for(UnitTile t : t2){
-			addUnit(30,y, t.getType());
-			y = y + 3;
-		}
-
-//		
-//		// Add all player units
-//		this.player1Chars = player1Chars;
-//		this.player2Chars = player2Chars;
-//		for(Unit unit : player1Chars) {
-//			addUnit(unit);
-//		}
-//		for(Unit unit : player2Chars) {
-//			addUnit(unit);
-//		}
-
-
-		isMenuOpen = false;
-		playerTurn = 1;
+	public void startCharPlacement() {
+		Controller.getInstance().buildCharPlacement();
 	}
-
 	
-	public void startGame(ArrayList<Unit> player1, ArrayList<Unit> player2) {
-		int y = 1;
-		for(Unit t : player1){
-			addUnit(1,y, t.getType());
-			y = y + 3;
-		}
-		y = 1;
-		for(Unit t : player2){
-			addUnit(30,y, t.getType());
-			y = y + 3;
-		}
+	public void startGame(ArrayList<Unit> team1, ArrayList<Unit> team2) {
+		player1Chars = team1;
+		player2Chars = team2;
 		isMenuOpen = false;
 		playerTurn = 1;
 		
@@ -127,10 +118,6 @@ public class Game {
 				unitGrid[x][y]= new UnitTile(x, y, Controller.unitGrid);
 			}
 		}
-		System.out.println(w + " " + h);
-
-
-		Controller.UILayers.setAlignment(Pos.CENTER);
 	}
 	
 	
@@ -144,15 +131,10 @@ public class Game {
 
 		unitGrid[xCord][yCord] = new UnitTile(xCord, yCord, Controller.unitGrid, t);
 	}
-	
-	//private void addUnit(Unit unit){
-	//	unitGrid[unit.getXCord()][unit.getYCord()] = new UnitTile();
-
-	//}
 
 	public void onClick(UnitTile tile, MouseEvent e) {
 		// Add up front any conditions that should prevent clicking
-		if (!isMenuOpen) {
+		if (!isMenuOpen && !isCharPlacement) {
 			if (currentSelectedUnit != null) {
 				// When a unit is clicked:
 				// If another different unit is selected switch to it	
@@ -188,6 +170,23 @@ public class Game {
 											&& tile.getUnit().getCanMove()
 											&& isCurrentPlayersUnit(tile.getUnit())) {
 					setSelectedUnit(tile.getUnit());
+				}
+			}
+		}
+		
+		if (isCharPlacement) {
+			SelectionTile selectedTile = Controller.getInstance().charPlacement.getSelected();
+			if (selectedTile.getUnit() != null) {
+				if (selectedTile.getUnit().getTeam() == 1) {
+					player1Chars.add(selectedTile.getUnit());
+				} else {
+					player2Chars.add(selectedTile.getUnit());
+				}
+				moveUnit(tile.getXCord(), tile.getYCord(), selectedTile.getUnit());
+				selectedTile.removeHighlight();
+				selectedTile.remove();
+				if (Controller.getInstance().charPlacement.isDone()) {
+					isCharPlacement = false;
 				}
 			}
 		}

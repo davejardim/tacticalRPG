@@ -19,7 +19,7 @@ public class MainMenu {
 	@FXML protected void handleNewGameButtonAction (ActionEvent event) throws IOException, InterruptedException {
 		
 		mainMenu.setVisible(false);
-		Controller.charSelectionMenu.setVisible(true);	
+		Controller.getInstance().buildCharacterSelectionMenu();
 		
 	}
 	

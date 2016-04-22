@@ -2,81 +2,194 @@ package application.ui;
 
 import java.util.ArrayList;
 
-import application.Main;
 import application.model.game.CharacterSelection;
-import application.model.game.CharacterTeam;
-import application.model.tile.UnitTile;
-import application.model.unit.Unit;
-import application.model.unit.UnitType;
-import javafx.geometry.Insets;
+import application.model.tile.CharSelectTile;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Label;
+import javafx.scene.Group;
+import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
-public class CharacterSelectionView 
+public class CharacterSelectionView extends BorderPane
 {
-	CharacterSelection model;
-	ArrayList<CharacterTeam> teams;
-	public static Pane team1Pane, team2Pane;
-
-	static private int w, h;
+	final private int GRID_WIDTH = 3;
+	final private int GRID_HEIGHT = 2;
+	
+	private GridPane team1Pane, team2Pane;
+	private static GridPane charPane;
+	private CharacterSelection model;
+	private int player1Row, player2Row;
+	private Button startGame, addToTeam;
+	private Text playerTurn;
+	private CharSelectTile selected;
+	private ArrayList<CharSelectTile> charChoices;
 
 	@SuppressWarnings("static-access")
-	public CharacterSelectionView( CharacterSelection cs){
-
-		HBox teamBox = new HBox();
-		teamBox.setSpacing(300);
-		teamBox.setAlignment(Pos.CENTER);
-
-		team1Pane = new Pane();
-		team2Pane = new Pane();
-		teamBox.getChildren().addAll(team1Pane,team2Pane);
-		BorderPane menuBox = new BorderPane();
-		Label title = new Label("Pick Your Teams:");
-		title.setAlignment(Pos.CENTER);
-		title.setFont(new Font("Didot Bold", 22));
-		menuBox.setLeft(team1Pane);
-		menuBox.setRight(team2Pane);
-		Rectangle spacer = new Rectangle(0,0,100,5);
-		spacer.setFill(Color.TRANSPARENT);
-		menuBox.setCenter(spacer);
-		menuBox.getChildren().addAll(teamBox);
-		menuBox.setTop(title);
-		//menuBox.setAlignment(title, Pos.TOP_CENTER);
-		menuBox.setPadding(new Insets(0, 10, 10, 10));
-		title.setPadding(new Insets(0, 10, 10 , 120));
-		Controller.charSelectionMenu.getChildren().addAll(menuBox);
-
-
-		Controller.charSelectionMenu.setPrefSize(w,h);
-		Controller.charSelectionMenu.setMinSize(w,h);
-		Controller.charSelectionMenu.setMaxSize(w,h);
-
-
+	public CharacterSelectionView(CharacterSelection cs){
+		model = cs;
+		player1Row = 0;
+		player2Row = 0;
+		
+		this.setWidth(1000);
+		this.setHeight(500);
+		// GridPane that will hold characters that can be selected
+		charPane = new GridPane();
+		charPane.setMinHeight(400);
+		charPane.setMaxHeight(400);
+		charPane.setMinWidth(600);
+		charPane.setMaxWidth(600);
+		
+		// Add a Pane for each team
+		team1Pane = new GridPane();
+		team2Pane = new GridPane();
+		team1Pane.setPrefSize(200, 400);
+		team2Pane.setPrefSize(200, 400);
+	
+		// Group for text
+		GridPane topText = new GridPane();
+		topText.setMinWidth(1000);
+		topText.setAlignment(Pos.CENTER);
+		
+		// Title	
+		Text title = new Text("Pick your Teams: ");
+		title.setFont(new Font("Didot Bold", 20));
+		
+		// Player turn
+		playerTurn = new Text("Player 1");
+		playerTurn.setFont(new Font("Didot Bold", 14));
+		playerTurn.setTextAlignment(TextAlignment.CENTER);
+		
+		topText.add(title, 0, 0);
+		topText.add(playerTurn, 0, 1);
+		
+		// Button to start the game
+		startGame = new Button("Start Game!");
+		startGame.setAlignment(Pos.CENTER);
+		startGame.setMinWidth(500);
+		startGame.setMinHeight(50);
+		startGame.setDisable(true);
+		
+		// Buttons to add to teams
+		addToTeam = new Button("Add to current Team");
+		addToTeam.setMinHeight(50);
+		addToTeam.setMinWidth(200);
+		
+		// HBox to hold all of these buttons
+		HBox buttons = new HBox(10);
+		buttons.setMinWidth(1000);
+		buttons.getChildren().addAll(startGame, addToTeam);
+		buttons.setAlignment(Pos.CENTER);
+		
+		
+		// Add everything to the BorderPane
+		this.setTop(topText);
+		this.setLeft(team1Pane);
+		this.setRight(team2Pane);
+		this.setCenter(charPane);
+		this.setBottom(buttons);
+		
+		populateChars();
+		setHandles();
+	}
+	
+	// NOTE: Can easily move this to the model later
+	private void populateChars() {
+		charChoices = new ArrayList<CharSelectTile>();
+		
+		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		
+		int inc = 0;
+		for (int i = 0; i < GRID_WIDTH; i++) {
+			for (int j = 0; j < GRID_HEIGHT; j++) {
+				charPane.add(charChoices.get(inc++), i, j);
+			}
+		}
+		
+		setSelected(charChoices.get(0));
+	}
+	
+	public void switchTeams() {
+		if (playerTurn.getText().equals("Player 1")) {
+			playerTurn.setText("Player 2");
+		} else {
+			playerTurn.setText("Player 1");
+		}
+	}
+	
+	public void switchToDone() {
+		addToTeam.setDisable(true);
+		playerTurn.setText("Character choice done");
+		startGame.setDisable(false);
+	}
+	
+	
+	public void addCharToView(CharSelectTile selectedUnit, int team) {
+		// TODO: duplicate the selectedUnit somehow
+		CharSelectTile newTile = new CharSelectTile("/application/resources/pikachu.png");
+		if (team == 1) {
+			team1Pane.add(newTile, 0, player1Row++);
+		} else {
+			team2Pane.add(newTile, 0, player2Row++);
+		}
+	}
+	
+	private void setSelected(CharSelectTile tile) {
+		// Remove effect from current selected
+		if (selected != null) {
+			selected.setEffect(null);
+		}
+		
+		DropShadow dp = new DropShadow();
+		dp.setRadius(100);
+		dp.setOffsetX(6.0);
+		dp.setOffsetY(4.0);
+		dp.setColor(Color.BLACK);
+		tile.setEffect(dp);
+		selected = tile;
+	}
+	
+	private void setHandles() {
+		// Set click handlers for selected char
+		for (CharSelectTile tile: charChoices) {
+			tile.setOnMouseClicked(e->{
+				setSelected(tile);
+			});
+		}
+		
+		// Add characters to team
+		addToTeam.setOnMouseClicked(e->{
+			model.addChar(selected);
+		});
+		
+		// Start the game
+		startGame.setOnMouseClicked(e->{
+			Controller.getInstance().startGame();
+		});
 	}
 
-	public static void addTeamSelection(int teamNo){	
-		Rectangle r = new Rectangle(0,0,w,h);
-		r.setFill(Color.BROWN);
-		r.setStroke(Color.BLACK);
-		r.setStrokeType(StrokeType.OUTSIDE);
-		r.setStrokeWidth(4);
-
-		if(teamNo ==1)
-			team1Pane.getChildren().add(r);
-		else
-			team2Pane.getChildren().add(r);
-	}
+//	public static void addTeamSelection(int teamNo){	
+//		Rectangle r = new Rectangle(0,0,w,h);
+//		r.setFill(Color.BROWN);
+//		r.setStroke(Color.BLACK);
+//		r.setStrokeType(StrokeType.OUTSIDE);
+//		r.setStrokeWidth(4);
+//
+//		if(teamNo ==1)
+//			team1Pane.getChildren().add(r);
+//		else
+//			team2Pane.getChildren().add(r);
+//	}
 
 
 }

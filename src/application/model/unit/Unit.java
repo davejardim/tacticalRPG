@@ -3,7 +3,10 @@ package application.model.unit;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.glass.ui.View;
+
 import application.model.tile.UnitTile;
+import application.ui.Controller;
 import javafx.scene.image.Image;
 
 /**
@@ -103,8 +106,8 @@ public class Unit {
 		return team;
 	}
 
-	public List<Unit> attackOptions(UnitTile[][] unitLocs) {
-		List<Unit> list = new ArrayList<>();
+	public ArrayList<Unit> attackOptions(UnitTile[][] unitLocs) {
+		ArrayList<Unit> list = new ArrayList<>();
 		//if melee unit
 		if(this.attackType==1){
 			//if up 1
@@ -186,14 +189,19 @@ public class Unit {
 		return list;
 	}
 	
+	public void death() {
+		Controller.getInstance().addInfoBarText(type.toString() + " has died!");
+		Controller.getInstance().currentGame.getUnitGrid()[xCord][yCord].removeUnit();
+	}
+	
 	public void attack(Unit attackee){
 		//melee attackers
 		if(this.attackType==1){
 			if(attackee.getAttackType()==1){
 				//attackee takes damage
 				attackee.setHp(attackee.getHp()-this.getAttack());
-				if(attackee.getHp()==0){
-					//death
+				if(attackee.getHp() < 0){
+					attackee.death();
 				}
 				else{
 					this.hp = this.hp - attackee.getAttack();
@@ -201,8 +209,8 @@ public class Unit {
 			}
 			if(attackee.getAttackType()==2){
 				attackee.setHp(attackee.getHp() - this.getAttack());
-				if(attackee.getHp()==0){
-					//death
+				if(attackee.getHp() < 0){
+					attackee.death();
 				}
 			}
 		}
@@ -210,8 +218,8 @@ public class Unit {
 		if(this.attackType==2){
 			if(attackee.getAttackType()==2){
 				attackee.setHp(attackee.getHp()-this.getAttack());
-				if(attackee.getHp()==0){
-					//death
+				if(attackee.getHp() < 0){
+					attackee.death();
 				}
 				else{
 					this.hp = this.hp - attackee.getAttack();
@@ -219,11 +227,12 @@ public class Unit {
 			}
 			if(attackee.getAttackType()==1){
 				attackee.setHp(attackee.getHp() - this.getAttack());
-				if(attackee.getHp()==0){
-					//death
+				if(attackee.getHp() < 0){
+					attackee.death();
 				}
 			}
-		}	
+		}
+		if (hp < 0) { death(); }
 	}
 
 

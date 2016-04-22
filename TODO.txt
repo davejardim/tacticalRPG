@@ -1,6 +1,4 @@
 ## Need to implement:
-- Add the ability to choose who to attack (MIKE)
-- Implement death on hp of 0
 - Add capture point
 - Add attacking text to overlay
 - Status text shows current status of character 

@@ -49,13 +49,6 @@ public class UnitTileView {
 		unitImage.setX(tile.getXCord()*Main.TILE_SIZE);
 		unitImage.setY(tile.getYCord()*Main.TILE_SIZE);
 
-		
-//		r.setFill(Color.TRANSPARENT);
-//		r.setStrokeType(StrokeType.OUTSIDE);
-//		r.setStroke(Color.TRANSPARENT);
-//		r.setStrokeWidth(4);
-//		r.setStrokeLineJoin(StrokeLineJoin.ROUND);
-//		viewPane.getChildren().addAll(i,r);
 
 		// Add text underneath unit
 		status = new Text();
@@ -87,8 +80,8 @@ public class UnitTileView {
 
 	}
 	
-	public void removeImage() {
-		unitImage.setImage(null);
+	public void remove() {
+		Controller.getInstance().unitGrid.getChildren().removeAll(unitImage, unitHighlighting, status, currentHp);
 	}
 	
 	private void setHandles() {
