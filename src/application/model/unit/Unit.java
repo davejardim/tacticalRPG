@@ -234,29 +234,4 @@ public class Unit {
 		}
 		if (hp < 0) { death(); }
 	}
-
-
-	private void setUnitStats(UnitType type) {
-		switch (type) {
-		case ASSASSIN:
-			break;
-		case ARCHER:
-			break;
-		case LINK:
-			break;
-		case MARIO:
-			break;
-		case MJ:
-			break;
-		case CAP:
-			break;
-		case WALL:
-			break;
-		case PIKACHU:
-			break;
-		case KOFFING:
-			break;
-		}
-
-	}
 }

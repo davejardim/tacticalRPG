@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import application.model.game.CharacterSelection;
 import application.model.tile.CharSelectTile;
+import application.model.unit.UnitType;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -102,12 +103,20 @@ public class CharacterSelectionView extends BorderPane
 	private void populateChars() {
 		charChoices = new ArrayList<CharSelectTile>();
 		
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
-		charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		//charChoices.add(new CharSelectTile(UnitType.CAP));
+		//charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		//charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		//charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		//charChoices.add(new CharSelectTile("/application/resources/pikachu.png"));
+		
+		
+		charChoices.add(new CharSelectTile(UnitType.LINK));	
+		charChoices.add(new CharSelectTile(UnitType.MARIO));	
+		charChoices.add(new CharSelectTile(UnitType.MJ));	
+		charChoices.add(new CharSelectTile(UnitType.CAP));	
+		charChoices.add(new CharSelectTile(UnitType.PIKACHU));	
+		charChoices.add(new CharSelectTile(UnitType.KOFFING));	
+		charChoices.add(new CharSelectTile(UnitType.BB8));
 		
 		int inc = 0;
 		for (int i = 0; i < GRID_WIDTH; i++) {
@@ -116,7 +125,7 @@ public class CharacterSelectionView extends BorderPane
 			}
 		}
 		
-		setSelected(charChoices.get(0));
+		//setSelected(charChoices.get(0));
 	}
 	
 	public void switchTeams() {
@@ -135,8 +144,8 @@ public class CharacterSelectionView extends BorderPane
 	
 	
 	public void addCharToView(CharSelectTile selectedUnit, int team) {
-		// TODO: duplicate the selectedUnit somehow
-		CharSelectTile newTile = new CharSelectTile("/application/resources/pikachu.png");
+		
+		CharSelectTile newTile = new CharSelectTile(selectedUnit.getType());
 		if (team == 1) {
 			team1Pane.add(newTile, 0, player1Row++);
 		} else {
