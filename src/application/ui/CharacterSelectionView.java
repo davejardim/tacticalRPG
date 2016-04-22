@@ -27,7 +27,6 @@ public class CharacterSelectionView extends BorderPane
 	private CharacterSelection model;
 	private int player1Row, player2Row;
 	private Button startGame, addToTeam;
-	private Text playerTurn;
 	private CharSelectTile selected;
 	private ArrayList<CharSelectTile> charChoices;
 
@@ -52,33 +51,22 @@ public class CharacterSelectionView extends BorderPane
 		team2Pane = new GridPane();
 		team1Pane.setPrefSize(200, 400);
 		team2Pane.setPrefSize(200, 400);
-	
-		// Group for text
-		GridPane topText = new GridPane();
-		topText.setMinWidth(1000);
-		topText.setAlignment(Pos.CENTER);
 		
 		// Title	
 		Text title = new Text("Pick your Teams: ");
-		title.setFont(new Font("Didot Bold", 20));
-		
-		// Player turn
-		playerTurn = new Text("Player 1");
-		playerTurn.setFont(new Font("Didot Bold", 14));
-		playerTurn.setTextAlignment(TextAlignment.CENTER);
-		
-		topText.add(title, 0, 0);
-		topText.add(playerTurn, 0, 1);
+		title.setFont(new Font("Didot Bold", 32));
 		
 		// Button to start the game
 		startGame = new Button("Start Game!");
+		startGame.setFont(new Font("Didot Bold", 20));
 		startGame.setAlignment(Pos.CENTER);
 		startGame.setMinWidth(500);
 		startGame.setMinHeight(50);
 		startGame.setDisable(true);
 		
 		// Buttons to add to teams
-		addToTeam = new Button("Add to current Team");
+		addToTeam = new Button("Add to Team 1");
+		addToTeam.setFont(new Font("Didot Bold", 20));
 		addToTeam.setMinHeight(50);
 		addToTeam.setMinWidth(200);
 		
@@ -90,11 +78,12 @@ public class CharacterSelectionView extends BorderPane
 		
 		
 		// Add everything to the BorderPane
-		this.setTop(topText);
+		this.setTop(title);
 		this.setLeft(team1Pane);
 		this.setRight(team2Pane);
 		this.setCenter(charPane);
 		this.setBottom(buttons);
+		this.setAlignment(title, Pos.CENTER);
 		
 		populateChars();
 		setHandles();
@@ -123,16 +112,16 @@ public class CharacterSelectionView extends BorderPane
 	}
 	
 	public void switchTeams() {
-		if (playerTurn.getText().equals("Player 1")) {
-			playerTurn.setText("Player 2");
+		if (addToTeam.getText().equals("Add to Team 1")) {
+			addToTeam.setText("Add to team 2");
 		} else {
-			playerTurn.setText("Player 1");
+			addToTeam.setText("Add to Team 1");
 		}
 	}
 	
 	public void switchToDone() {
 		addToTeam.setDisable(true);
-		playerTurn.setText("Character choice done");
+		addToTeam.setText("Character choice done");
 		startGame.setDisable(false);
 	}
 	
