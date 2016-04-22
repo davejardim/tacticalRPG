@@ -1,21 +1,41 @@
 package application.model.unit;
 
+import application.Main;
 import javafx.scene.image.Image;
 
 //marc bluemer 
 //Mike Donohue
 
 public enum UnitType {
+	
+	
 	//hp/attack/def/attackType/critChance/maxMove/canMove/Image
-	ARCHER(20, 7, 3, 2, 10, 2, true, new Image("/application/resources/Man_256x256.png")),
-    ASSASSIN(21, 8, 2, 1, 50, 2, true, new Image("/application/resources/Man_256x256.png")),
-	LINK(25, 7, 3, 1, 10, 4, true, new Image("/application/resources/toon_link.gif")),
-	MARIO(28, 5, 5, 1, 5, 2, true,new Image("/application/resources/Mario.gif")),
-	MJ(30, 7, 4, 1, 10, 2, true, new Image("/application/resources/MJ.gif")),
-	CAP(20, 8, 4, 3, 10, 2, true, new Image("/application/resources/Cap.gif")),
-	WALL(0,0,0,0,0,0, false, new Image("/application/resources/brick_wall.png")),
-	PIKACHU(21, 8, 2, 1, 50, 4, true, new Image("/application/resources/pikachu.gif")),
-	KOFFING(30, 4, 6, 1, 10, 2, true, new Image("/application/resources/koffing.gif"));
+	//ARCHER(20, 7, 3, 2, 10, 2, true, new Image("/application/resources/Man_256x256.png")),
+    //ASSASSIN(21, 8, 2, 1, 50, 2, true, new Image("/application/resources/Man_256x256.png")),
+	LINK(25, 7, 3, 1, 10, 4, true, 
+			new Image(Main.playerResource + "0_toon_link.gif"),
+			new Image(Main.playerResource + "0_toon_link_icon.png")),
+	MARIO(28, 5, 5, 1, 5, 2, true,
+			new Image(Main.playerResource + "1_mario.gif"),
+			new Image(Main.playerResource + "1_mario_icon.png")),
+	MJ(30, 7, 4, 1, 10, 2, true, 
+			new Image(Main.playerResource + "2_MJ.gif"),
+			new Image(Main.playerResource + "2_MJ_icon.jpg")),
+	CAP(20, 8, 4, 3, 10, 2, true, 
+			new Image(Main.playerResource + "3_Cap.gif"),
+			new Image(Main.playerResource + "3_Cap_icon.png")),
+	PIKACHU(21, 8, 2, 1, 50, 4, true, 
+			new Image(Main.playerResource + "4_pikachu.gif"),
+			new Image(Main.playerResource + "4_pikachu_icon.png")),
+	KOFFING(30, 4, 6, 1, 10, 2, true, 
+			new Image(Main.playerResource + "5_koffing.gif"),
+			new Image(Main.playerResource + "5_koffing_icon.png")),
+	BB8(1,	1, 1, 1, 1, 1, true, 
+			new Image(Main.playerResource + "6_bb8.gif"),
+			new Image(Main.playerResource + "6_bb8_icon.jpg")),
+	MEGA(1,	1, 1, 1, 1, 1, true, 
+			new Image(Main.playerResource + "7_mega_man.gif"),
+			new Image(Main.playerResource + "7_mega_man_icon.png"));
 	
 	private final int hp;
 	private final int attack;
@@ -33,8 +53,9 @@ public enum UnitType {
     //0 can pass, 1 cant pass
     public final boolean canMove;
     private final Image sprite;
+    private final Image icon;
     
-    UnitType(int hp, int attack, int def, int attackType, int critChance, int maxMove, boolean canMove, Image sprite) {
+    UnitType(int hp, int attack, int def, int attackType, int critChance, int maxMove, boolean canMove, Image sprite, Image icon) {
        this.hp = hp;
        this.attack = attack;
        this.def = def;
@@ -43,6 +64,7 @@ public enum UnitType {
        this.maxMove = maxMove;
        this.sprite = sprite;
        this.canMove = canMove;
+       this.icon = icon;
        
     }
     
@@ -67,9 +89,14 @@ public enum UnitType {
     public Image sprite(){
     	return sprite;
     }
+    public Image icon(){
+    	return icon;
+    }
     public boolean canMove(){
     	return canMove;
     }
+    
+
     
     
   

@@ -14,10 +14,10 @@ public class Main extends Application {
 	public static final int TILE_SIZE = 32;
 	public static boolean bypassMenuToDefaultLevel = false;
 	public static Scene scene;
-	
+	public static final String playerResource = "/application/resources/player/";
 	@SuppressWarnings("static-access")
 	@Override
-	public void start(Stage primaryStage) {	
+	public void start(Stage primaryStage) throws Exception {	
 		
 			
 			
@@ -43,6 +43,8 @@ public class Main extends Application {
 			
 			//must call show() last to render the setup
 			primaryStage.show();
+			
+			LevelEditor le = new LevelEditor();
 			
 		
 	}
