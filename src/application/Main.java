@@ -21,8 +21,8 @@ public class Main extends Application {
 		
 			
 			
-			int w = 1024+50;	//Window width
-			int h = 512+52;	//Window Height
+			int w = 1024+64;	//Window width
+			int h = 512+64;	//Window Height
 			
 			// Instantiate controller
 			Controller.getInstance();

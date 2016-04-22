@@ -123,15 +123,12 @@ public class Controller {
 		
 		// End Turn Button
 		endTurn = new Button("End Turn");
-		endTurn.setFont(new Font(20));
+		endTurn.setFont(new Font(18));
 		endTurn.setOnMouseClicked(e->{
 			currentGame.endTurn();
 		});
 		overlay.getChildren().addAll(r, infoBarText, endTurn);
-		AnchorPane.setBottomAnchor(infoBarText, 3.0);
-		AnchorPane.setLeftAnchor(infoBarText, 5.0);
-		AnchorPane.setLeftAnchor(r, 0.0);
-		AnchorPane.setBottomAnchor(r, 0.0);
+		AnchorPane.setTopAnchor(infoBarText, 0.0);
 		AnchorPane.setBottomAnchor(endTurn, 3.0);
 		AnchorPane.setRightAnchor(endTurn, 5.0);
 
