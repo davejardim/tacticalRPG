@@ -70,11 +70,7 @@ public class Game {
 	for (int j = 0; j < 16; j++) {
 		 for (int n = 0; n < 32; n++) {
 			 if(walls.charAt(i)=='1'){
-<<<<<<< HEAD
 				 addEnv(n,j,EnvironmentType.WALL);
-=======
-				 
->>>>>>> origin/master
 			 }
 	     i++;
 		 }
@@ -100,9 +96,6 @@ public class Game {
 
 	}
 	
-	
-
-
 	private void genGrid(int w, int h){
 		xSize = w;
 		ySize = h;
