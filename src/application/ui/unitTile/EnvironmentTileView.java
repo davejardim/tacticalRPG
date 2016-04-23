@@ -17,7 +17,7 @@ public class EnvironmentTileView {
 		private EnvironmentTile tile;
 		private static ImageView i;
 		private Rectangle gridBox;
-		private Rectangle highlightedMask;
+		private Rectangle highlightedMask, mouseOverHighlight;
 		
 		public EnvironmentTileView(EnvironmentTile t, int x, int y){
 			
@@ -46,13 +46,22 @@ public class EnvironmentTileView {
 		highlightedMask.setOpacity(.5);
 		highlightedMask.setVisible(false);
 		
-		Controller.environmentGrid.getChildren().addAll(i,highlightedMask,gridBox);
+		mouseOverHighlight = new Rectangle(x*ts, y*ts, ts, ts);
+		mouseOverHighlight.setFill(Color.INDIANRED);
+		mouseOverHighlight.setOpacity(.5);
+		mouseOverHighlight.setVisible(false);
+		
+		Controller.environmentGrid.getChildren().addAll(i,highlightedMask, mouseOverHighlight, gridBox);
 
 		
 		}
 
 		public void setHighlightedMask(boolean b) {
 			highlightedMask.setVisible(b);
+		}
+		
+		public void setMouseOverHighlight(boolean b) {
+			mouseOverHighlight.setVisible(b);
 		}
 
 		public void setEnvironment(EnvironmentType t) {

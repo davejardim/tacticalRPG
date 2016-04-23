@@ -29,6 +29,10 @@ public class EnvironmentTile {
 	public void setHighlighted(boolean b) {
 			view.setHighlightedMask(b);	
 	}
+	
+	public void setMouseOverHighlighted(boolean b) {
+		view.setMouseOverHighlight(b);
+	}
 	public EnvironmentType getEnvType(){
 		return this.type;
 	}

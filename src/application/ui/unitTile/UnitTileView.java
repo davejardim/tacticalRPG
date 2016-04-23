@@ -101,9 +101,9 @@ public class UnitTileView {
 				// TODO Auto-generated method stub
 				EnvironmentTile t = Controller.highlightedTile;
 				if(t != null){
-					t.setHighlighted(false);
+					t.setMouseOverHighlighted(false);
 					Controller.highlightedTile = Controller.currentGame.getEnvironmentTile(tile.getXCord(), tile.getYCord());
-					Controller.highlightedTile.setHighlighted(true);
+					Controller.highlightedTile.setMouseOverHighlighted(true);
 				} else{
 					Controller.highlightedTile = Controller.currentGame.getEnvironmentTile(tile.getXCord(), tile.getYCord());
 				}

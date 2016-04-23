@@ -79,6 +79,7 @@ public class Game {
 	
 	public void startCharPlacement() {
 		Controller.getInstance().buildCharPlacement();
+		highlightCharPlacement();
 	}
 	
 	public void startGame(ArrayList<Unit> team1, ArrayList<Unit> team2) {
@@ -149,7 +150,8 @@ public class Game {
 					setSelectedUnit(tile.getUnit());
 				} else if (isValidMove(tile.getXCord(), tile.getYCord(), currentSelectedUnit)) {
 					moveUnit(tile.getXCord(), tile.getYCord(), currentSelectedUnit);
-
+					clearHighlights();
+					
 					// Open after move menu
 					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit, unitGrid);
 					menu.show(Controller.UILayers, e.getScreenX(), e.getScreenY());
@@ -188,6 +190,7 @@ public class Game {
 				selectedTile.remove();
 				if (Controller.getInstance().charPlacement.isDone()) {
 					isCharPlacement = false;
+					clearHighlights();
 					Controller.getInstance().addInfoBarText("Player 1 start");
 				}
 			}
@@ -212,6 +215,19 @@ public class Game {
 	}
 	
 	/**
+	 * Highlight where the player can place their characters at the beginning of the game
+	 */
+	private void highlightCharPlacement() {
+		for (int i = 0; i < Main.LEVEL_WIDTH; i++) {
+			for (int j = 0; j < Main.LEVEL_HEIGHT; j++) {
+				if (i < 4 || i > 27) {
+					environmentGrid[i][j].setHighlighted(true);
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Determine if the given unit can be placed on the given tile
 	 * @param unit Unit currently selected for placement on the grid
 	 * @param tile Tile that was clicked
@@ -222,7 +238,7 @@ public class Game {
 		if (unit.getTeam() == 1) {
 			isInTeamZone = tile.getXCord() < 4;
 		} else {
-			isInTeamZone = tile.getXCord() > 18;
+			isInTeamZone = tile.getXCord() > 27;
 		}
 		
 		return isInTeamZone && !environmentGrid[tile.getXCord()][tile.getYCord()].isWall() && tile.getUnit() == null;
@@ -291,7 +307,6 @@ public class Game {
 		unitGrid[x][y].setUnit(unit);
 		unit.setXCord(x);
 		unit.setYCord(y);
-		clearHighlights();
 	}
 
 	private void setHighlights(Unit unit) {

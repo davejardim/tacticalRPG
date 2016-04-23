@@ -7,7 +7,6 @@
 - Remove load and other stuff from main menu
 - Clean up unnecessary functions 
 - Add descriptions to functions if necessary
-- Highlighted team restricted areas
 
 ## Need to fix:
 - Dijkstra's Bermuda triangle
