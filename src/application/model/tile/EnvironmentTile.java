@@ -46,4 +46,8 @@ public class EnvironmentTile {
 		view.removeFromGrid();
 		
 	}
+	
+	public boolean isWall() {
+		return type == EnvironmentType.WALL;
+	}
 }
