@@ -4,10 +4,8 @@
 - Load wall locations from a text file
 - Highlighting on mouseover
 - Update overlay to show multiple occurrences
-- Remove load and other stuff from main menu
 - Clean up unnecessary functions 
 - Add descriptions to functions if necessary
 
 ## Need to fix:
-- Dijkstra's Bermuda triangle
-- Update move method to checl for walls
+- Update move method to check for walls
