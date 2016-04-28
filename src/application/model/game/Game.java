@@ -21,8 +21,8 @@ import javafx.scene.input.MouseEvent;
 public class Game {
 
 	private Unit currentSelectedUnit = null;
-	private EnvironmentTile[][] environmentGrid;
-	private UnitTile[][] unitGrid;
+	private static EnvironmentTile[][] environmentGrid;
+	private static UnitTile[][] unitGrid;
 	private int playerTurn;
 	private ArrayList<Unit> player1Chars, player2Chars;
 	private boolean isCharPlacement;
@@ -273,7 +273,8 @@ public class Game {
 		
 		unitGrid[curX][curY].removeUnit();
 		unitGrid[curX][curY].setSelected(false);
-		Animation.moveUnit(unit, toX, toY);
+		if (!isCharPlacement)
+			Animation.moveUnit(unit, toX, toY);
 		unitGrid[toX][toY].setUnit(unit);
 		unit.setXCord(toX);
 		unit.setYCord(toY);
@@ -300,7 +301,7 @@ public class Game {
 	}
 	
 	// Uses Dijkstra's to find valid paths given a certain distance
-	public boolean[][] getValidMoves(int x, int y, int maxDist) {
+	public static boolean[][] getValidMoves(int x, int y, int maxDist) {
 
 		Comparator<int[]> comp = (sq1, sq2) -> (sq1[0] - sq2[0]);
 		PriorityQueue<int[]> Q = new PriorityQueue<>(comp);
