@@ -61,6 +61,20 @@ public class Game {
 		
 	}
 	
+	public void removePlayer(Unit unit) {
+		if (unit.getTeam() == 1) {
+			player1Chars.remove(unit);
+			if (player1Chars.isEmpty()) {
+				Controller.getInstance().endGame(2);
+			}
+		} else {
+			player2Chars.remove(unit);
+			if (player2Chars.isEmpty()) {
+				Controller.getInstance().endGame(1);
+			}
+		}
+	}
+	
 	public UnitTile[][] getUnitGrid() {
 		return unitGrid;
 	}

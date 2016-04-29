@@ -99,6 +99,15 @@ public class Controller {
 		buildCharacterPlacement();
 	}
 	
+	public void endGame(int winningTeam) {
+		// Prevent user from clicking on anything
+		unitGrid.setMouseTransparent(true);
+		
+		Text endText = new Text("Team " + winningTeam + " has won!");
+		endText.setFont(new Font("Didot Bold", 68));
+		UILayers.getChildren().add(endText);
+	}
+	
 	public void buildStage() {
 		// Environment Grid
 		environmentGrid = new Pane();

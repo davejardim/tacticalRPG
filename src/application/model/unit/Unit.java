@@ -192,6 +192,7 @@ public class Unit {
 	public void death() {
 		Controller.getInstance().addInfoBarText(type.toString() + " has died!");
 		Controller.getInstance().currentGame.getUnitGrid()[xCord][yCord].removeUnit();
+		Controller.getInstance().currentGame.removePlayer(this);
 	}
 	
 	public void attack(Unit attackee){
@@ -200,7 +201,7 @@ public class Unit {
 			if(attackee.getAttackType()==1){
 				//attackee takes damage
 				attackee.setHp(attackee.getHp()-this.getAttack());
-				if(attackee.getHp() < 0){
+				if(attackee.getHp() <= 0){
 					attackee.death();
 				}
 				else{
@@ -209,7 +210,7 @@ public class Unit {
 			}
 			if(attackee.getAttackType()==2){
 				attackee.setHp(attackee.getHp() - this.getAttack());
-				if(attackee.getHp() < 0){
+				if(attackee.getHp() <= 0){
 					attackee.death();
 				}
 			}
@@ -218,7 +219,7 @@ public class Unit {
 		if(this.attackType==2){
 			if(attackee.getAttackType()==2){
 				attackee.setHp(attackee.getHp()-this.getAttack());
-				if(attackee.getHp() < 0){
+				if(attackee.getHp() <= 0){
 					attackee.death();
 				}
 				else{
@@ -227,7 +228,7 @@ public class Unit {
 			}
 			if(attackee.getAttackType()==1){
 				attackee.setHp(attackee.getHp() - this.getAttack());
-				if(attackee.getHp() < 0){
+				if(attackee.getHp() <= 0){
 					attackee.death();
 				}
 			}
