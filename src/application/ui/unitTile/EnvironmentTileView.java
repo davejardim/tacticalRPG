@@ -70,8 +70,7 @@ public class EnvironmentTileView {
 		}
 
 		public void removeFromGrid() {
-		
-			
+			Controller.environmentGrid.getChildren().remove(i);
 		}
 		
 }
