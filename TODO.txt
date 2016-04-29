@@ -2,10 +2,10 @@
 - Add capture point
 - Status text shows current status of character ?
 - Load wall locations from a text file
+- Highlighting on mouseover
 - Update overlay to show multiple occurrences
 - Clean up unnecessary functions 
 - Add descriptions to functions if necessary
-- Add end game
 
 ## Need to fix:
 - Update move method to check for walls
