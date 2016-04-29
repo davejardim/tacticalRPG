@@ -70,7 +70,7 @@ public class CharacterSelection {
 	}
 	
 	private boolean isDone() {
-		return charTeam2.size() == 2;
+		return charTeam2.size() == 4;
 	}
 	
 }

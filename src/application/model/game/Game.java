@@ -306,13 +306,9 @@ public class Game {
 		
 		unitGrid[curX][curY].removeUnit();
 		unitGrid[curX][curY].setSelected(false);
-		if (!isCharPlacement)
-			Animation.moveUnit(unit, toX, toY);
 		unitGrid[toX][toY].setUnit(unit);
 		unit.setXCord(toX);
 		unit.setYCord(toY);
-		clearHighlights();
-
 	}
 
 	private void setHighlights(Unit unit) {
