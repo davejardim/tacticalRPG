@@ -180,7 +180,7 @@ public class Game {
 		
 		if (isCharPlacement) {
 			SelectionTile selectedTile = Controller.getInstance().charPlacement.getSelected();
-			if (selectedTile.getUnit() != null && isValidPlacement(selectedTile.getUnit(), tile)) {
+			if (selectedTile != null && selectedTile.getUnit() != null && isValidPlacement(selectedTile.getUnit(), tile)) {
 				if (selectedTile.getUnit().getTeam() == 1) {
 					player1Chars.add(selectedTile.getUnit());
 				} else {
