@@ -23,7 +23,7 @@ public class UnitTileView {
 
 	private ImageView unitImage;
 	private Rectangle unitHighlighting;
-	private Text status, currentHp;
+	private Text currentHp;
 
 	
 	public UnitTileView(UnitTile tile, Pane p) {
@@ -49,12 +49,6 @@ public class UnitTileView {
 		unitImage.setX(tile.getXCord()*Main.TILE_SIZE);
 		unitImage.setY(tile.getYCord()*Main.TILE_SIZE);
 
-
-		// Add text underneath unit
-		status = new Text();
-		status.setX(Main.TILE_SIZE*tile.getXCord());
-		status.setY(Main.TILE_SIZE*tile.getYCord() + (Main.TILE_SIZE + 15));
-		status.setFont(new Font(14));
 		
 		// Add current hp above unit
 		currentHp = new Text();
@@ -62,14 +56,13 @@ public class UnitTileView {
 		currentHp.setY(Main.TILE_SIZE*tile.getYCord());
 		currentHp.setFont(new Font(14));
 				
-		Controller.unitGrid.getChildren().addAll(unitImage,unitHighlighting, status, currentHp);
+		Controller.unitGrid.getChildren().addAll(unitImage,unitHighlighting, currentHp);
 
 		
 		setHandles();
 	}
 	
-	public void setText(String status, String hp) {
-		this.status.setText(status);
+	public void setText(String hp) {
 		this.currentHp.setText(hp);
 	}
 	
@@ -88,28 +81,20 @@ public class UnitTileView {
 		unitHighlighting.setOnMouseClicked(e -> {
 			tile.onClick(e);
 		});
-		unitHighlighting.setOnMouseEntered(e-> {
+		unitHighlighting.setOnMouseEntered(e->{
 			tile.showUnitText();
+			
+			EnvironmentTile t = Controller.highlightedTile;
+			if(t != null){
+				t.setMouseOverHighlighted(false);
+				Controller.highlightedTile = Controller.currentGame.getEnvironmentTile(tile.getXCord(), tile.getYCord());
+				Controller.highlightedTile.setMouseOverHighlighted(true);
+			} else{
+				Controller.highlightedTile = Controller.currentGame.getEnvironmentTile(tile.getXCord(), tile.getYCord());
+			}
 		});
 		unitHighlighting.setOnMouseExited(e-> {
 			tile.hideUnitText();
-		});
-		unitHighlighting.setOnMouseEntered(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent event) {
-				// TODO Auto-generated method stub
-				EnvironmentTile t = Controller.highlightedTile;
-				if(t != null){
-					t.setMouseOverHighlighted(false);
-					Controller.highlightedTile = Controller.currentGame.getEnvironmentTile(tile.getXCord(), tile.getYCord());
-					Controller.highlightedTile.setMouseOverHighlighted(true);
-				} else{
-					Controller.highlightedTile = Controller.currentGame.getEnvironmentTile(tile.getXCord(), tile.getYCord());
-				}
-					
-			}
-			
 		});
 	}
 

@@ -52,13 +52,13 @@ public class UnitTile {
 //	
 	public void showUnitText() {
 		if (unit != null) {
-			view.setText("Test", unit.getHp() + " / " + unit.getHpTotal());
+			view.setText(unit.getHp() + " / " + unit.getHpTotal());
 		}
 	}
 	
 	public void hideUnitText() {
 		if (unit != null) {
-			view.setText("", "");
+			view.setText("");
 		}
 	}
 
