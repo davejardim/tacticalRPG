@@ -35,12 +35,10 @@ public class UnitPopupMenu extends ContextMenu {
 		if(ut == UnitType.DRUMPF){
 			trump = new MenuItem("BUILD A WALL");
 			trump.setOnAction(e-> {
-			Controller.currentGame.buildWall();
-			
+				Controller.currentGame.buildWall();
+			});
+			collection.add(trump);
 		}
-			
-			);
-			collection.add(trump);}
 		MenuItem stay = new MenuItem("Do nothing");
 		
 		stay.setOnAction(e-> {
