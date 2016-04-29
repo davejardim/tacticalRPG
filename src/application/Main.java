@@ -44,7 +44,6 @@ public class Main extends Application {
 			//must call show() last to render the setup
 			primaryStage.show();
 			
-			LevelEditor le = new LevelEditor();
 			
 		
 	}
