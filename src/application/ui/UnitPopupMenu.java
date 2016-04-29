@@ -36,7 +36,7 @@ public class UnitPopupMenu extends ContextMenu {
 			trump = new MenuItem("BUILD A WALL");
 			trump.setOnAction(e-> {
 			Controller.currentGame.buildWall();
-			
+			Controller.currentGame.isMenuOpen = false;
 		}
 			
 			);

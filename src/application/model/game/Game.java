@@ -131,6 +131,8 @@ public class Game {
 	}
 
 	private void addEnv(int xCord, int yCord, EnvironmentType t){
+		//if(environmentGrid[xCord][yCord].getEnvType() != EnvironmentType.GRASS)
+		//	environmentGrid[xCord][yCord].removeFromGrid();
 		environmentGrid[xCord][yCord] = new EnvironmentTile(xCord, yCord, t);
 	}
 
