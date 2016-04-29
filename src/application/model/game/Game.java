@@ -4,7 +4,6 @@ package application.model.game;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
