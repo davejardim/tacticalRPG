@@ -6,16 +6,15 @@ import application.model.game.CharacterSelection;
 import application.model.tile.CharSelectTile;
 import application.model.unit.UnitType;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 public class CharacterSelectionView extends BorderPane
 {
@@ -24,11 +23,14 @@ public class CharacterSelectionView extends BorderPane
 	
 	private GridPane team1Pane, team2Pane;
 	private static GridPane charPane;
+	private StatPane statPane;
 	private CharacterSelection model;
 	private int player1Row, player2Row;
 	private Button startGame, addToTeam;
 	private CharSelectTile selected;
 	private ArrayList<CharSelectTile> charChoices;
+	
+	private FlowPane test;
 
 	@SuppressWarnings("static-access")
 	public CharacterSelectionView(CharacterSelection cs){
@@ -38,13 +40,22 @@ public class CharacterSelectionView extends BorderPane
 		
 		this.setWidth(1000);
 		this.setHeight(500);
+		
+		test = new FlowPane();
+		test.setMinSize(650, 400);
+		test.setAlignment(Pos.CENTER);
+		
 		// GridPane that will hold characters that can be selected
 		charPane = new GridPane();
 		charPane.setMinHeight(400);
 		charPane.setMaxHeight(400);
-		charPane.setMinWidth(600);
-		charPane.setMaxWidth(600);
+		charPane.setMinWidth(400);
+		charPane.setMaxWidth(400);
 		charPane.setAlignment(Pos.CENTER);
+		
+		statPane = new StatPane();
+		
+		test.getChildren().addAll(charPane, statPane);
 		
 		// Add a Pane for each team
 		team1Pane = new GridPane();
@@ -81,7 +92,7 @@ public class CharacterSelectionView extends BorderPane
 		this.setTop(title);
 		this.setLeft(team1Pane);
 		this.setRight(team2Pane);
-		this.setCenter(charPane);
+		this.setCenter(test);
 		this.setBottom(buttons);
 		this.setAlignment(title, Pos.CENTER);
 		
@@ -144,6 +155,14 @@ public class CharacterSelectionView extends BorderPane
 		if (selected != null) {
 			selected.setEffect(null);
 		}
+		
+		test.getChildren().remove(statPane);
+		statPane = new StatPane(tile);
+		test.getChildren().add(statPane);
+		
+//		charPane.getChildren().remove(statPane);
+//		statPane = new StatPane(tile);
+//		charPane.add(statPane, 3, 0);
 		
 		DropShadow dp = new DropShadow();
 		dp.setRadius(100);
