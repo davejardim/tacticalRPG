@@ -46,7 +46,7 @@ public class EnvironmentTileView {
 		highlightedMask.setOpacity(.5);
 		highlightedMask.setVisible(false);
 		
-<<<<<<< Updated upstream
+
 		mouseOverHighlight = new Rectangle(x*ts, y*ts, ts, ts);
 		mouseOverHighlight.setFill(Color.INDIANRED);
 		mouseOverHighlight.setOpacity(.5);
@@ -54,10 +54,6 @@ public class EnvironmentTileView {
 		
 		Controller.environmentGrid.getChildren().addAll(i,highlightedMask, mouseOverHighlight, gridBox);
 
-		
-=======
-		Controller.environmentGrid.getChildren().addAll(i,highlightedMask,gridBox);		
->>>>>>> Stashed changes
 		}
 
 		public void setHighlightedMask(boolean b) {
