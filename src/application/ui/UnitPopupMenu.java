@@ -6,12 +6,13 @@ import java.util.List;
 
 import application.model.tile.UnitTile;
 import application.model.unit.Unit;
+import application.model.unit.UnitType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 
 public class UnitPopupMenu extends ContextMenu {
 
-	public UnitPopupMenu(Unit unit, UnitTile[][] unitLocs) {
+	public UnitPopupMenu(Unit unit, UnitTile[][] unitLocs, UnitType ut) {
 		Collection<MenuItem> collection = new ArrayList<MenuItem>();
 		// Generate options based on current unit's location
 		
@@ -30,7 +31,16 @@ public class UnitPopupMenu extends ContextMenu {
 				collection.add(newAttack);
 			}
 		}
-		
+		MenuItem trump;
+		if(ut == UnitType.DRUMPF){
+			trump = new MenuItem("BUILD A WALL");
+			trump.setOnAction(e-> {
+			Controller.currentGame.buildWall();
+			
+		}
+			
+			);
+			collection.add(trump);}
 		MenuItem stay = new MenuItem("Do nothing");
 		
 		stay.setOnAction(e-> {
@@ -41,4 +51,5 @@ public class UnitPopupMenu extends ContextMenu {
 		
 		this.getItems().addAll(collection);
 	}
+	
 }

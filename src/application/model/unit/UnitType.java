@@ -35,7 +35,11 @@ public enum UnitType {
 			new Image(Main.playerResource + "6_bb8_icon.jpg")),
 	MEGA(10, 10, 10, 17, 3, 500, true, 
 			new Image(Main.playerResource + "7_mega_man.gif"),
-			new Image(Main.playerResource + "7_mega_man_icon.png"));
+			new Image(Main.playerResource + "7_mega_man_icon.png")),
+	DRUMPF(10, 10, 10, 17, 3, 1, true, 
+					new Image(Main.playerResource + "8_drumpf.gif"),
+					new Image(Main.playerResource + "8_drumpf_icon.png")
+			);
 	
 	private final int hp;
 	private final int attack;

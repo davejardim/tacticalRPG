@@ -101,7 +101,7 @@ public class CharacterSelectionView extends BorderPane
 		charChoices.add(new CharSelectTile(UnitType.KOFFING));	
 		charChoices.add(new CharSelectTile(UnitType.BB8));
 		charChoices.add(new CharSelectTile(UnitType.MEGA));
-		charChoices.add(new CharSelectTile(UnitType.MEGA));
+		charChoices.add(new CharSelectTile(UnitType.DRUMPF));
 		
 		
 		int inc = 0;
