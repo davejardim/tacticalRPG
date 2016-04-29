@@ -29,11 +29,29 @@ public class EnvironmentTile {
 	public void setHighlighted(boolean b) {
 			view.setHighlightedMask(b);	
 	}
+	
+	public void setMouseOverHighlighted(boolean b) {
+		view.setMouseOverHighlight(b);
+	}
 	public EnvironmentType getEnvType(){
 		return this.type;
 	}
 	
 	public boolean isSelected(){
 		return selected;
+	}
+
+	public void setEnvironment(EnvironmentType t) {
+		view.setEnvironment(t);
+		
+	}
+
+	public void removeFromGrid() {
+		view.removeFromGrid();
+		
+	}
+	
+	public boolean isWall() {
+		return type == EnvironmentType.WALL;
 	}
 }

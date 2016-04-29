@@ -20,7 +20,7 @@ import javafx.scene.text.TextAlignment;
 public class CharacterSelectionView extends BorderPane
 {
 	final private int GRID_WIDTH = 3;
-	final private int GRID_HEIGHT = 2;
+	final private int GRID_HEIGHT = 3;
 	
 	private GridPane team1Pane, team2Pane;
 	private static GridPane charPane;
@@ -100,6 +100,9 @@ public class CharacterSelectionView extends BorderPane
 		charChoices.add(new CharSelectTile(UnitType.PIKACHU));	
 		charChoices.add(new CharSelectTile(UnitType.KOFFING));	
 		charChoices.add(new CharSelectTile(UnitType.BB8));
+		charChoices.add(new CharSelectTile(UnitType.MEGA));
+		charChoices.add(new CharSelectTile(UnitType.MEGA));
+		
 		
 		int inc = 0;
 		for (int i = 0; i < GRID_WIDTH; i++) {

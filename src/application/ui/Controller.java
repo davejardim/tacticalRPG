@@ -7,6 +7,7 @@ import application.Main;
 import application.model.game.CharPlacement;
 import application.model.game.CharacterSelection;
 import application.model.game.Game;
+import application.model.tile.EnvironmentTile;
 import application.model.unit.Unit;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -33,6 +34,7 @@ public class Controller {
 	
 	//current game, accessible by all
 	public static Game currentGame;
+	public static EnvironmentTile highlightedTile;
 	
 	//layers
 	public static StackPane UILayers; //contains the panes below

@@ -1,11 +1,13 @@
 package application.ui.unitTile;
 
 import application.Main;
+import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
 import application.ui.Controller;
-import javafx.scene.control.Tooltip;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -17,8 +19,6 @@ import javafx.scene.text.Text;
 public class UnitTileView {
 	
 	private UnitTile tile;
-	private ImageView i;
-	private Rectangle r;
 	private Pane viewPane;
 
 	private ImageView unitImage;
@@ -93,6 +93,23 @@ public class UnitTileView {
 		});
 		unitHighlighting.setOnMouseExited(e-> {
 			tile.hideUnitText();
+		});
+		unitHighlighting.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				EnvironmentTile t = Controller.highlightedTile;
+				if(t != null){
+					t.setMouseOverHighlighted(false);
+					Controller.highlightedTile = Controller.currentGame.getEnvironmentTile(tile.getXCord(), tile.getYCord());
+					Controller.highlightedTile.setMouseOverHighlighted(true);
+				} else{
+					Controller.highlightedTile = Controller.currentGame.getEnvironmentTile(tile.getXCord(), tile.getYCord());
+				}
+					
+			}
+			
 		});
 	}
 
