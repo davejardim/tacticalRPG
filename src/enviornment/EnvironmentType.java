@@ -4,7 +4,8 @@ import javafx.scene.image.Image;
 
 public enum EnvironmentType {
 	WALL(new Image("/application/resources/brick_wall.png"), false),
-	GRASS(new Image("/application/resources/grass.png"), true);
+	GRASS(new Image("/application/resources/grass.png"), true),
+	TRUMPWALL(new Image("/application/resources/trump_wall.png"), false);
 	
     private final Image sprite;
     private final Boolean passable;

@@ -4,7 +4,6 @@ package application.model.game;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-
 import application.Main;
 import application.model.tile.EnvironmentTile;
 import application.model.tile.UnitTile;
@@ -154,7 +153,7 @@ public class Game {
 					clearHighlights();
 					
 					// Open after move menu
-					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit, unitGrid);
+					UnitPopupMenu menu = new UnitPopupMenu(currentSelectedUnit, unitGrid, tile.getType());
 					menu.show(Controller.UILayers, e.getScreenX(), e.getScreenY());
 					isMenuOpen = true;
 
@@ -399,6 +398,14 @@ public class Game {
 			}
 		}
 		return validSquares;
+	}
+
+	public void buildWall() {
+		
+	for (int i = 0; i < Main.LEVEL_HEIGHT; i++)
+		{
+			addEnv(Main.LEVEL_WIDTH/2, i, EnvironmentType.TRUMPWALL);
+		}
 	}
 
 	
