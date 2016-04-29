@@ -180,7 +180,7 @@ public class Game {
 		
 		if (isCharPlacement) {
 			SelectionTile selectedTile = Controller.getInstance().charPlacement.getSelected();
-			if (selectedTile.getUnit() != null && isValidPlacement(selectedTile.getUnit(), tile)) {
+			if (selectedTile != null && selectedTile.getUnit() != null && isValidPlacement(selectedTile.getUnit(), tile)) {
 				if (selectedTile.getUnit().getTeam() == 1) {
 					player1Chars.add(selectedTile.getUnit());
 				} else {
@@ -306,13 +306,9 @@ public class Game {
 		
 		unitGrid[curX][curY].removeUnit();
 		unitGrid[curX][curY].setSelected(false);
-		if (!isCharPlacement)
-			Animation.moveUnit(unit, toX, toY);
 		unitGrid[toX][toY].setUnit(unit);
 		unit.setXCord(toX);
 		unit.setYCord(toY);
-		clearHighlights();
-
 	}
 
 	private void setHighlights(Unit unit) {
